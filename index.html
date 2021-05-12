@@ -107,7 +107,11 @@ h2 {
 
 var url = location.href
 var parts = url.split("/")
-var baseurl = url.replaceAll("/"+parts[parts.length-1],"")
+var baseurl = url
+if(url.endsWith(".html"))
+  baseurl = url.replaceAll("/"+parts[parts.length-1],"")
+if(url.endsWith("/"))
+  baseurl = baseurl.substr(0,baseurl.length-1)
 
 function getProperHTML(keyname, inp){
   if(Array.isArray(inp)){
