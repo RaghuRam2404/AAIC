@@ -11,3 +11,7 @@ Notes hosted in [https://raghuram2404.github.io/AAIC/](https://raghuram2404.gith
 ## Module 1 - Fundamentals of Programming
 - Python for Data Science Introduction
 - Python for Data Science: Data Structures
+
+
+My Workouts:  
+[Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)
