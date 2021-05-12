@@ -103,6 +103,10 @@ h2 {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
+var url = location.href
+var parts = url.split("/")
+var baseurl = url.replaceAll("/"+parts[parts.length-1],"")
+
 function getProperHTML(keyname, inp){
   if(Array.isArray(inp)){
     // it's folder contents
@@ -112,7 +116,7 @@ function getProperHTML(keyname, inp){
     }
     return tempStr;
   }else if(typeof(inp) === "string"){
-    return '<li><a href="'+(keyname+"/"+inp)+'">'+inp+'</a></li>' // direct file
+    return '<li><a href="'+(baseurl+keyname+"/"+inp)+'">'+inp+'</a></li>' // direct file
   }else{
     //it's a folder
     var key = Object.keys(inp)[0];
