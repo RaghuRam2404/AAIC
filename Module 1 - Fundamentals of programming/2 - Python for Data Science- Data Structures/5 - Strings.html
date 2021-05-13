@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>1 - Lists</title>
+<title>5 - Strings</title>
 
 
 <style type="text/css">
@@ -331,57 +331,39 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">1 - Lists</h1>
+<h1 id="toc_0">Strings</h1>
 
-<h2 id="toc_1">Lists</h2>
-
-<p>Main functions of a list</p>
+<p>Some functionalities for string</p>
 
 <ul>
-<li><code>len(list)</code> -&gt; no of elements in the <strong>list</strong></li>
-<li> <code>list.count(elt)</code> -&gt; find the no of occurrences of an element <strong>elt</strong> in the list</li>
-<li><code>list.append(elt)</code> -&gt; append the <strong>elt</strong> at the end of the <strong>list</strong></li>
-<li><code>list.insert(index,elt)</code> -&gt; insert the <strong>elt</strong> at the specified <strong>index</strong></li>
-<li><code>list.remove(elt)</code> -&gt; remove the first occuring <strong>elt</strong> in the <strong>list</strong></li>
-<li><code>list.pop(index)</code> -&gt; remove the element present in the <strong>index</strong></li>
-<li><code>del list[index]</code> -&gt; element present in the <strong>index</strong> will be removed from the <strong>list</strong></li>
-<li><code>list.sort()</code> -&gt; sort the elements in the <strong>list</strong></li>
-<li><code>list.reverse()</code> -&gt; reverse elements in the <strong>list</strong></li>
-<li><code>list1.extend(list2)</code> or <code>list1 + list2</code> -&gt; elements in <strong>list2</strong> will be appended at the end of <strong>list1</strong></li>
-<li><code>sum(list)</code> , <code>max(list)</code> , <code>min(list)</code> -&gt; sum/max/min operations performed in the <strong>list</strong></li>
+<li><code>s1 + s2</code> -&gt; concatenates two strings</li>
+<li><code>s.split(char)</code> -&gt; splits a word into list of words based on the input <strong>char</strong> . If the argument is empty, it&#39;ll be split based on <strong>(space)</strong></li>
+<li><code>&quot;char&quot;.join[lst]</code> -&gt; join the list of strings available in <strong>lst</strong> using the <strong>char</strong></li>
+<li><code>s.upper()</code> -&gt; transform the word into uppercase</li>
+<li><code>s.lower()</code> -&gt; transform the word into lowercase</li>
+<li><code>s.replace(a,b)</code> -&gt; find the string <strong>a</strong> in the input string <strong>s</strong> and replace it with <strong>b</strong></li>
+<li><code>s.find(str)</code> -&gt; find the index of the first occurrence of <strong>str</strong> in the word <strong>s</strong></li>
+<li><code>&quot;str&quot; in word</code> -&gt; Boolean : true if <strong>str</strong> is a substring of <strong>word</strong></li>
+<li><code>for w in word:</code> -&gt; iterating a word using it&#39;s characters</li>
 </ul>
 
-<hr>
+<p><img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.48.12%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.48.53%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.49.04%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.49.18%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.49.37%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.50.33%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.50.56%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.51.09%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.52.19%20PM.png" alt=""></p>
 
-<p><img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.53.35%20PM.png" alt=""></p>
+<h2 id="toc_1">Functions</h2>
 
-<p><img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.53.53%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.54.17%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.54.34%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.16%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.32%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.43%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.52%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.56.58%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.57.08%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.57.33%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.58.19%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.58.39%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.07%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.21%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.32%20PM.png" alt="">
-<code>lst[-1]</code> will give the last element while <code>lst[-2]</code> will give the second last element
-Slicing
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.48%20PM.png" alt="">
-Using step size
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.03.51%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.04.43%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.04.57%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.12.23%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.13.33%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.15.18%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.17.57%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.18.11%20PM.png" alt=""></p>
+<p><img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.52.27%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.55.15%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.55.37%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.55.51%20PM.png" alt="">
+<img src="./5%20-%20Strings/Screen%20Shot%202021-05-13%20at%206.57.15%20PM.png" alt=""></p>
 
 
 

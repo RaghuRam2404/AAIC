@@ -1,6 +1,24 @@
 #1 - Lists
 
 ##Lists
+
+Main functions of a list
+
+
+- `len(list)` -> no of elements in the **list**
+-  `list.count(elt)` -> find the no of occurrences of an element **elt** in the list
+- `list.append(elt)` -> append the **elt** at the end of the **list**
+- `list.insert(index,elt)` -> insert the **elt** at the specified **index**
+- `list.remove(elt)` -> remove the first occuring **elt** in the **list**
+- `list.pop(index)` -> remove the element present in the **index**
+- `del list[index]` -> element present in the **index** will be removed from the **list**
+- `list.sort()` -> sort the elements in the **list**
+- `list.reverse()` -> reverse elements in the **list**
+- `list1.extend(list2)` or `list1 + list2` -> elements in **list2** will be appended at the end of **list1**
+- `sum(list)` , `max(list)` , `min(list)` -> sum/max/min operations performed in the **list**
+
+---
+
 ![](./1 - Lists/Screen Shot 2021-05-12 at 5.53.35 PM.png)
 
 ![](./1 - Lists/Screen Shot 2021-05-12 at 5.53.53 PM.png)

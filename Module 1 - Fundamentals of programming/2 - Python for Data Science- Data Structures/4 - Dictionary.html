@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>1 - Lists</title>
+<title>4 - Dictionary</title>
 
 
 <style type="text/css">
@@ -331,57 +331,37 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">1 - Lists</h1>
+<h1 id="toc_0">Dictionary</h1>
 
-<h2 id="toc_1">Lists</h2>
-
-<p>Main functions of a list</p>
+<p>Main functionalities of Dictionary</p>
 
 <ul>
-<li><code>len(list)</code> -&gt; no of elements in the <strong>list</strong></li>
-<li> <code>list.count(elt)</code> -&gt; find the no of occurrences of an element <strong>elt</strong> in the list</li>
-<li><code>list.append(elt)</code> -&gt; append the <strong>elt</strong> at the end of the <strong>list</strong></li>
-<li><code>list.insert(index,elt)</code> -&gt; insert the <strong>elt</strong> at the specified <strong>index</strong></li>
-<li><code>list.remove(elt)</code> -&gt; remove the first occuring <strong>elt</strong> in the <strong>list</strong></li>
-<li><code>list.pop(index)</code> -&gt; remove the element present in the <strong>index</strong></li>
-<li><code>del list[index]</code> -&gt; element present in the <strong>index</strong> will be removed from the <strong>list</strong></li>
-<li><code>list.sort()</code> -&gt; sort the elements in the <strong>list</strong></li>
-<li><code>list.reverse()</code> -&gt; reverse elements in the <strong>list</strong></li>
-<li><code>list1.extend(list2)</code> or <code>list1 + list2</code> -&gt; elements in <strong>list2</strong> will be appended at the end of <strong>list1</strong></li>
-<li><code>sum(list)</code> , <code>max(list)</code> , <code>min(list)</code> -&gt; sum/max/min operations performed in the <strong>list</strong></li>
+<li><code>d.get(key)</code> or <code>d[key]</code> -&gt; get the <strong>value</strong> in the <strong>key</strong> . If not present, <code>[]</code> notation will throw error but <code>.get()</code> notation will return <code>None</code></li>
+<li><code>d[newkey]=value</code> or <code>d[key]=newvalue</code> -&gt; to update or add new key in the dictionary</li>
+<li><code>del d[key]</code> or <code>d.pop(key)</code> -&gt; remove a key</li>
+<li><code>d.popitem()</code> -&gt; randomnly removes a key value pair</li>
+<li><code>d.clear()</code> -&gt; removes all elements in the dictionary</li>
+<li><code>d.items()</code> -&gt; return all pairs of items</li>
+<li><code>d.keys()</code> -&gt; return all keys</li>
+<li><code>d.values()</code> -&gt; return all values</li>
 </ul>
 
 <hr>
 
-<p><img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.53.35%20PM.png" alt=""></p>
-
-<p><img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.53.53%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.54.17%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.54.34%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.16%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.32%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.43%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.55.52%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.56.58%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.57.08%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.57.33%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.58.19%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.58.39%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.07%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.21%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.32%20PM.png" alt="">
-<code>lst[-1]</code> will give the last element while <code>lst[-2]</code> will give the second last element
-Slicing
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%205.59.48%20PM.png" alt="">
-Using step size
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.03.51%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.04.43%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.04.57%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.12.23%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.13.33%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.15.18%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.17.57%20PM.png" alt="">
-<img src="./1%20-%20Lists/Screen%20Shot%202021-05-12%20at%206.18.11%20PM.png" alt=""></p>
+<p><img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.45.14%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.45.29%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.47.49%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.48.49%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.49.12%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.49.29%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.49.39%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.49.48%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.49.58%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.51.50%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.52.09%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.53.09%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.53.16%20PM.png" alt="">
+<img src="./4%20-%20Dictionary/Screen%20Shot%202021-05-13%20at%205.53.55%20PM.png" alt=""></p>
 
 
 
