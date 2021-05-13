@@ -13,5 +13,6 @@ Notes hosted in [https://raghuram2404.github.io/AAIC/](https://raghuram2404.gith
 - Python for Data Science: Data Structures
 
 
-My Workouts:  
-[Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)
+**My Workouts:**  
+1. [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)  
+2. [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)  
