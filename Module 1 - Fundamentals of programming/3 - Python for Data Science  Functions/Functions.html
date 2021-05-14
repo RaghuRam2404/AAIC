@@ -331,7 +331,7 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">Functions</h1>
+<h1 id="toc_0">Functions, Files, Exception Handling</h1>
 
 <h2 id="toc_1">Function declaration</h2>
 
@@ -447,6 +447,145 @@ Hello Bhavi
 </tr>
 </tbody>
 </table>
+
+<h2 id="toc_6">Lambda function</h2>
+
+<p>Anoymous functions with no name</p>
+
+<div><pre><code class="language-none">sqr = lambda x : x**2
+print(sqr(2))</code></pre></div>
+
+<div><pre><code class="language-none">from functools import reduce
+lst = list(range(1, 21))
+print(lst)
+print(&quot;Filtered List (only even numbers) : &quot;+str(list(filter(lambda x : x%2==0, lst))))
+print(&quot;Squared list : &quot;+str(list(map(lambda x: x**2, lst))))
+print(&quot;Reduced list (summation) : &quot;+str(reduce(lambda x,y : x+y, lst)))
+
+Output:
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+Filtered List (only even numbers) : [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+Squared list : [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400]
+Reduced list (summation) : 210</code></pre></div>
+
+<h2 id="toc_7">Modules</h2>
+
+<p>Modules refers to a file containing python statements and definitions. Eg: aby.py is a file and it&#39;s module is <code>abc</code></p>
+
+<div><pre><code class="language-none">import example 
+#imports all the functions and variables from the python file &#39;example.py&#39;
+
+example.add(1,2) #calls the function in the example.py file</code></pre></div>
+
+<div><pre><code class="language-none">from example import add
+#import only one function/variable from the whole module &#39;example&#39;
+
+add(1,2)</code></pre></div>
+
+<p>below code snippet behave as above and inaddition all the variables and functions will be imported.</p>
+
+<div><pre><code class="language-none">from example import *  
+add(1,2)</code></pre></div>
+
+<h2 id="toc_8">Packages</h2>
+
+<p>Grouping modules into packages. Each package(folder) needs to have <code>_init_.py</code> file</p>
+
+<p><img src="./Functions/package-300x223.jpeg" alt=""></p>
+
+<p>We can have init file as empty or with some initialization code.</p>
+
+<p>Load the <code>open</code> module</p>
+
+<div><pre><code class="language-none">import Game.Image.open</code></pre></div>
+
+<h2 id="toc_9">File I/O</h2>
+
+<p>File Opening modes</p>
+
+<ol>
+<li><code>r</code> - open in readonly mode</li>
+<li><code>w</code> - open in write mode. Create new file if the file doesn&#39;t exist. If exists, overwrite the file</li>
+<li><code>x</code> - open only for write mode. If a file exists, it&#39;ll throw error</li>
+<li><code>a</code> - append mode</li>
+<li><code>t</code> - only for text (default mode)</li>
+<li><code>b</code> - binary mode (storing lists of data, matrix and so on)</li>
+<li><code>+</code> - open for updating (reading &amp; updating)</li>
+</ol>
+
+<p>Functionalities available</p>
+
+<ul>
+<li><code>f = open(filename, mode)</code> - open file in the mentioned mode</li>
+<li><code>f = open(filename, encoding=&#39;utf-8&#39;)</code> - open with our necessary encoding</li>
+<li><code>f.write(&#39;String contents&#39;)</code> - write contents to the file</li>
+<li><code>f.close()</code> - close the file (use it with try/catch/finally)</li>
+<li><code>f.read()</code> or <code>f.read(int)</code> - reads the content of the file character by character from the current cursor position</li>
+<li><code>f.seek(int)</code> - move the cursor to what location in file</li>
+<li><code>f.tell()</code> - returns the current cursor location</li>
+<li><code>f.readline()</code> - reads the file line by line</li>
+<li><code>f.readlines()</code> - returns the list of lines</li>
+</ul>
+
+<p><code>import os</code> functionalities</p>
+
+<ul>
+<li><code>os.getcwd()</code> - get current working directory</li>
+<li><code>os.chdir(path)</code> - change the current working directory</li>
+<li><code>os.rename(file1, file2)</code> - rename the <strong>file1</strong> to <strong>file2</strong></li>
+<li><code>os.rmdir(dir)</code> - remove the <strong>empty directory</strong></li>
+<li><code>os.listdir(dir)</code> - list the contents of the directory <strong>dir</strong></li>
+<li><code>os.mkdir(dir)</code> - creates a new directory</li>
+<li><code>import shutil<br>shutil.rmtree(&#39;test1&#39;)</code> - removes the <strong>non-empty directory</strong></li>
+</ul>
+
+<div><pre><code class="language-none">f = open(&#39;example.txt&#39;)
+f.close()</code></pre></div>
+
+<p>Safer way to close the file</p>
+
+<div><pre><code class="language-none">try:
+    f = open(&#39;example.txt&#39;, &#39;w&#39;)
+    #some code for file operations
+    f.write(&#39;Line 1\n&#39;)
+    f.write(&#39;Line 2&#39;)
+finally:
+    f.close()</code></pre></div>
+
+<p>Open a file with encoding choice</p>
+
+<div><pre><code class="language-none">f = open(&#39;example.txt&#39;, encoding=&#39;utf-8&#39;)</code></pre></div>
+
+<h2 id="toc_10">Exception handling</h2>
+
+<div><pre><code class="language-none">import sys
+lst = [&#39;b&#39;, 0, 2, -1]
+for item in lst:
+  try:
+
+    if item &lt; 0:
+      raise ValueError(&quot;item less than zero&quot;)
+
+    val = 1/item
+    print(&#39;Division of 1/&#39;, item, &#39; is &#39;, val)
+  except(TypeError):
+    print(&quot;Type Error for &quot;, item)
+  except ValueError as e:
+    print(&quot;Value Error with message {&quot;, e, &#39;}&#39;)
+  except:
+    print(&quot;Exception &quot;, sys.exc_info()[0], &#39; &#39;, sys.exc_info()[1],&#39; occurred&#39;)
+  finally:
+    print(&#39;**** NEXT ITEM ****&#39;)
+    
+Output:
+Type Error for  b
+**** NEXT ITEM ****
+Exception  &lt;class &#39;ZeroDivisionError&#39;&gt;   division by zero  occurred
+**** NEXT ITEM ****
+Division of 1/ 2  is  0.5
+**** NEXT ITEM ****
+Value Error with message { item less than zero }
+**** NEXT ITEM ****</code></pre></div>
 
 
 
