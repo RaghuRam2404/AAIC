@@ -8,11 +8,11 @@ Notes hosted in [https://raghuram2404.github.io/AAIC/](https://raghuram2404.gith
 > To create the json files for the github page  
 > `java -jar AAIC.jar --genjson`
 
-## Module 1 - Fundamentals of Programming
-- Python for Data Science Introduction
-- Python for Data Science: Data Structures
+### Module 1 - Fundamentals of Programming
+Python for Data Science : Introduction, Data Structures, Functions, Files, Exception Handling, Numpy, Pandas, Matplotlib, Computational Complexity, SQL
 
 
 **My Workouts:**  
-1. [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)  
-2. [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)  
+1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)  
+1.2 [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)  
+1.3 [Python Numpy](https://colab.research.google.com/drive/1nRbBIrXV7no_oTUt5BJwFsBZyGWDM2w4?authuser=1#scrollTo=fSBCxNXqQpxM)
