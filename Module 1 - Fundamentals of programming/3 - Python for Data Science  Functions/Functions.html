@@ -587,6 +587,30 @@ Division of 1/ 2  is  0.5
 Value Error with message { item less than zero }
 **** NEXT ITEM ****</code></pre></div>
 
+<h2 id="toc_11">Debugging</h2>
+
+<p>Debugging inputs</p>
+
+<ul>
+<li><code>c</code> - continue</li>
+<li><code>q</code> - quit</li>
+<li><code>h</code> - help</li>
+<li><code>list</code> - show the stopping point</li>
+<li><code>p {}</code> - prints variable</li>
+<li><code>p locals()</code> - prints all the local variables</li>
+<li><code>p globals()</code> - prints all the global variables</li>
+</ul>
+
+<div><pre><code class="language-none">import pdb
+
+def seq(n):
+  for i in range(n):
+    pdb.set_trace() #debug breakpoint
+    print(i)
+  return
+
+seq(5)</code></pre></div>
+
 
 
 

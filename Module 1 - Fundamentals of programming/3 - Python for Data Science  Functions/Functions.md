@@ -236,3 +236,26 @@ Value Error with message { item less than zero }
 **** NEXT ITEM ****
 ```
 
+## Debugging
+
+Debugging inputs
+
+- `c` - continue
+- `q` - quit
+- `h` - help
+- `list` - show the stopping point
+- `p {}` - prints variable
+- `p locals()` - prints all the local variables
+- `p globals()` - prints all the global variables
+
+```
+import pdb
+
+def seq(n):
+  for i in range(n):
+    pdb.set_trace() #debug breakpoint
+    print(i)
+  return
+
+seq(5)
+```
