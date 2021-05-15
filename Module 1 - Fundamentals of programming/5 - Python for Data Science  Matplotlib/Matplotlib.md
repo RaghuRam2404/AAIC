@@ -84,4 +84,5 @@ plt.title('title')
 plt.show()
 ```
 ![](./Matplotlib/6.1.png)
+
 ![](./Matplotlib/6.png)

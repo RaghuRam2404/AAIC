@@ -17,4 +17,4 @@ Python for Data Science : Introduction, Data Structures, Functions, Files, Excep
 1.2 [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)  
 1.3 [Python Numpy](https://colab.research.google.com/drive/1nRbBIrXV7no_oTUt5BJwFsBZyGWDM2w4?authuser=1#scrollTo=fSBCxNXqQpxM)  
 1.4 [Python Matplotlib](https://colab.research.google.com/drive/1IaXH-9Kt_8D5eFW60VJsha0fvjSqYAht?authuser=1)  
-1.5 
+1.5 [Python Pandas](https://colab.research.google.com/drive/15TZOFwNSSHi3KThDgev7Q48P_dXOxoLP?authuser=1)  

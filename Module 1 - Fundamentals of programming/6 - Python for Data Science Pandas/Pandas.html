@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Matplotlib</title>
+<title>Pandas</title>
 
 
 <style type="text/css">
@@ -331,88 +331,191 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">Matplotlib</h1>
+<h1 id="toc_0">Pandas</h1>
 
-<p><code>import matplotlib.pyplot as plt</code></p>
+<p><code>import pandas as pd</code></p>
 
-<div><pre><code class="language-none">plt.plot([2,4,6,4])
-plt.xlabel(&quot;x&quot;)
-plt.ylabel(&quot;y&quot;)
-plt.title(&quot;PLOT&quot;)
-plt.show()</code></pre></div>
+<p>Reading the csv or xls/xlsx</p>
 
-<p><img src="./Matplotlib/1.png" alt=""></p>
+<p><code>pd.read_csv()</code>   -&gt; returns <strong>DataFrame</strong>
+<code>pd.read_excel(&quot;excel file&quot;)</code> install package <code>#pip3 install xlrd</code></p>
 
-<div><pre><code class="language-none">plt.plot([1,2,3,4,5,6],[1,4,9,16,25,36], &#39;ro&#39;)
-plt.xlabel(&quot;number&quot;)
-plt.ylabel(&quot;squares&quot;)
-plt.grid()
-plt.title(&quot;PLOT&quot;)
-plt.show()</code></pre></div>
+<hr>
 
-<p><img src="./Matplotlib/2.png" alt=""></p>
+<p>Exporting to csv or xls</p>
 
-<div><pre><code class="language-none">import numpy as np
+<p><code>df.to_csv(&#39;file.csv&#39;, index=False)</code>
+<code>df.to_excel(&#39;excel.xlsx&#39;)</code> install package  <code>#pip3 install openpyxl</code>
+<code>xldf = pd.read_excel(&quot;excel.xlsx&quot;)</code>
+<code>xldf = pd.read_excel(&quot;excel.xlsx&quot;, index_col=0, sheet_name=&#39;Sheet1&#39;)</code></p>
 
-a = np.arange(0,5,0.2)
+<hr>
 
-plt.plot(a, a**2, &#39;b--&#39; ,label=&quot;^2&quot;)
-plt.plot(a, a**2.2, &#39;rs&#39; ,label=&quot;^2.2&quot;)
-plt.plot(a, a**2.4, &#39;g^&#39; ,label=&quot;^2.4&quot;)
-plt.xlabel(&quot;x&quot;)
-plt.legend()
-plt.show()</code></pre></div>
+<p>Create DataFrame</p>
 
-<p><img src="./Matplotlib/3.png" alt=""></p>
+<ul>
+<li><code>df = pd.DataFrame(data={array of tuples}, columns=[&#39;&#39;,&#39;&#39;,&#39;&#39;])</code></li>
+<li><code>df = pd.DataFrame({&quot;col1&quot;:[&quot;val1&quot;, &quot;val2&quot;, &quot;val3&quot;], &quot;col2&quot;:[val1,val2,val3], &quot;col3&quot;:[val1, val2, val3]})</code></li>
+</ul>
 
-<div><pre><code class="language-none">x1 = np.array([1, 2, 3, 4])
-y1 = x1**2
-x2 = np.array([1, 2, 3, 4])
-y2 = x2*2
+<hr>
 
-lines = plt.plot(x1, y1, x2, y2)
-plt.setp(lines[0], color=&#39;r&#39;, linewidth=2.0)
-plt.setp(lines[1], &#39;color&#39;, &#39;g&#39;, &#39;linewidth&#39;, 1.5)
-plt.show()</code></pre></div>
+<p>DataFrame&#39;s Attributes &amp; Functions</p>
 
-<p><img src="./Matplotlib/4.png" alt=""></p>
+<ul>
+<li><code>df.shape</code> - returns the shape in the <code>tuple</code></li>
+<li><code>df.columns</code> - returns the columns array</li>
+<li><code>df.index</code> - returns the index</li>
+<li><code>df.head()</code> or <code>df.head(5)</code> -&gt; returns the top rows</li>
+<li><code>df.tail()</code> or <code>df.tail(5)</code> -&gt; returns the bottom rows</li>
+<li><code>df.describe()</code> - returns the statistical variables (mean/std/median &amp; so on) of the numerical columnns</li>
+<li><code>df.iloc[]</code> - indexing similar to the array indexinng</li>
+<li><code>df.loc[]</code> - indexing done based on the <strong>custom index</strong> passed</li>
+<li><code>g = df.group_by(&#39;col1&#39;)</code> - returns the iterable <code>col1</code> and it&#39;s <code>df</code></li>
+<li><code>g.max()</code> , <code>g.mean()</code> , <code>g.describe()</code> - operations on the numerical columns</li>
+</ul>
 
-<div><pre><code class="language-none">def f(t):
-  return np.exp(-t) * np.cos(2*np.pi*t)
+<hr>
 
-t1 = np.arange(0, 5, 0.1)
-t2 = np.arange(0, 5, 0.02)
+<p>Functions on DataFrame&#39;s Column</p>
 
-plt.figure(1)
-plt.subplot(2,1,1)
-plt.grid()
-plt.plot(t1, f(t1), &#39;b-&#39;)
+<ul>
+<li><code>df[&#39;col&#39;].mean()</code> - find the average of that column</li>
+<li><code>df[&#39;col&#39;].max()</code> - max value of that column</li>
+</ul>
 
-plt.subplot(2,1,2)
-plt.plot(t2, np.cos(2*np.pi*t2), &#39;r--&#39;)
+<hr>
 
-plt.show()</code></pre></div>
+<p>Filtering</p>
 
-<p><img src="./Matplotlib/5.png" alt=""></p>
+<ul>
+<li><code>df[df[col1] == df[col1].max()][&#39;col2&#39;]</code> - fetch the <code>col2</code> data where <code>col1</code> has the max value</li>
+</ul>
 
-<div><pre><code class="language-none">plt.figure(1)
-plt.subplot(2,1,1)
-plt.plot([1,2,3,4])
-plt.subplot(2,1,2)
-plt.plot([6,7,8,9,9,9,9,10,12])
+<hr>
 
-plt.figure(2)
-plt.plot(np.arange(0, 100, 10))
+<p>Operations</p>
 
-plt.figure(1) #switches to the 1st figure
-plt.subplot(2,1,1)
-plt.title(&#39;title&#39;)
+<ul>
+<li><code>pd.concat([df1, df2], ignore_index=True)</code> - concate 2 dataframes</li>
+<li><code>pd.concat([df1, df2], ignore_index=True, axis=1)</code> - concate 2 dataframes horizontally</li>
+<li><code>pd.merge(df1, df2, on=&quot;col&quot;)</code> - inner join performed on 2 dataframes</li>
+<li><code>pd.merge(df1, df2, on=&quot;col&quot;, how=&quot;right/left/outer/inner&quot;)</code> - other join options</li>
+</ul>
 
-plt.show()</code></pre></div>
+<hr>
 
-<p><img src="./Matplotlib/6.1.png" alt=""></p>
+<div><pre><code class="language-none">#construct using list of tuples
+tuples = [(&quot;1/1/2017&quot;,32,6,&quot;Rain&quot;),
+(&quot;1/2/2017&quot;,35,7,&quot;Sunny&quot;),
+(&quot;1/3/2017&quot;,28,2,&quot;Snow&quot;),
+(&quot;1/4/2017&quot;,24,7,&quot;Snow&quot;),
+(&quot;1/5/2017&quot;,32,4,&quot;Rain&quot;),
+(&quot;1/6/2017&quot;,31,2,&quot;Sunny&quot;)]
+df = pd.DataFrame(data=tuples, columns=[&#39;day&#39;, &#39;temperature&#39;, &#39;windspeed&#39;, &#39;event&#39;])
+df</code></pre></div>
 
-<p><img src="./Matplotlib/6.png" alt=""></p>
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.32.28%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df.shape
+
+(6,4)</code></pre></div>
+
+<div><pre><code class="language-none">df.describe()</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.33.31%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df.columns
+
+Index([&#39;day&#39;, &#39;temperature&#39;, &#39;windspeed&#39;, &#39;event&#39;], dtype=&#39;object&#39;)</code></pre></div>
+
+<div><pre><code class="language-none">df.index
+
+RangeIndex(start=0, stop=6, step=1)</code></pre></div>
+
+<div><pre><code class="language-none">df[&#39;temperature&#39;].max()
+
+35</code></pre></div>
+
+<div><pre><code class="language-none"># Get the data with max temperature
+df[df[&#39;temperature&#39;] == df[&#39;temperature&#39;].max()]
+
+</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.34.27%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df[df[&#39;temperature&#39;] == df[&#39;temperature&#39;].max()][&#39;day&#39;] == &#39;1/2/2017&#39;
+
+True</code></pre></div>
+
+<h2 id="toc_1">Groupby</h2>
+
+<div><pre><code class="language-none">group = df.groupby(&quot;city&quot;)
+for g, df in group:
+print(g)
+print(df)
+print(&quot;----------------------------------------------------------&quot;)</code></pre></div>
+
+<div><pre><code class="language-none">group.get_group(&#39;new york&#39;) #prints the particular dataframe</code></pre></div>
+
+<div><pre><code class="language-none">group.max()
+group.mean()
+group.describe()</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.35.58%20PM.png" alt="">
+<img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.36.02%20PM.png" alt="">
+<img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.36.05%20PM.png" alt=""></p>
+
+<h2 id="toc_2">Concatenation</h2>
+
+<div><pre><code class="language-none">india_weather = pd.DataFrame({&quot;city&quot;:[&quot;Mumbai&quot;, &quot;Delhi&quot;, &quot;Bangalore&quot;], &quot;temperature&quot;:[32,45,30], &quot;humidity&quot;:[80, 60,78]})
+us_weather_tuples = [(&quot;new york&quot;, 68, 21), (&quot;chicago&quot;, 65, 14), (&quot;orlando&quot;, 75, 35)]
+us_weather = pd.DataFrame(data=us_weather_tuples, columns=[&quot;city&quot;, &quot;temperature&quot;, &quot;humidity&quot;])
+df = pd.concat([india_weather, us_weather], ignore_index=True)
+df</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.37.07%20PM.png" alt=""></p>
+
+<h2 id="toc_3">Merging</h2>
+
+<div><pre><code class="language-none">temperature_df = pd.DataFrame({&quot;city&quot;:[&quot;Mumbai&quot;, &quot;Delhi&quot;, &quot;Bangalore&quot;, &quot;Hyderabad&quot;], &#39;temperature&#39;:[32,45,30,40]});
+humidity_df = pd.DataFrame({&quot;city&quot;:[&quot;Mumbai&quot;, &quot;Delhi&quot;, &quot;Bangalore&quot;, &quot;Chennai&quot;], &#39;humidity&#39;:[68,65,75,80]});
+df = pd.merge(temperature_df, humidity_df, on=&quot;city&quot;)
+df</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.37.34%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df = pd.merge(temperature_df, humidity_df, on=&quot;city&quot;, how=&quot;outer&quot;)
+df</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.37.49%20PM.png" alt=""></p>
+
+<h2 id="toc_4">Indexing</h2>
+
+<div><pre><code class="language-none">df = pd.DataFrame(data=[1,2,3,4,5,6,7,8,9,10], index=[50,49,48,47,46,45,44,43,42,41], columns=[&#39;num&#39;])
+df</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.38.08%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df.loc[44] #by our given index
+
+7</code></pre></div>
+
+<div><pre><code class="language-none">df.iloc[3] #by the row
+
+4</code></pre></div>
+
+<div><pre><code class="language-none">df.iloc[:3] #row 0, 1, 2 excluding 3</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.38.37%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df.loc[44:42] #from index &#39;44&#39; to &#39;42&#39;</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.39.04%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">df.iloc[1:4] #from 1st to excluding 4th row</code></pre></div>
+
+<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.39.34%20PM.png" alt=""></p>
 
 
 
