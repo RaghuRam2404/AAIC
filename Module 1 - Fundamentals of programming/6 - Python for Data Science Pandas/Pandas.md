@@ -32,10 +32,16 @@ DataFrame's Attributes & Functions
 - `df.index` - returns the index
 - `df.head()` or `df.head(5)` -> returns the top rows
 - `df.tail()` or `df.tail(5)` -> returns the bottom rows
+- `df.info()` - summary of basic information
 - `df.describe()` - returns the statistical variables (mean/std/median & so on) of the numerical columnns
+- `df['newindex'] = [val1, val2, val3, ...]` - to add a new row with index
+- `df.append({col1:val1, col2:val2}, ignoreIndex=True)` - add a new row with just data
+- `df.drop('indexname')` - drop a row by index
 - `df.iloc[]` - indexing similar to the array indexinng
 - `df.loc[]` - indexing done based on the **custom index** passed
 - `g = df.group_by('col1')` - returns the iterable `col1` and it's `df`
+- `df['col'].replace(['oldval1', 'oldval2'], ['newval1', 'newval2'])` - replacing values
+- `df.sort_values(by=[col1, col2])` - sorting the dataframe
 - `g.max()` , `g.mean()` , `g.describe()` - operations on the numerical columns
 
 ---
@@ -44,6 +50,7 @@ Functions on DataFrame's Column
 
 - `df['col'].mean()` - find the average of that column
 - `df['col'].max()` - max value of that column
+- `df['col'].isna()` - to get the True/False value for data with `NaN` values
 
 ---
 
