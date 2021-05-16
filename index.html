@@ -135,7 +135,7 @@ function getProperHTML(keyname, inp){
 
 function populateData(){
 
-  $.get("https://raw.githubusercontent.com/RaghuRam2404/AAIC/master/files.json", function(data, status){
+  $.get("files.json", function(data, status){
     if(Array.isArray(data)){
       var htmlAppend = '<ul class="directory-list">';
       htmlAppend += getProperHTML("",data);
