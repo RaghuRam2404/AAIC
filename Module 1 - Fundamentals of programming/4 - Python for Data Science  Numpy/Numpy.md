@@ -23,6 +23,11 @@ Array Create
 - `np.random.rand(4)` - random numbers of uniform distribution
 - `np.random.randn(4)` - random number of standard deviation
 - `np.random.randint(0, 20, 15)` - random integers [start index, end index, total number of elements]
+- `np.zeros_like(a)` - Return an array of zeros with the same shape and type as a given array.
+- `np.cumsum(a)` - cummulative sum
+- `np.mean(a)` - find the mean (average) of elements
+- `np.median(a)` - find the median of elements
+- `np.percentile(a, reqd_percentiles)` - find the percentile values passed in the `reqd_percentiles` array or scalar
 
 
 Array's attributes

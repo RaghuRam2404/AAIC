@@ -11,6 +11,8 @@ Notes hosted in [https://raghuram2404.github.io/AAIC/](https://raghuram2404.gith
 ### Module 1 - Fundamentals of Programming
 Python for Data Science : Introduction, Data Structures, Functions, Files, Exception Handling, Numpy, Pandas, Matplotlib, Computational Complexity, SQL
 
+### Module 2 - Data Science and Exploratory Data Analysis
+EDA, Linear Algebra, Probability and Statistics, Dimensionality reduction & visualization, Principal Component Analysis, (t-SNE)T-distributed Stochastic Neighbourhood Embedding
 
 **My Workouts:**  
 1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)  
@@ -18,3 +20,7 @@ Python for Data Science : Introduction, Data Structures, Functions, Files, Excep
 1.3 [Python Numpy](https://colab.research.google.com/drive/1nRbBIrXV7no_oTUt5BJwFsBZyGWDM2w4?authuser=1#scrollTo=fSBCxNXqQpxM)  
 1.4 [Python Matplotlib](https://colab.research.google.com/drive/1IaXH-9Kt_8D5eFW60VJsha0fvjSqYAht?authuser=1)  
 1.5 [Python Pandas](https://colab.research.google.com/drive/15TZOFwNSSHi3KThDgev7Q48P_dXOxoLP?authuser=1)  
+2.1 [Exploratory Data Analysis](https://colab.research.google.com/drive/1lUSLJFXK46_K7q7IfJq4JSdP426PWhPq?authuser=1)
+
+Other helpful links:  
+1. [LaTex Symbols](https://gist.github.com/LKS90/252ac41bd4a173be35b0)

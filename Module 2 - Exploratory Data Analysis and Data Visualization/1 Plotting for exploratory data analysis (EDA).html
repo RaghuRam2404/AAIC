@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>1 Plotting for exploratory data analysis (EDA)</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Plotting for exploratory data analysis (EDA)</h1>
+
+<ul>
+<li>Data-point/vector/Observation</li>
+<li>Data-set</li>
+<li>Feature/Variable/Input-variable/Dependent-varibale</li>
+<li>Label/Indepdendent-variable/Output-varible/Class/Class-label/Response label</li>
+<li>Vector: 2-D, 3-D, 4-D,.... n-D</li>
+<li>Domain knowledge is important</li>
+<li>Data Set </li>
+<li><code>Features</code>/<code>input</code> are all dependent</li>
+<li><code>Output variable</code> - independent</li>
+<li>Note what is the main <code>Objective</code> of the task</li>
+</ul>
+
+<p>This notes is based on the <a href="https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv">IRIS Dataset</a></p>
+
+<h2 id="toc_1">Imports</h2>
+
+<div><pre><code class="language-none">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from statsmodels import robust</code></pre></div>
+
+<h2 id="toc_2">Basic Review</h2>
+
+<div><pre><code class="language-none">iris = pd.read_csv(&quot;iris.csv&quot;)
+iris.head()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/Screen%20Shot%202021-05-20%20at%206.33.03%20PM.png" alt=""></p>
+
+<div><pre><code class="language-none">iris.shape
+
+(150, 5)</code></pre></div>
+
+<div><pre><code class="language-none">iris.columns
+
+Index([&#39;sepal_length&#39;, &#39;sepal_width&#39;, &#39;petal_length&#39;, &#39;petal_width&#39;,
+       &#39;species&#39;],
+      dtype=&#39;object&#39;)</code></pre></div>
+
+<div><pre><code class="language-none">#How many data points for each class are present? 
+iris[&#39;species&#39;].value_counts()
+
+virginica     50
+versicolor    50
+setosa        50
+Name: species, dtype: int64
+
+Output review : 
+#balanced_dataset as all category has equal inputs</code></pre></div>
+
+<h2 id="toc_3">Scatter Plots</h2>
+
+<div><pre><code class="language-none">sns.set_style(&quot;whitegrid&quot;)
+sns.FacetGrid(iris, hue=&quot;species&quot;, height=5) \
+  .map(plt.scatter, &#39;petal_length&#39;, &#39;petal_width&#39;) \
+  .add_legend()
+plt.show()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/Screen%20Shot%202021-05-20%20at%206.35.47%20PM.png" alt=""></p>
+
+<h3 id="toc_4">Observations</h3>
+
+<ol>
+<li>Using sepal<em>length and sepal</em>width features, we can distinguish Setosa flowers from others.<br></li>
+<li>Seperating Versicolor from Viginica is much harder as they have considerable overlap.</li>
+</ol>
+
+<h2 id="toc_5">3D Scatter plot</h2>
+
+<p><a href="https://plot.ly/pandas/3d-scatter-plots/">https://plot.ly/pandas/3d-scatter-plots/</a></p>
+
+<p>Needs a lot to mouse interaction to interpret data.</p>
+
+<p>What about 4-D, 5-D or n-D scatter plot?</p>
+
+<h2 id="toc_6">Pair Plot</h2>
+
+<p>For n&gt;4 or n&gt;5, pair plots are not much useful as the plot will grow a lot. Because it needs to compute $nC_2$ graphs</p>
+
+<div><pre><code class="language-none">sns.set_style(&quot;whitegrid&quot;)
+sns.pairplot(iris, hue=&#39;species&#39;, height=3)
+plt.show()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/pairplot.png" alt=""></p>
+
+<h3 id="toc_7">Observations</h3>
+
+<ol>
+<li>petal<em>length and petal</em>width are the most useful features to identify various flower types.<br></li>
+<li>While Setosa can be easily identified (linearly seperable), Virnica and Versicolor have some overlap (almost linearly seperable).
+3.We can find &quot;lines&quot; and &quot;if-else&quot; conditions to build a simple model to classify the flower types.</li>
+</ol>
+
+<h2 id="toc_8">Univariate Analysis</h2>
+
+<p>Which of my 4 variable is more useful than other variables for the categorization.<br>
+We can use <strong>PDF</strong> or <strong>histogram</strong><br>
+<strong>PDF</strong> tell the <strong>% of points available for a value</strong> for a category<br>
+It is <strong>1D density plot</strong></p>
+
+<h3 id="toc_9">1D Scatter Plot</h3>
+
+<p>Disadvantages of 1-D scatter plot: Very hard to make sense as points. 1D scatter plots are very hard to read. Histogram tells the density of values.</p>
+
+<div><pre><code class="language-none">#1D  plot
+setosa = iris[iris[&#39;species&#39;] == &#39;setosa&#39;]
+versicolor = iris[iris[&#39;species&#39;] == &#39;versicolor&#39;]
+virginica = iris[iris[&#39;species&#39;] == &#39;virginica&#39;]
+
+plt.plot(setosa[&#39;petal_length&#39;], np.zeros_like(setosa[&#39;petal_length&#39;]), &#39;o&#39;, label=&#39;setosa&#39;)
+plt.plot(versicolor[&#39;petal_length&#39;], np.zeros_like(versicolor[&#39;petal_length&#39;]), &#39;o&#39;, label=&#39;versicolor&#39;)
+plt.plot(virginica[&#39;petal_length&#39;], np.zeros_like(virginica[&#39;petal_length&#39;]), &#39;o&#39;, label=&#39;virginica&#39;)
+plt.xlabel(&quot;Petal Length&quot;)
+plt.legend()
+plt.show()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/1dscatter.png" alt=""></p>
+
+<h3 id="toc_10">Histogram</h3>
+
+<div><pre><code class="language-none">sns.FacetGrid(iris, hue=&#39;species&#39;, height=5) \
+    .map(sns.distplot, &#39;petal_length&#39;) \
+    .add_legend()
+sns.FacetGrid(iris, hue=&#39;species&#39;, height=5) \
+    .map(sns.distplot, &#39;petal_width&#39;) \
+    .add_legend()
+plt.show()
+</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/hist1.png" alt="">
+<img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/hist2.png" alt=""></p>
+
+<h4 id="toc_11">Observation</h4>
+
+<ul>
+<li>There is no setosa flower with petal length &gt; 2 and petalwidth &gt; 1.5<br></li>
+<li>If pl &gt; 4.7, then it is virginica. Bcoz green bar height is more than orange. Some of the output may fail.</li>
+</ul>
+
+<h3 id="toc_12">Cumulative Distributive Function &amp; Probability Density Function</h3>
+
+<p>Differtiation of CDF = integration of PDF (calculus)</p>
+
+<div><pre><code class="language-none">counts, bin_edges = np.histogram(setosa[&#39;petal_length&#39;], bins=10, density=True)
+print(counts,&#39; &#39;, bin_edges)
+print(sum(counts))
+
+pdf = counts/sum(counts)
+print(pdf)
+
+cdf = np.cumsum(pdf)
+print(cdf)
+
+plt.plot(bin_edges[1:], pdf, label=&quot;PDF&quot;)
+plt.plot(bin_edges[1:], cdf, label=&quot;CDF&quot;)
+plt.xlabel(&#39;petal_length&#39;)
+plt.ylabel(&#39;probability&#39;)
+plt.legend()
+plt.show()
+
+[0.22222222 0.22222222 0.44444444 1.55555556 2.66666667 3.11111111
+ 1.55555556 0.88888889 0.         0.44444444]   [1.   1.09 1.18 1.27 1.36 1.45 1.54 1.63 1.72 1.81 1.9 ]
+11.11111111111111
+[0.02 0.02 0.04 0.14 0.24 0.28 0.14 0.08 0.   0.04]
+[0.02 0.04 0.08 0.22 0.46 0.74 0.88 0.96 0.96 1.  ]</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/PDF_CDF.png" alt=""></p>
+
+<div><pre><code class="language-none">#for all species, cdf and pdf
+
+count, bin_edges = np.histogram(setosa[&#39;petal_length&#39;], bins = 10, density=True)
+pdf = count/sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bin_edges[1:], pdf, label=&quot;setosa PDF&quot;)
+plt.plot(bin_edges[1:], cdf, label=&quot;setosa CDF&quot;)
+
+
+count, bin_edges = np.histogram(virginica[&#39;petal_length&#39;], bins = 10, density=True)
+pdf = count/sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bin_edges[1:], pdf, label=&quot;virginica PDF&quot;)
+plt.plot(bin_edges[1:], cdf, label=&quot;virginica CDF&quot;)
+
+
+count, bin_edges = np.histogram(versicolor[&#39;petal_length&#39;], bins = 10, density=True)
+pdf = count/sum(count)
+cdf = np.cumsum(pdf)
+plt.plot(bin_edges[1:], pdf, label=&quot;versicolor PDF&quot;)
+plt.plot(bin_edges[1:], cdf, label=&quot;versicolorCDF&quot;)
+
+plt.xlabel(&#39;petal_length&#39;)
+plt.ylabel(&#39;probability&#39;)
+plt.legend()
+plt.show()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/PDF_CDF_all.png" alt=""></p>
+
+<h4 id="toc_13">Conclusion</h4>
+
+<p>Based on the plot, we can say that</p>
+
+<ol>
+<li>100% of all setosa flowers will have petal_length &lt;= 1.9</li>
+<li>95% of all versicolor flowers will have petal_length &lt;= 5</li>
+<li>CDF : there are <strong>82%</strong> of setosa flowers that have <strong>petal length &lt;= 1.6</strong> </li>
+<li><strong>100%</strong> of setosa flowers have <strong>Petal length &lt; 1.9</strong></li>
+</ol>
+
+<h2 id="toc_14">Mean, Standard Deviation, variance</h2>
+
+<p><strong>Why &quot;Mean&quot;?</strong></p>
+
+<p>It tells about the central tendancy. Eg : Average behaviour of the flowers</p>
+
+<p>Setosa&#39;s average petal length is much smaller than virginica, versicolor. But virginica &amp; versicolor&#39;s petal length are much closer.</p>
+
+<p>What if somebody entered a wrong value as &#39;50&#39; for setosa or due to data corruption? This is an <strong>outlier point</strong>. Now the <strong>mean</strong> becomes 2.451 . This is the <strong>disadvantage</strong> of mean. </p>
+
+<hr>
+
+<p><strong>Spread</strong>/<strong>standard deviation</strong> is the range of values where the most of the points lie. Eg : If the mean is 1.4 and spread is 0.5, then <strong>from 0.9 to 1.9</strong>, most of the points lie. The thinner the spread, the useful the data points are. <em>Setosa&#39;s petal length&#39;s spread is thinner than virginica &amp; versicolor&#39;s petal length</em>. It doesn&#39;t mean that there are no points outside the range. That spread is called <strong>standard deviation</strong> which says how far are my points from the mean. Square of <strong>std</strong> is the <strong>variation</strong></p>
+
+<p>$variance=1/n\sum<em>{i=1}^{n}(x</em>i-\mu)^{2}$</p>
+
+<p>Just by looking into mean &amp; std, we can assume how the data may look like and what they try to convey. But <strong>outlier</strong> can damage the result.</p>
+
+<div><pre><code class="language-none">mean_s_pl = setosa[&#39;petal_length&#39;].mean()
+mean_vi_pl = virginica[&#39;petal_length&#39;].mean()
+mean_ve_pl = versicolor[&#39;petal_length&#39;].mean()
+
+print(&quot;Setosa mean : &quot;, mean_s_pl)
+print(&quot;Virginica mean : &quot;, mean_vi_pl)
+print(&quot;Versicolor mean : &quot;, mean_ve_pl)
+
+print(&quot;\nNow with outlier&quot;)
+mean_s_pl_outlier = np.mean(np.append(setosa[&#39;petal_length&#39;], 50))
+print(&quot;Setosa mean : &quot;, mean_s_pl_outlier)
+
+Output : 
+
+Setosa mean :  1.464
+Virginica mean :  5.552
+Versicolor mean :  4.26
+
+Now with outlier
+Setosa mean :  2.4156862745098038</code></pre></div>
+
+<div><pre><code class="language-none">std_s_pl = setosa[&#39;petal_length&#39;].std()
+std_vi_pl = virginica[&#39;petal_length&#39;].std()
+std_ve_pl = versicolor[&#39;petal_length&#39;].std()
+print(&quot;Setosa std : &quot;, std_s_pl)
+print(&quot;Virginica std : &quot;, std_vi_pl)
+print(&quot;Versicolor std : &quot;, std_ve_pl)
+
+Setosa std :  0.1735111594364455
+Virginica std :  0.5518946956639835
+Versicolor std :  0.46991097723995806</code></pre></div>
+
+<div><pre><code class="language-none">#let&#39;s check how many points are in std range for setosa
+s_in_std_range = setosa[(setosa[&quot;petal_length&quot;] &gt;= (mean_s_pl-std_s_pl)) &amp; (setosa[&quot;petal_length&quot;] &lt;= (mean_s_pl+std_s_pl))][&#39;petal_length&#39;].count()
+vi_in_std_range = virginica[(virginica[&quot;petal_length&quot;] &gt;= (mean_vi_pl-std_vi_pl)) &amp; (virginica[&quot;petal_length&quot;] &lt;= (mean_vi_pl+std_vi_pl))][&#39;petal_length&#39;].count()
+
+print(&quot;% of setosa in std&#39;s range : &quot;, 100*(s_in_std_range/len(setosa[&quot;petal_length&quot;])), &#39;%&#39; )
+print(&quot;% of virginica in std&#39;s range : &quot;, 100*(vi_in_std_range/len(virginica[&quot;petal_length&quot;])), &#39;%&#39; )
+
+% of setosa in std&#39;s range :  80.0 %
+% of virginica in std&#39;s range :  70.0 %</code></pre></div>
+
+<h2 id="toc_15">Median</h2>
+
+<p><strong>Median</strong> of setosa&#39;s Petal length with/with_out outlier is <strong><em>same</em></strong>. This is what we want. All medians tend to look like <strong>mean</strong>.</p>
+
+<p>But what is median?<br>
+It is <strong>middle value</strong> from the list after sorting (any order). if &#39;n&#39; is odd, middle elt is $(n+1)/2$ , if &#39;n&#39; is even, middle elt is average of middle 2 elements $avg(n/2, (n+1)/2)$</p>
+
+<p>Why Median is not affected by outliers? Because, outliers exist in the extreme. What if there are many outliers (i.e) half of the values are corrupted? Only at this time, median will get corrupted.</p>
+
+<div><pre><code class="language-none">median_s_pl = np.median(setosa[&#39;petal_length&#39;])
+median_vi_pl = np.median(virginica[&#39;petal_length&#39;])
+median_ve_pl = np.median(versicolor[&#39;petal_length&#39;])
+print(&quot;Setosa Median : &quot;, median_s_pl)
+print(&quot;Virginica Median : &quot;, median_vi_pl)
+print(&quot;Versicolor Median : &quot;, median_ve_pl)
+
+#adding an outlier
+median_s_pl_outlier = np.median(np.append(setosa[&#39;petal_length&#39;], 50))
+print(&quot;\nSetosa median (after outlier) : &quot;, median_s_pl_outlier)
+
+Setosa Median :  1.5
+Virginica Median :  5.55
+Versicolor Median :  4.35
+Setosa median (after outlier) :  1.5</code></pre></div>
+
+<h2 id="toc_16">Percentiles &amp; Quartiles</h2>
+
+<p><strong>Percentile</strong> is where do you lie in the sorted list. Value in the middle of a list is the <strong>50th percentile</strong> of the list. It is same as median of the list.  </p>
+
+<p>What is 10th percentile? In the sorted array, pick the 10th value in array. It says that about 10% of points in the list are less than this value and 90% of points are greater than this value.</p>
+
+<p><strong><em>25, 50, 75 percentiles are called quartiles.</em></strong></p>
+
+<div><pre><code class="language-none">reqd_percentiles = np.arange(0,100,25) #0, 25, 50, 75
+quartiles_s = np.percentile(setosa[&#39;petal_length&#39;], reqd_percentiles)
+quartiles_vi = np.percentile(virginica[&#39;petal_length&#39;], reqd_percentiles)
+quartiles_ve = np.percentile(versicolor[&#39;petal_length&#39;], reqd_percentiles)
+
+print(&quot;percentiles of setosa in &quot;,reqd_percentiles,&quot; are &quot;, quartiles_s)
+print(&quot;percentiles of virginica in &quot;,reqd_percentiles,&quot; are &quot;, quartiles_vi)
+print(&quot;percentiles of versicolor in &quot;,reqd_percentiles,&quot; are &quot;, quartiles_ve)
+
+#get a particular percentile value
+print(&quot;95th percentile of versicolor is &quot;, np.percentile(versicolor[&#39;petal_length&#39;], 95))
+#it is evident from the CDF and PDF. We concluded that about 95% of values are less than 5
+
+percentiles of setosa in  [ 0 25 50 75]  are  [1.    1.4   1.5   1.575]
+percentiles of virginica in  [ 0 25 50 75]  are  [4.5   5.1   5.55  5.875]
+percentiles of versicolor in  [ 0 25 50 75]  are  [3.   4.   4.35 4.6 ]
+95th percentile of versicolor is  4.9</code></pre></div>
+
+<h2 id="toc_17">IQR(Inter Quartile Range) and MAD(Median Absolute Deviation)</h2>
+
+<p><strong>Median Absolute Deviation :</strong><br>
+$Median(\ |x_i - \tilde{x}|\ )$ where $\tilde{x}$ is the median of the input array</p>
+
+<p>Taking mean will cause problems due to outlier points. So we are taking medians of the absolute values of distance of median from the point. It is similar to <strong>standard deviation</strong>. But since <strong>std</strong> will be affected by outlier points, we can make use of <strong>MAD</strong></p>
+
+<p><strong>Inter Quartile Range :</strong><br>
+It is  $75^{th}\ percentile\ value -  25^{th}\ percentile\ value$<br>
+In this short range, 50% of the points lie.</p>
+
+<div><pre><code class="language-none">mad_s = robust.mad(setosa[&#39;petal_length&#39;])
+mad_vi = robust.mad(virginica[&#39;petal_length&#39;])
+mad_ve = robust.mad(versicolor[&#39;petal_length&#39;])
+
+print(&quot;MAD of Setosa : &quot;, mad_s)
+print(&quot;MAD of versicolor : &quot;, mad_ve)
+print(&quot;MAD of virginica : &quot;, mad_vi)
+
+MAD of Setosa :  0.14826022185056031
+MAD of versicolor :  0.5189107764769602
+MAD of virginica :  0.6671709983275211</code></pre></div>
+
+<h2 id="toc_18">Box Plot &amp; Whikers</h2>
+
+<p>In histogram, we don&#39;t understand where the $25^{th}$, $50^{th}$ and $75^{th}$ values lie. We can get those values in PDF &amp; CDF plots, but we have to map the y values to x values. We can use box plots.  </p>
+
+<p><strong>Box Lines in the box are 25, 50 and 75 percentile values</strong>. We can see how values span and see how to write if else condition in code to classify the classes.</p>
+
+<p><strong>Whiskers are max &amp; min value</strong>. But <strong>sns</strong> uses some complex mechanism like <strong>1.5 x IQR</strong> for the whiskers</p>
+
+<div><pre><code class="language-none">sns.boxplot(data=iris, x=&#39;species&#39;, y=&#39;petal_length&#39;)
+plt.show()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/boxplot.png" alt=""></p>
+
+<h2 id="toc_19">Violin Plots</h2>
+
+<p>It&#39;s a combination of <strong>histogram</strong> &amp; <strong>box plots</strong>. </p>
+
+<p>Denser values are fatter and sparse values are thin.</p>
+
+<div><pre><code class="language-none">sns.violinplot(data=iris, x=&#39;species&#39;, y=&#39;petal_length&#39;, size=8)
+plt.show()</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/violinplot.png" alt=""></p>
+
+<h2 id="toc_20">Multivariate probability density, contour plot.</h2>
+
+<p>It is 2D density plot</p>
+
+<div><pre><code class="language-none">sns.jointplot(x=&quot;petal_length&quot;, y=&quot;petal_width&quot;, data=setosa, kind=&quot;kde&quot;);
+plt.show();</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/contour1.png" alt=""></p>
+
+<div><pre><code class="language-none">sns.jointplot(x=&quot;petal_length&quot;, y=&quot;petal_width&quot;, data=iris, kind=&quot;kde&quot;, hue=&#39;species&#39;, );
+plt.show();</code></pre></div>
+
+<p><img src="./1%20Plotting%20for%20exploratory%20data%20analysis%20(EDA)/contour2.png" alt=""></p>
+
+<h2 id="toc_21">Summary</h2>
+
+<p>Explain your findings/conclusions in plain english
+Never forget your objective (the probelm you are solving) .</p>
+
+<p>Perform all of your EDA aligned with your objectives.</p>
+
+
+
+
+</body>
+
+</html>
