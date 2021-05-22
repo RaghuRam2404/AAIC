@@ -86,3 +86,70 @@ plt.show()
 ![](./Matplotlib/6.1.png)
 
 ![](./Matplotlib/6.png)
+
+## Using sns (seaborn)
+
+### Histogram (for classification)
+
+```
+sns.set_style('whitegrid')
+sns.FacetGrid(data=hm, hue='status', height=5)\
+	.map(sns.histplot, 'age', bins=30)\
+	.add_legend()
+```
+![](./Matplotlib/histogram_classify.png)
+
+### Box-Plot & violin Plot with subplots
+
+```
+fig, axes = plt.subplots(2,2, figsize=(12,12))
+sns.boxplot(data=hm, x='status', y='age', ax=axes[0,0])
+sns.boxplot(data=hm, x='status', y='node', ax=axes[0,1])
+sns.violinplot(data=hm, x='status', y='age', ax=axes[1,0])
+sns.violinplot(data=hm, x='status', y='node', ax=axes[1,1])
+plt.legend()
+plt.show()
+```
+
+![](./Matplotlib/box & violin plot.png)
+
+### 2D scatter plot
+
+```
+sns.set_style('whitegrid')
+sns.FacetGrid(hm, hue='status', height=4)\
+    .map(plt.scatter, 'age', 'node')\
+    .add_legend()
+plt.show()
+```
+
+![](./Matplotlib/2dscatter.png]
+
+### Pair Plot
+
+```
+sns.set_style('whitegrid')
+sns.pairplot(data=hm, hue='status', kind='scatter')
+plt.show()
+```
+
+![](./Matplotlib/pairplot.png)
+
+### Joint Plot
+
+```
+sns.jointplot(x="age", y="node", data=hm, hue='status', kind="kde");
+plt.show();
+```
+
+![](./Matplotlib/jointplot.png)
+
+## 3D Plot
+```
+import plotly.express as px
+fig = px.scatter_3d(hm, x='year', y='node', z='age',
+              color='status')
+fig.show()
+```
+
+![](./Matplotlib/Screen Shot 2021-05-22 at 9.26.27 AM.png)
