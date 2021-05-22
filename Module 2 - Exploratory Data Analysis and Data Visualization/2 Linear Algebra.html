@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Matplotlib</title>
+<title>2 Linear Algebra</title>
 
 
 <style type="text/css">
@@ -331,147 +331,210 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">Matplotlib</h1>
+<h1 id="toc_0">Linear Algebra</h1>
 
-<p><code>import matplotlib.pyplot as plt</code></p>
+<p>We&#39;ll use it to solve specific type of problems in ML. It provides tools to do learnings on n-dimensional vectors (features)</p>
 
-<div><pre><code class="language-none">plt.plot([2,4,6,4])
-plt.xlabel(&quot;x&quot;)
-plt.ylabel(&quot;y&quot;)
-plt.title(&quot;PLOT&quot;)
-plt.show()</code></pre></div>
+<h2 id="toc_1">Point/Vector</h2>
 
-<p><img src="./Matplotlib/1.png" alt=""></p>
+<p>Represent a point as vector. If point is <code>2</code> in x1 axis and <code>3</code> in x2 axis, it is represented as 2D vector <code>[2, 3]</code> where 2, 3 are x1, x2 components. </p>
 
-<div><pre><code class="language-none">plt.plot([1,2,3,4,5,6],[1,4,9,16,25,36], &#39;ro&#39;)
-plt.xlabel(&quot;number&quot;)
-plt.ylabel(&quot;squares&quot;)
-plt.grid()
-plt.title(&quot;PLOT&quot;)
-plt.show()</code></pre></div>
+<p>In 3D, it&#39;ll be like <code>[2, 3, 5]</code> with x1=2, x2=3, x3=5.</p>
 
-<p><img src="./Matplotlib/2.png" alt=""></p>
+<p>But what about n-dimensional point, it is <code>[x1, x2, ... xn]</code> where x1 to xn are components in n-dimensional space.</p>
 
-<div><pre><code class="language-none">import numpy as np
+<p><strong>A point an n-dimensional space where each component of the n-components in the vector is the perpendicular distance of the point from each axis.</strong></p>
 
-a = np.arange(0,5,0.2)
+<h2 id="toc_2">Distance of a point from origin</h2>
 
-plt.plot(a, a**2, &#39;b--&#39; ,label=&quot;^2&quot;)
-plt.plot(a, a**2.2, &#39;rs&#39; ,label=&quot;^2.2&quot;)
-plt.plot(a, a**2.4, &#39;g^&#39; ,label=&quot;^2.4&quot;)
-plt.xlabel(&quot;x&quot;)
-plt.legend()
-plt.show()</code></pre></div>
+<p>Distance of a point from origin (0,0) is  \(\sqrt(x_1^2+x_2^2)\)  in 2D.</p>
 
-<p><img src="./Matplotlib/3.png" alt=""></p>
+<p>Distance of a point from origin (0,0,0) is \(\sqrt(x_1^2+x_2^2+x_3^2)\) in 3D.</p>
 
-<div><pre><code class="language-none">x1 = np.array([1, 2, 3, 4])
-y1 = x1**2
-x2 = np.array([1, 2, 3, 4])
-y2 = x2*2
+<p>Distance of a point from origin (0,0,....0) is \(\sqrt(x_1^2+x_2^2+ .. +x_n^2)\) in nD.</p>
 
-lines = plt.plot(x1, y1, x2, y2)
-plt.setp(lines[0], color=&#39;r&#39;, linewidth=2.0)
-plt.setp(lines[1], &#39;color&#39;, &#39;g&#39;, &#39;linewidth&#39;, 1.5)
-plt.show()</code></pre></div>
+<h2 id="toc_3">Distance between points</h2>
 
-<p><img src="./Matplotlib/4.png" alt=""></p>
+<p>p = [\(a_1\), \(a_2\)]
+q = [\(b_1\), \(b_2\)]
+distance in 2D = \(\sqrt( (a_1-b_1)^2 + (a_2-b_2)^2)\)</p>
 
-<div><pre><code class="language-none">def f(t):
-  return np.exp(-t) * np.cos(2*np.pi*t)
+<p>Apply the same for n dimensions.
+distance in nD = \(\sqrt( (a_1-b_1)^2 + (a_2-b_2)^2 + ... + (a_n-b_n)^2)\)</p>
 
-t1 = np.arange(0, 5, 0.1)
-t2 = np.arange(0, 5, 0.02)
+<h2 id="toc_4">Row &amp; column vector</h2>
 
-plt.figure(1)
-plt.subplot(2,1,1)
-plt.grid()
-plt.plot(t1, f(t1), &#39;b-&#39;)
+<p>Row vector :
+A = [\(a_1\), \(a_2\) ... \(a_n\)] of size (1xn)</p>
 
-plt.subplot(2,1,2)
-plt.plot(t2, np.cos(2*np.pi*t2), &#39;r--&#39;)
+<p>Column vector :
+B =   [\(b_1\), \(b_2\) ... \(b_n\)]
+of size (nx1)</p>
 
-plt.show()</code></pre></div>
+<p><strong>If nothing is told about a vector, it is normally assumed as column vector</strong></p>
 
-<p><img src="./Matplotlib/5.png" alt=""></p>
+<h2 id="toc_5">Mathematical Operation on Row vectors</h2>
 
-<div><pre><code class="language-none">plt.figure(1)
-plt.subplot(2,1,1)
-plt.plot([1,2,3,4])
-plt.subplot(2,1,2)
-plt.plot([6,7,8,9,9,9,9,10,12])
+<p>a = [\(a_1\), \(a_2\), ... \(a_n\)]
+b = [\(b_1\), \(b_2\), ... \(b_n\)]</p>
 
-plt.figure(2)
-plt.plot(np.arange(0, 100, 10))
+<p>a+b = [ (\(a_1\)+\(b_1\)), (\(a_2\)+\(b_2\)), ... (\(a_n\)+\(b_n\)) ]</p>
 
-plt.figure(1) #switches to the 1st figure
-plt.subplot(2,1,1)
-plt.title(&#39;title&#39;)
+<h3 id="toc_6">Dot product</h3>
 
-plt.show()</code></pre></div>
+<p>a and b are assumed to be <strong>column vectors</strong></p>
 
-<p><img src="./Matplotlib/6.1.png" alt=""></p>
+<p>\(a.b\) = (\(a_1.b_1\)) + (\(a_2.b_2\)) + .... + (\(a_n.b_n\))</p>
 
-<p><img src="./Matplotlib/6.png" alt=""></p>
+<p>\(a.b\) = \(a.T * b\) = \(\sum_{i-1}^n (a_i * b_i)\)</p>
 
-<h2 id="toc_1">Using sns (seaborn)</h2>
+<p>Geometrically what does it mean?</p>
 
-<h3 id="toc_2">Histogram (for classification)</h3>
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2011.57.19%20AM.png" alt=""></p>
 
-<div><pre><code class="language-none">sns.set_style(&#39;whitegrid&#39;)
-sns.FacetGrid(data=hm, hue=&#39;status&#39;, height=5)\
-    .map(sns.histplot, &#39;age&#39;, bins=30)\
-    .add_legend()</code></pre></div>
+<p>\(\theta\) is the angle between 2 vectors</p>
 
-<p><img src="./Matplotlib/histogram_classify.png" alt=""></p>
+<p>if \(\theta\) is <strong>90</strong>, then both vectors are perpendicular to each other (ie) <strong>dot product is zero</strong></p>
 
-<h3 id="toc_3">Box-Plot &amp; violin Plot with subplots</h3>
+<p>\(a.a = ||a||\)</p>
 
-<div><pre><code class="language-none">fig, axes = plt.subplots(2,2, figsize=(12,12))
-sns.boxplot(data=hm, x=&#39;status&#39;, y=&#39;age&#39;, ax=axes[0,0])
-sns.boxplot(data=hm, x=&#39;status&#39;, y=&#39;node&#39;, ax=axes[0,1])
-sns.violinplot(data=hm, x=&#39;status&#39;, y=&#39;age&#39;, ax=axes[1,0])
-sns.violinplot(data=hm, x=&#39;status&#39;, y=&#39;node&#39;, ax=axes[1,1])
-plt.legend()
-plt.show()</code></pre></div>
+<h3 id="toc_7">Cross product (not used much in ML)</h3>
 
-<p><img src="./Matplotlib/box%20&amp;%20violin%20plot.png" alt=""></p>
+<h2 id="toc_8">Projection and Unit Vector</h2>
 
-<h3 id="toc_4">2D scatter plot</h3>
+<p>Vector <code>a</code>, <code>b</code> and angle between is \(\theta\). Perpendicular projection of <code>a</code> on <code>b</code> and we get distance, it is <code>d</code>.</p>
 
-<div><pre><code class="language-none">sns.set_style(&#39;whitegrid&#39;)
-sns.FacetGrid(hm, hue=&#39;status&#39;, height=4)\
-    .map(plt.scatter, &#39;age&#39;, &#39;node&#39;)\
-    .add_legend()
-plt.show()</code></pre></div>
+<p>It is also call the vector component of \(\vec{a}\) along \(\vec{b}\).</p>
 
-<p>![](./Matplotlib/2dscatter.png]</p>
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.04.29%20PM.png" alt=""></p>
 
-<h3 id="toc_5">Pair Plot</h3>
+<p>The definition of <strong>scalar projection</strong> is simply the length of the vector projection.  When the scalar projection is positive it means that the angle between the two vectors is less than 90∘.  When the scalar projection is negative it means that the two vectors are heading in opposite directions. </p>
 
-<div><pre><code class="language-none">sns.set_style(&#39;whitegrid&#39;)
-sns.pairplot(data=hm, hue=&#39;status&#39;, kind=&#39;scatter&#39;)
-plt.show()</code></pre></div>
+<p>Unit vector is a vector in the same direction of the original vector. But it&#39;s magnitude is <code>1</code></p>
 
-<p><img src="./Matplotlib/pairplot.png" alt=""></p>
+<p>\(\hat{a} = \frac{a}{||a||} \)</p>
 
-<h3 id="toc_6">Joint Plot</h3>
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.09.23%20PM.png" alt=""></p>
 
-<div><pre><code class="language-none">sns.jointplot(x=&quot;age&quot;, y=&quot;node&quot;, data=hm, hue=&#39;status&#39;, kind=&quot;kde&quot;);
-plt.show();</code></pre></div>
+<p><strong>Vector projection</strong> of a onto b = <strong>scalar projection</strong> x \(\hat{a}\)</p>
 
-<p><img src="./Matplotlib/jointplot.png" alt=""></p>
+<p>More details on projection, read <a href="https://flexbooks.ck12.org/cbook/ck-12-precalculus-concepts-2.0/section/7.5/primary/lesson/vector-projection-pcalc">https://flexbooks.ck12.org/cbook/ck-12-precalculus-concepts-2.0/section/7.5/primary/lesson/vector-projection-pcalc</a></p>
 
-<h2 id="toc_7">3D Plot</h2>
+<h2 id="toc_9">Line</h2>
 
-<div><pre><code class="language-none">import plotly.express as px
-fig = px.scatter_3d(hm, x=&#39;year&#39;, y=&#39;node&#39;, z=&#39;age&#39;,
-              color=&#39;status&#39;)
-fig.show()</code></pre></div>
+<p>Equation of line : <code>y=mx+c</code></p>
 
-<p><img src="./Matplotlib/Screen%20Shot%202021-05-22%20at%209.26.27%20AM.png" alt=""></p>
+<p>Line In 2D : \(ax_1 + bx_2 + c = 0\)
+2D in general : \(w_1a_1 + w_2a_2 + w_0 = 0\)
+3D in general (Plane) : \(w_1a_1 + w_2a_2 + w_3a_3 + w_0 = 0\)</p>
+
+<p>nD in general (Hyperplane) : \(w_1a_1 + w_2a_2 + .... + w_{n}a_{n} + w_0 = 0\)</p>
+
+<p>Simpler way ::: \(w_0 + \sum_{i=1}^{n} w_ia_i\)</p>
+
+<p>In vector notation :
+W = [\(w_1\), \(w_2\) ... \(w_n\)] ==&gt; (column vector)
+X = [\(x_1\), \(x_2\) ... \(x_n\)] ==&gt; (column vector)</p>
+
+<p>hyperplane eqn is
+\(w_0 + W.T*X\)</p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.25.19%20PM.png" alt=""></p>
+
+<p>What is \(w_0\)?</p>
+
+<p>if \(w_0\) = 0, then the plane passes through the origin. And vector \(\vec{W}\) is perpendicular to \(\vec{X}\) at origin</p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.28.22%20PM.png" alt=""></p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.29.31%20PM.png" alt=""></p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.38.39%20PM.png" alt=""></p>
+
+<p>We can shift the x-axis such that \(w_0\) is <code>0</code></p>
+
+<h2 id="toc_10">Distance of a point from a Plane/Hyperplane, Half-Spaces</h2>
+
+<p>We&#39;ll draw perpendicular line from point to plane.</p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.48.48%20PM.png" alt=""></p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.53.46%20PM.png" alt=""></p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.55.15%20PM.png" alt=""></p>
+
+<p>Importance of <strong>dot product</strong> is that we will know <strong>in which half space the point lie</strong>, which can be used in classification. Because for a point \(\vec{p}\) and plane with \(W\) &amp; \(X\) such that \(W^T.X = 0\), then the distance <code>d</code> of \(\vec{p}\) on to that place is</p>
+
+<p>\(d = \frac{\vec{W}.\vec{p}}{||\vec{w}||}\) </p>
+
+<p>The +ve or -ve symbol will tell in which half space the point lie.</p>
+
+<h2 id="toc_11">Equations</h2>
+
+<h3 id="toc_12">Circle, sphere, hyper sphere</h3>
+
+<p>with center as <code>(0,0)</code>, the equation is \(x^2 + y^2 = r^2\) where \(r\) is the radius of the circle. If the center is <code>(h,k)</code>, then the eqn is \((x-h)^2 + (y-k)^2 = r^2\). For simplicity, we&#39;ll use the centre <code>(0,0)</code></p>
+
+<p>If a point (\(x_1\), \(x_2\)) lies<br>
+- <strong>inside the circle</strong>, then \(x_1^2 + x_2^2 &lt; r^2\)<br>
+- <strong>outside the circle</strong>, then \(x_1^2 + x_2^2 &gt; r^2\)<br>
+- <strong>on the circle</strong>, then \(x_1^2 + x_2^2 = r^2\)</p>
+
+<p>Same concept can be extended to 3D (sphere) and nD (hyper sphere)</p>
+
+<p>In generic,<br>
+\(\sum_{i=1}^n x_i^2 &lt; r^2\) ==&gt; point inside the hypersphere<br>
+\(\sum_{i=1}^n x_i^2 &gt; r^2\) ==&gt; point outside the hypersphere<br>
+\(\sum_{i=1}^n x_i^2 = r^2\) ==&gt; point on the hypersphere  </p>
+
+<h3 id="toc_13">Ellipse, ellipsoid, hyper ellipsoid</h3>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%201.22.06%20PM.png" alt=""></p>
+
+<p>Equation is \(\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1\) centered at <code>(0,0)</code></p>
+
+<p>If a point (\(x_1\), \(x_2\)) lies<br>
+- <strong>inside the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} &lt; 1\)<br>
+- <strong>outside the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} &gt; 1\)<br>
+- <strong>on the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} = 1\)</p>
+
+<p>Same concept for 3D (ellipsoid) and nD (hyper ellipsoid)</p>
+
+<p>Let&#39;s say <code>a</code> as \(a_1\) and <code>b</code> as \(a_2\). So in generically, we can write as<br>
+- <strong>inside the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} &lt; 1\)<br>
+- <strong>outside the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} &gt; 1\)<br>
+- <strong>on the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} = 1\)</p>
+
+<h3 id="toc_14">Square &amp; Rectangle, Hyper Cube &amp; Hyper Cuboid</h3>
+
+<p>We&#39;ll see only axis parallel square/rectangle.</p>
+
+<p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%201.35.38%20PM.png" alt=""></p>
+
+<p>For hyper cube and hyper cuboid, extend the same which we followed for 2D.</p>
+
+<p>Eg: if the point is [1,2,3,4] we can compare it with each hyperplane and take decision.</p>
 
 
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 </body>
