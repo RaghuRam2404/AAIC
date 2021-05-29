@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>3 Probability and Statistics</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Probability and Statistics</h1>
+
+<h2 id="toc_1">Types of statistics</h2>
+
+<h3 id="toc_2">Descriptive</h3>
+
+<p>It describes data in an informative way. Eg : When am I losing sales?</p>
+
+<h3 id="toc_3">Inferential</h3>
+
+<p>Calculate average salary of data scientists. So collect data first and find the mean of it. But it&#39;s hard. Take sample and see trend. Fit the model (gaussian, power law etc) and take decision.</p>
+
+<h3 id="toc_4">Predictive</h3>
+
+<p>Look at this data. Tell me what will happen when I change a factor. Eg : If I reduce a price on a product, will the sales increase?</p>
+
+<h3 id="toc_5">Prescription</h3>
+
+<p>How do we get a result?</p>
+
+<h2 id="toc_6">Random Variable</h2>
+
+<p>X - outcome of a random experiment</p>
+
+<p><strong><u>Example 1</u></strong><br>
+Event : rolling of a dice {1,2,3,4,5,6}</p>
+
+<p>P(X=1) = P(1) = 1/6</p>
+
+<p>P(X is even) = P(X=2) + P(X=6) + P(X=6) = 1/2<br>
+P(X is odd) = P(1) + P(3) + P(5) = 1/2</p>
+
+<p>It is a <strong>discrete random variable</strong>. We&#39;ll have <strong>Probability Mass Function (PMF)</strong>  for it. It is same probability of picking a value in dice.</p>
+
+<p><strong><u>Example 2</u></strong><br>
+Event : height of a randomnly picked student<br>
+Y = between 120 cm and 190 cm</p>
+
+<p>So, Y could be 132.62 or 162.45 or any real number. Here Y is <strong>continuous random variable</strong>. We&#39;ll have <strong>Probability Density Function (PDF)</strong> for this r.v. (random variable)</p>
+
+<p><u>Outlier</u> outcome can come be due to human error, fault in observation, genuine outlier and so on.</p>
+
+<h2 id="toc_7">Population &amp; Sample</h2>
+
+<p><u>Question :</u> Estimate the average height \(\mu\) of the human.</p>
+
+<p>We have 7 billion people in the world. But we can&#39;t take all of their heights and take average. So we can take a <strong>random sample of size 1000</strong></p>
+
+<p>\(\bar{x} = \frac{\sum_{i=1}^{n}height_i}{n} \ \ with\ n = 1000\)</p>
+
+<p>Note : As \(n\) increases, \(\bar{x}\) equals the population mean \(\mu\).</p>
+
+<h2 id="toc_8">Gaussian/Normal Distribution and it&#39;s PDF &amp; CDF</h2>
+
+<p><u>It has 2 parameters :</u> \(\mu\) (mean) and \(\sigma\) (stanndard deviation)</p>
+
+<p>It is a bell-shaped curve. It is PDF (Probability Distribution Function) of a Gaussian distributed random variable.</p>
+
+<p><strong>X - continuous random variable.</strong><br>
+X - has PDF looked like bell shaped curve. Then it is <strong>Gaussian/Normally distributed</strong>. Lot of things in nature follows this distribution (like height, weight of the people).</p>
+
+<p>Parameters of gaussian distribution : \(\mu\) (mean) and \(\sigma^2\)  (variance)</p>
+
+<p><strong>Written as \(X\) ~ \( N(\mu,\sigma^2) \)</strong></p>
+
+<p><u>Why learn about this?</u><br>
+- Simple models of nature&#39;s behaviour. It can summarize so many properties of the random variable. If we know the \(\mu\) (mean) and \(\sigma^2\)  (variance) of a variable following gaussian distribution, then we can think how the curve will look like (without even observing the data points)</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/1%20Screen%20Shot%202021-05-23%20at%2012.25.20%20PM.png" alt=""></p>
+
+<h3 id="toc_9">PDF</h3>
+
+<p>The <strong>PDF at a given point</strong> gives the <strong>probability density</strong> and not the probability at that point itself. We need to think about the probability that <u>x is close to a single number</u>. <u>If the probability density around a point x is large</u>, that means the <u>random variable X is likely to be close to x</u>. If, on the other hand, ρ(x)=0 in some interval, then X won&#39;t be <strong>in that interval</strong>. That is why for a continuous distribution, probability is calculated for a range and not a single discrete value and the probability that X takes a single discrete value is 0.</p>
+
+<p>PDF(X=x) = ρ(x) = \(\frac{1}{\sqrt{2\pi}\ \sigma}\ e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</p>
+
+<p>More details on <a href="https://mathinsight.org/probability_density_function_idea">mathinsight.org probability density function idea</a></p>
+
+<p>Conclusions:<br>
+1. As \(x\) moves away from \(\mu\), \(y\) decreases (i.e.) probability density reduces exponentially<br>
+2. Symmetric in both sides of the curve</p>
+
+<h3 id="toc_10">CDF</h3>
+
+<p><img src="./3%20Probability%20and%20Statistics/2%20Screen%20Shot%202021-05-23%20at%201.06.23%20PM.png" alt=""></p>
+
+<p>CDF of a random variable tells the probability itself. Consider the blue S-shaped line,<br>
+let&#39;s say x = 0.4, then CDF is 0.8 (i.e) probability that random value X takes value below 0.4 is 80%. Written as \(P(X&lt;=0.4) = 0.8\). However, \(P(X=0.4) = 0\)</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/3%20Screen%20Shot%202021-05-23%20at%201.15.10%20PM.png" alt=""></p>
+
+<p><strong>68-95-99.7 Rule</strong><br>
+If X is a random cont. variable (of student&#39;s height) following Gaussion/Normal distribution with \(\mu\) as 150 cm of height and \(\sigma^2\) as 625 (ie) \(\sigma\) is 25, then in the range of 125 to 175 cm, I can find 68% of students with the height range. Also for the range 100 to 200, there are 95% of students.</p>
+
+<p><strong>To check if a distribution is Gaussian or not,</strong><br>
+Change values to \(\frac{x_i-\mu}{\sigma}\). If this is roughly equals to N(0,1), then it is a gaussian distribution.</p>
+
+<h2 id="toc_11">Symmetric Distribution, Skewness and Kurtosis</h2>
+
+<p>Help us understand the shape of PDF.</p>
+
+<p><strong>Symmetric Distribution :</strong> like Gaussian Distribution. symmetric on both sides of the mean.</p>
+
+<p><strong>Skewness :</strong><br>
+<img src="./3%20Probability%20and%20Statistics/4%20skew.png" alt=""></p>
+
+<p><u>Right / Positive skew :</u> long tail on the right side. The right side of the symmetric distribution is being skewed<br>
+<u>Left / Negative skew :</u> long tail on the left side. The left side of the symmetric distribution is being skewed</p>
+
+<p>Skewness estimator :<br>
+<img src="./3%20Probability%20and%20Statistics/5%20Screen%20Shot%202021-05-23%20at%201.40.12%20PM.png" alt=""></p>
+
+<p>Why this formula is useful? How (right/left) tailed in which direction.</p>
+
+<p><strong>Kurtosis :</strong></p>
+
+<p>Measure of <strong>tailedness</strong> of PDF.</p>
+
+<p>The kurtosis of any <u>univariate normal distribution is 3</u>. It is common to compare the kurtosis of a distribution to this value. We can find how different the shape of the distribution from the Gaussian distribution Distributions with kurtosis <strong>less than 3 are said to be platykurtic</strong>, although this does not imply the distribution is <q>flat-topped</q> as is sometimes stated. Rather, it means the distribution produces <strong>fewer and less extreme outliers than does the normal distribution</strong>. An example of a platykurtic distribution is the uniform distribution, which does not produce outliers. Distributions with <strong>kurtosis greater than 3 are said to be leptokurtic</strong>. An example of a leptokurtic distribution is the <u>Laplace distribution</u>, which has tails that asymptotically approach zero more slowly than a Gaussian, and therefore produces <strong>more outliers than the normal distribution</strong>. It is also common practice to use an adjusted version of Pearson&#39;s kurtosis, <strong><em>the excess kurtosis, which is the kurtosis minus 3</em></strong>, to provide the comparison to the standard normal distribution.</p>
+
+<div><pre class="line-numbers"><code class="language-none">Excess Kurtosis = Kurtosis-3</code></pre></div>
+
+<p><img src="./3%20Probability%20and%20Statistics/6%20Screen%20Shot%202021-05-23%20at%201.44.17%20PM.png" alt=""></p>
+
+<p><img src="./3%20Probability%20and%20Statistics/7%201920px-Standard_symmetric_pdfs.png" alt=""></p>
+
+<p>N=0 (which is Excess Kurtosis value. This refers to normal distribution)</p>
+
+<p>So it tells me the <strong>problem of outliers</strong> in the data.</p>
+
+<h2 id="toc_12">Standard normal variate (Z) and Standardization</h2>
+
+<p>Z ~ N(0,1) with mean 0 and variance 1</p>
+
+<p>Suppose, we have X ~ N(\(\mu\), \(\sigma^2\)), we can convert it to the standard normal variate using the below formula<br>
+\(X&#39; = \frac{X-\mu}{\sigma}\)</p>
+
+<p>Now, \(X&#39;\) will have mean <code>0</code> and variance <code>1</code>. This process is called <strong>standardization</strong> of the data. This can be interpreted by <strong><em>68, 95, 99 percent rule</em></strong>.</p>
+
+<h2 id="toc_13">Kernel Density Estimation</h2>
+
+<p>We know that from histogram bars, we can find the PDF using smoothing. It&#39;ll be done by <strong>kernel density estimate (kde)</strong>. At each data point, a kernel is built. A kernel is a gaussian distribution withe that <u>data point as mean</u> and <u>bandwidth as variance</u>. The bandwidth will be chosen optimally by the <code>sns</code> library till we get a decent smooth PDF. Then at each point of the plot, we add the kernel&#39;s value and use the final value as curve&#39;s value.</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%202.46.20%20PM.png" alt=""></p>
+
+<h2 id="toc_14">Sampling Distribution &amp; Central Limit Theorem (CLT)</h2>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%202.57.58%20PM.png" alt=""></p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%203.00.09%20PM.png" alt=""></p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%203.05.26%20PM.png" alt=""></p>
+
+<p>As \(n\) reaches infinity, mean of sample distribution of sample means will be same as \(\mu\). But in real life, it&#39;ll happen as soon as n &gt;= 30.</p>
+
+<p>\(\bar{x}\) ~ \(N(\mu,\ \frac{\sigma}{\sqrt{n}})\)</p>
+
+<p><strong><u>IMPORTANCE</u></strong>:<br>
+The Central Limit Theorem is important for statistics because it allows us to safely assume that the sampling distribution of the mean will be normal in most cases. This means that we can take advantage of statistical techniques that assume a normal distribution, to take <u>confidence intervals</u>, <u>t-test</u>, <u>ANOVA</u>.</p>
+
+<p>Refer <a href="https://statisticsbyjim.com/basics/central-limit-theorem/">https://statisticsbyjim.com/basics/central-limit-theorem/</a> and <a href="https://www.youtube.com/watch?v=YAlJCEDH2uY">https://www.youtube.com/watch?v=YAlJCEDH2uY</a></p>
+
+<h2 id="toc_15">Student&#39;s t-distribution</h2>
+
+<p>In probability and statistics, Student&#39;s t-distribution (or simply the t-distribution) is any member of a family of continuous probability distributions that arise when estimating the <strong>mean</strong> of a normally-distributed population in situations where the <strong>sample size is small</strong> and the <strong>population&#39;s standard deviation is unknown</strong>. Mainly to find the <strong>CI</strong></p>
+
+<p>Parameter : \(v\) - degrees of freedom.<br>
+<img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%203.06.26%20PM.png" alt=""></p>
+
+<p>Let&#39;s say we have a sample with size n=11, sample mean 10, and sample variance 2 (\(S_n\)). For 90% confidence with 10 degrees of freedom, the one-sided t-value from the table is 1.372. Then with confidence interval calculated from</p>
+
+<p>[\(\bar{X} - t_{\alpha v}\frac{S_n}{\sqrt{n}}\), \(\bar{X} + t_{\alpha v}\frac{S_n}{\sqrt{n}}\)]</p>
+
+<p>we determine that with 90% confidence we have a true mean lying below \(10.585\)<br>
+And with 90% confidence we have a true mean lying above \(9.414\)</p>
+
+<p>So that at 80% confidence (calculated from 100% − 2 × (1 − 90%) = <strong>80%</strong>), we have a true mean lying within the interval \((9.414, 10.585)\)</p>
+
+<h2 id="toc_16">Q-Q Plot</h2>
+
+<p>Quantile-Quantile Plot (Graphical)</p>
+
+<p>X : [\(x_1\), \(x_2\), \(x_3\) ... \(x_{500}\)]</p>
+
+<p>Is <code>X</code> gaussian distributed?<br>
+- We can use QQ-Plot (we can also use this to find if 2 distributions are similar)<br>
+- We can use statistical techniques (KS, AD)</p>
+
+<p>QQPlot<br>
+1. Sort X and compute percentiles. It&#39;ll be stored in [\(x^{(1)}\), \(x^{(2)}\), .. \(x^{(100)}\)]<br>
+2. Y ~ N(0,1) . Compute 1000 items and save [\(y_1\), \(y_2\), \(y_3\), ... \(y_{1000}\)]. Sort them and compute percentile. Store them as [\(y^{(1)}\), \(y^{(2)}\), .. \(y^{(100)}\)]<br>
+3. Plot Q-Q using those 2 corresponding 100 points, with Y points in x-axis (label is &#39;<strong>Theoretical Quantiles</strong>&#39;) and X point in y-axis (label is &#39;<strong>Ordered Values</strong>&#39;). Sample co-ordinate will look like (\(y^{(3)}\), \(x^{(3)}\))<br>
+4. If the points (\(y^{(i)}\), \(x^{(i)}\)) (for all <strong>i</strong>&#39;s) form a straight line, then both are in similar distribution</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%204.08.30%20PM.png" alt=""></p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%204.08.41%20PM.png" alt=""></p>
+
+<p>It won&#39;t work or we can&#39;t interpret for smaller \(X\).</p>
+
+<h2 id="toc_17">How to use these distributions?</h2>
+
+<p>All (probability &amp; distributions) are used for EDA (anwering questions about data).</p>
+
+<p><strong><em>Question : Company XYZ has to order t-shirts (of size S,M,L,XL) for all of it 100k employees. How many XL t-shirts to order?</em></strong></p>
+
+<p>We don&#39;t want to order too few or too many. Asking all the employees will cost too much. We have a domain knowledge where height&gt;180, people tend to wear XL t-shirts. And between 160 &amp; 180, people tend to wear L t-shirts.</p>
+
+<p>We&#39;ll collect heights of 500 random employees. Estimate mean and std of the sample.</p>
+
+<p>Say if a doctor says that the heights will usually be normally distributed and we know mean and std, we can use the pdf and cdf. Then we&#39;ll know how many XL t-shirts to order.</p>
+
+<h2 id="toc_18">Chebyshev’s inequality</h2>
+
+<p>For people&#39;s salary, if I know mean \(\mu\) of 40k &amp; std \(\sigma\) of 10k, but I don&#39;t know the distribution, what % of individuals have a salary in the range of 20k and 60k dollars?</p>
+
+<p>If the distribution is gaussian, we can answer easily. But here we can use <strong>Chebyshev&#39;s inequality</strong></p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%204.48.33%20PM.png" alt=""><br>
+<img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%204.49.10%20PM.png" alt=""></p>
+
+<p>So, P(20k &lt; x &lt; 60k) &gt; (\(1-\frac{1}{k^2}\) = \(1-\frac{1}{4}\) = \(0.75\))</p>
+
+<p>Greater than 75% of people lie in 20k to 60k range, but not sure, it depends on what kind of distribution of the people&#39;s salary.</p>
+
+<h2 id="toc_19">Discrete and Continuous Uniform distributions</h2>
+
+<h3 id="toc_20">Discrete uniform distributions</h3>
+
+<p>Throwing a dice is example for Discrete random variable.<br>
+Probability of getting a value in a fair dice is (1/6).</p>
+
+<p><u>It has 2 Parameters :</u> <code>a</code> - min value, <code>b</code> - max value<br>
+<code>n</code> -&gt; <code>b-a+1</code></p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.02.29%20PM.png" alt=""></p>
+
+<h3 id="toc_21">Continous uniform distributions</h3>
+
+<p><u>It has 2 Parameters :</u> <code>a</code> - min value, <code>b</code> - max value</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.03.40%20PM.png" alt=""><br>
+<img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.04.43%20PM.png" alt=""><br>
+<img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.05.02%20PM.png" alt=""></p>
+
+<h2 id="toc_22">Bernoulli Distribution</h2>
+
+<p>Coin Toss. P(Head)=1/2 P(Tail)=1/2<br>
+Distribution with only k=2 possibilities with one probability <code>p</code> and another one with <code>q = 1-p</code>. So \(p+q\ =\ 1\)</p>
+
+<p><u>It has 1 Parameter :</u> <code>p</code></p>
+
+<p>Suppose we have biased coin, p=0.9. So q = 0.1 ==&gt; \(0&lt;p&lt;1\)</p>
+
+<p>So, \(k\ \epsilon\ \{0,1\} \)</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.10.14%20PM.png" alt=""></p>
+
+<h2 id="toc_23">Binomial Distribution</h2>
+
+<p>Fair coin toss : X ~ Bernoulli(p=0.5)</p>
+
+<p>Suppose we toss the coin 10 times (n)</p>
+
+<p>Then <strong>Y</strong> = number of times I get a head when I toss my fair coin &#39;n&#39; times.<br>
+<code>Y ~ Binomial(n,p)</code></p>
+
+<p><u>It has 2 Parameters:</u> <code>n</code>, <code>p</code> \(\epsilon\) [0,1]</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.16.51%20PM.png" alt=""></p>
+
+<h2 id="toc_24">Log Normal Distribution</h2>
+
+<p>X ~ ln(\(\mu\), \(\sigma\))</p>
+
+<p>ln -&gt; natural logarithm (log to the base \(e\))</p>
+
+<p>if log(X) is normally distributed.</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.24.17%20PM.png" alt=""></p>
+
+<p>We find lot of log normal distribution in human behaviour and economics. So we can convert the data to Gaussian distribution by taking logs and then apply the concepts we know for the gaussian distribution.</p>
+
+<p>Is given distribution a log-normal?<br>
+1. Take \(ln\) (i.e) \(log_e{x_i}\)<br>
+2. Check the new distributing using QQ Plot</p>
+
+<h2 id="toc_25">Power Law Distribution &amp; Pareto Distribution</h2>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.40.26%20PM.png" alt=""></p>
+
+<p>It is a Power Law distribution. Originally applied to describing the distribution of wealth in a society, fitting the trend that a large portion of wealth is held by a small fraction of the population.</p>
+
+<h3 id="toc_26">Pareto distribution (represented as Pr)</h3>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%204.11.27%20PM.png" alt=""></p>
+
+<p>Parameters : \(x_m\) - scale and \(\alpha\) - shape</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%204.12.20%20PM.png" alt=""></p>
+
+<p>As \(\alpha\) decreases, the tail length increases.</p>
+
+<p>We can use log-log plot to find if a distribution is power law or not. Take log in both X and Y axis and plot the points.</p>
+
+<h2 id="toc_27">Power Transform (Box-Cox Transform)</h2>
+
+<p>If \(X\) ~ \(ln(\mu,\sigma)\), then we can take \(ln\) to make it \(Y\) ~ \(N(\mu^{&#39;}, \sigma^{&#39;})\)</p>
+
+<p>If \(X\) ~ \(Pr(x_m, \alpha)\), then we can apply <strong>box-cox transform</strong> to convert it to Gaussian distribution \(Y\) .</p>
+
+<p>Steps :<br>
+1. call <code>box_cox(X)</code> functions, it returns \(\lambda\)<br>
+2. Generate \(y_i\) = \(\frac{x_i^{\lambda}-1}{\lambda}\) if \(\lambda\) != 0, otherwise \(ln(x_i)\)</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%204.56.37%20PM.png" alt=""></p>
+
+<p>Box-cox transform is not guaranteed to work on all Pareto or power-law distributed data. It works only on some of them and we need to perform the box-cox transform and observe the QQ-plot to be certain of it working well on our data.</p>
+
+<h2 id="toc_28">Application of non-Gaussian distributions</h2>
+
+<p>They include Normal, power law, binomial, bernoulli, log-normal distributions.</p>
+
+<p>Weibull distribution : <br>
+Probability of rainfall with &gt; 20 cms. Based on this, dam&#39;s height can be determined for better construction.</p>
+
+<p>Say that only once it occurred in 200 data points. We can&#39;t ignore it as it has 0.5%. So statistian build theoretical model with few data points. After trying many distributions, weibull fits well. Now we can get many properties of this distribution and take decisions.</p>
+
+<h2 id="toc_29">Measure relations between random variables</h2>
+
+<p>Let X - heights, Y - weights of corresponding students in a class</p>
+
+<p>Is there a relationship between X and Y ?<br>
+1. Covariance<br>
+2. Pearson correlation coefficient<br>
+3. Spearmen rank correlation coefficient</p>
+
+<h3 id="toc_30">Covariance (for linear relation)</h3>
+
+<p>cov(X,Y) = \(\frac{1}{n}\) \(\sum_{i-1}^n (x_i-\mu_x)*(y_i-\mu_y)\)<br>
+cov(X,X) = \(\frac{1}{n}\) \(\sum_{i-1}^n (x_i-\mu_x)*(x_i-\mu_x)\) = variance(X)</p>
+
+<p>cov(X,Y) = +ve if X increases, Y increases<br>
+cov(X,Y) = -ve if X increases, Y decreases</p>
+
+<p>If we changes from &#39;cm&#39; to &#39;ft&#39;, the covariance will change and it is not a desired one. </p>
+
+<h3 id="toc_31">Pearson correlation coefficient (pcc) (for linear relation)</h3>
+
+<p>Denoted by \(\rho\)</p>
+
+<p>\(\rho\) = \(\frac{cov(X,Y)}{\sigma_x * \sigma_y}\) (-1 &lt;= \(\rho\) &lt;= 1)</p>
+
+<p>if \(\rho\)=0, then it is not at all related.</p>
+
+<h3 id="toc_32">Spearman&#39;s rank correlation coefficient (for non-linear relation)</h3>
+
+<p>If X increases, Y increases but not linearly (but like \(x^2\)). Create rank of x and y, smallest one will be rank of 1.</p>
+
+<p>r = \(\rho(r_x, r_y)\)</p>
+
+<p>r = 1 =&gt; X increases, Y increases<br>
+r = -1 =&gt; X increases, Y decreases</p>
+
+<p>It returns good value, when we have some outliers. It is much robust</p>
+
+<h2 id="toc_33">Correlation vs causation</h2>
+
+<p>correlation doesn&#39;t imply causation. <br>
+Eg : <br>
+X - Per person chocolate consumption in a country<br>
+Y - No of nobel laureatues in a country</p>
+
+<p>Let&#39;s say X &amp; Y are linearly correlated. It doesn&#39;t mean they are related.</p>
+
+<h2 id="toc_34">Application of a correlation</h2>
+
+<ol>
+<li>Is salary related to sqft of the home? </li>
+<li>Is no of years of education related to the salary?</li>
+</ol>
+
+<h2 id="toc_35">Confidence Intervals</h2>
+
+<p>X = {\(x_1, x_2, ... x_{10} \)} random sample of heights of n=10 students. We <strong>don&#39;t know the distribution</strong> type of the population.<br>
+Estimate the population mean (\(\mu\)).</p>
+
+<p>As n increases, \(\mu\) will be same as \(\bar{x}\). </p>
+
+<p>Let&#39;s say X = {180, 162, 58, 172, 168, 150, 171, 183, 165, 176}</p>
+
+<p><strong>Point estimate :</strong> \(\mu\) = \(\bar{x}\) = 168.5 cm. Here we are saying that we think the populationn mean is 168.5 cm. </p>
+
+<p>(Or) We can say that we think the population mean \(\mu\ \epsilon\ [162.1, 174.9]\) with <strong>95% probability</strong>. This is the <strong>confidence interval</strong>.</p>
+
+<h2 id="toc_36">Computing CI given the underlying distribution</h2>
+
+<p>Let heights : X ~ N(\(\mu=168 cm,\ \sigma=5 cm\))</p>
+
+<p>Question : What is CI of heights?<br>
+[158, 188] with confidence C=95% probability (in 2sigma range)<br>
+&gt; 188 cm with 2.5% probability</p>
+
+<p>Question : Heights with C=90%?<br>
+Use logarithmic table to know left and right range.</p>
+
+<h2 id="toc_37">C.I for mean of a random variable</h2>
+
+<p>Let there be <strong>any distribution (F)</strong> for random variable X with population mean \(\mu\) and \(\sigma\)</p>
+
+<p>Sample with size, n = 10 ==&gt; {\(x_1, x_2, .. x_{10}\)}<br>
+\(S\) = {182, 160, 158, 172, 168, 150, 171, 183, 165, 176} =&gt; \(\bar{x}\ =\ 168.5 cm\)</p>
+
+<p>What is the 95% CI of \(\mu\) of X?</p>
+
+<p><strong><u>Case 1 :</u></strong> when we know \(\sigma\ =\ 5cm\). We can use <strong>central limit theorem</strong>. which says that </p>
+
+<p>\(\bar{x}\) ~ \(N(\mu,\ \frac{\sigma}{\sqrt{n}})\)</p>
+
+<p>new std = \(\frac{\sigma}{\sqrt{n}}\) = 1.5811.</p>
+
+<p>In 2\(\sigma\) range, [165.34, 171.66] people&#39;s height will be there with 95% probability.</p>
+
+<p><strong><u>Case 2 :</u></strong> when we don&#39;t know \(\sigma\). We can use <strong>t-distribution</strong>. </p>
+
+<p><code>X ~ t(n-1)</code> n - degrees of freedom</p>
+
+<p>Let <br>
+Population size, n = 1000<br>
+\(S_n\) = 111.61<br>
+t score with 90%, degrees of freedom 9 = \(1.383\) (from t-table)</p>
+
+<p>[\(\bar{X} - t_{\alpha v}\frac{S_n}{\sqrt{n}}\), \(\bar{X} + t_{\alpha v}\frac{S_n}{\sqrt{n}}\)]</p>
+
+<p>\(\bar{X}\) = 168.5<br>
+\(t_{\alpha v}\frac{S_n}{\sqrt{n}}\) = 4.88</p>
+
+<p>With confidence of 90%, we have true mean \(\mu\) lying above 168.5-4.88=163.62 and lies below 168.5+4.88168.5+4.88=173.38</p>
+
+<p>So, with 80% confidence, the true mean lies in the range of (163.62,173.38)</p>
+
+<h2 id="toc_38">CI for any statistics (except mean) of a random variable using empirical bootstrapping</h2>
+
+<p>For median, var, std-dev, n-th percentile<br>
+Using programming &amp; simulation based techniques. It uses computers to guess the confidence intervals. It is a non-parametric technique (i.e.) working without any assumptions.</p>
+
+<p>Let&#39;s see for median.</p>
+
+<p>X ~ F (some distribution)<br>
+Estimate 95% CI for median of X.</p>
+
+<p>Sample of size 10 (same as before). From this sample, generate <em>m</em> new samples (with repetition/replacement) using uniform distribution.<br>
+\(s_1\) : [\(x_1^1, x_2^1, ..... x_m^1 \)] such that m &lt;= n<br>
+\(s_2\) : [\(x_1^2, x_2^2, ..... x_m^2 \)] such that m &lt;= n<br>
+.<br>
+.<br>
+\(s_k\) : [\(x_1^k, x_2^k, ..... x_m^k \)] such that m &lt;= n</p>
+
+<p>They are bootstrap samples. Now compute <strong>medians</strong> of samples \(m_1\), \(m_2\), \(m_3\),  .... \(m_k\) </p>
+
+<p>Let k = 1000. Sort those medians into {\(m&#39;_1, m&#39;_2, m&#39;_3, ... m&#39;_{1000}\)). Calculate 95% CI for that. <br>
+Solution : [... \(m&#39;_{25} ... m&#39;_{275}\) ...]</p>
+
+<p>Same way go for other statistics parameters. </p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-28%20at%206.37.43%20PM.png" alt=""></p>
+
+<h2 id="toc_39">Hypothesis testing</h2>
+
+<p>Lets say that there are 2 classes <code>cl1</code> and <code>cl2</code> with heights of 50 students each. Question : <q>Is there any difference in the heights of students in both classes?</q> How can we quantify that?</p>
+
+<p>We can see histograms and observe the \(\mu\) and \(\sigma\). Then take decisions. But how much we can quantify? We can use hypothesis testing. It follows proof by contradiction.</p>
+
+<ol>
+<li>Choosing a <strong>test statistic</strong> (come up with 1 number which say students of cl1 is greater than cl2 i.e. comparing means \(\mu_1, \mu_2\)). Here it is \(x=\mu_2\ -\   \mu_1\)</li>
+<li>Define <strong>null hypothesis</strong> (\(H_0\)). There is no difference in heights \(\mu_1 \ and\ \mu_2\). Then define <strong>alternate hypothesis</strong> (\(H_1\)) (i.e.) diff in \(\mu_1\ and\ \mu_2\). </li>
+<li>Calculate <strong>p-value</strong>. It says &#39;what is the probability of observing \(x=\mu_2-\mu_1\) if null hypothesis \(H_0\) is true&#39; (i.e.) <strong>P(observation | hypothesis)</strong> . If p-value is high, <strong>accept \(H_0\)</strong>. If it&#39;s very low <strong>&lt; 5% (rule of thumb)</strong>, <strong>accept \(H_1\)</strong>.</li>
+</ol>
+
+<p>Let&#39;s say x=10 (i.e) \(\Delta\ =\ 10\), which is the ground truth . What is the probability of getting that truth value (based on test statistic) assuming that there is no difference between the heights of two classes (null hypothesis). If p-value is 0.9, it means that probability of observing the height difference of 10 cm is 0.9 if null hypothesis is true. As p-value is <strong>high</strong>, <strong>accept \(H_0\)</strong>. If p-value is 0.05 (small value), there is a 5% chance that test statistic x = 10 cm is true if \(H_0\) is true. If p-value is <strong>small</strong>, <strong>reject \(H_0\) and accept \(H_1\)</strong>.</p>
+
+<p><u>Be careful about:</u><br>
+1. Sample size<br>
+2. Observation of the experiment<br>
+3. Null hypothesis (where we can compute <strong>P(observation | hypothesis)</strong> is easy to compute and feasible)<br>
+4. Design of test statistic.</p>
+
+<div><pre class="line-numbers"><code class="language-none">Hypothesis testing is what is the probability of getting the ground truth (based on observation) value when null hypothesis occurs.</code></pre></div>
+
+<p><u><strong>Example using coin toss example</strong></u><br>
+Given a coin, determine if it is biased towards heads or not (means \(P(H)\) &gt; 0.5) .</p>
+
+<p><u>Soln using basic probability:</u><br>
+Design the expt : flip a coin &#39;5&#39; times.<br>
+Test Statistic, X = count the no. of heads.</p>
+
+<p>Perform the expt : flip the coin &#39;5&#39; times.<br>
+X = count the no. of heads based on observation and we get &#39;5&#39; heads</p>
+
+<p>Question now is P(X=5 | coin is not biased towards head) = <strong>P(observation | hypothesis)</strong><br>
+Here <strong>\(H_0\) is <q>coin is not biased towards head</q></strong>. </p>
+
+<p>P(X=5 | \(H_0\)) = \(\frac{1}{2^5}\) = 1/32 = 0.032<br>
+Probability of observing 5 times head in an unbiased coin is <strong>3.2%</strong><br>
+This is the p-value. It is very small and <strong>less than 5%</strong> and \(H_0\) may be <strong>incorrect</strong> (Observation is not incorrect). So I reject \(H_0\) and accept that <strong>coin is biased towards head</strong>.</p>
+
+<p>But, the result of the experiment may vary when the flip count varies from &#39;5&#39; to 3 or 10 or 100. This is called sample-size.</p>
+
+<p>Let&#39;s say a new expt where we flip 3 times and we get 3 heads.<br>
+P(X=3|\(H_0\)) = 12.5%</p>
+
+<p>Since p-value &gt; 5%, I am accepting the null hypothesis \(H_0\) which is <strong>coin is not biased</strong>.</p>
+
+<h3 id="toc_40">Resampling &amp; p-value (permutation testing)</h3>
+
+<p>Consider the height of students in the classroom example. Let&#39;s find the mean \(\mu_1\) annd \(\mu_2\). Their difference is \(\Delta\)</p>
+
+<p>Now, put them together in a group and sample them in to 2 random groups of X and Y, then find the delta \(\delta_1\).</p>
+
+<p>Repeat the same for 10k times and find \(\delta_2,\ \delta_3,\ ...\ \delta_{10k} \). Sort those deltas now.</p>
+
+<p>Where does the original \(\Delta\) fits now in that sorted \(\delta\)&#39;s ? If there are 5% of points greater then \(\Delta\), then p-value is 0.05 or 5%. If there are 95% points greater than \(\Delta\), it means that it is more likely to happen. So we accept the \(H_0\).</p>
+
+<p>Here null hypothesis \(H_0\) is that it is assumed both class&#39;s heights are similar, so their mean will be so close. We are checking how many values greater than \(\Delta\) because we assumed both the classes&#39;s height are same which means \(\delta_i\) are very small.</p>
+
+<p>p-value depends on what kind of test we are doing?</p>
+
+<h2 id="toc_41">K-S Test for similarity of two distributions</h2>
+
+<p>Kolmogorov-Smirnov test.</p>
+
+<p>Let&#39;s have 2 random variables \(X_1\) with n elements and \(X_2\) with m elements. The question is whether those follow the same type of distribution.</p>
+
+<p>Let&#39;s proceed by hypothesis testing<br>
+<u>Step 1 :</u> Let&#39;s define <strong>test statistic</strong> as <br>
+\(D_{n,m} = \sup_x{|F_{1,n}(x) - F_{2,m}(x)|}\)</p>
+
+<p>\(F_{1,n}(x)\), \(F_{2,m}(x)\) - CDF of 2 distributions. \(\sup\) is the maximum difference between 2 items. This \(D_{n,m}\) would be our observation.</p>
+
+<p><u>Step 2 :</u> <strong>Null hypothesis</strong> \(H_0\) as &#39;there is no difference among the 2 distributions&#39; meaning \(D_{n,m} = 0\)</p>
+
+<p>By KS-Test, \(H_0\) is rejected at level \(\alpha\) (like p-value) if<br>
+\(D_{n,m}\ &gt;\ c(\alpha)\sqrt{\frac{n+m}{nm}}\) <br>
+where \(c(\alpha)\ =\ \sqrt{-\frac{1}{2}ln(\frac{\alpha}{2})}\)</p>
+
+<p>Let n=1000, m=5000 and \(\alpha\)=0.05, \(D_{n,m}\) &gt; 0.047 is false. So accept \(H_0\).</p>
+
+<p><strong><u>p-value interpretation :</u></strong> The p-value returned by the k-s test has the same interpretation as other p-values. <strong>You reject the null hypothesis that the two samples were drawn from the same distribution if the p-value is less than your significance level</strong>. You can find tables online for the conversion of the D statistic into a p-value if you are interested in the procedure.</p>
+
+<p>Using the python code</p>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-29%20at%202.01.38%20PM.png" alt=""></p>
+
+<h3 id="toc_42">My try on Nifty pattern comparison</h3>
+
+<div><pre class="line-numbers"><code class="language-none">#Thinking the stock market graph as PDF and comparing it with another
+percentages = np.array([-6.13,0.82,6.64,0.55,-3.63,4.45,1.04,0.65,11.62,-0.20,-2.58,4.64,-10.25,-3.14,9.38,-1.44,-3.29,1.57,-2.93,-8.77,-1.15,7.76,-9.28,-4.30,12.43,3.58,-1.66,-0.90,-6.17,7.20,-0.95,0.56,8.46,-1.47,4.63,0.43,2.20,-5.66,-0.18,4.36,0.94,-2.40,-1.72,-4.71,4.82,9.83,-1.95,2.07,-3.40,3.08,6.81,-0.12,7.97,5.28,1.44,3.02,0.13,4.49,3.20,-3.56,6.35,1.06,-4.62,-3.65,3.08,-0.77,1.96,-6.58,-0.28,1.47,-1.62,0.14,-4.82,-7.62,10.75,1.44,3.95,1.56,4.23,1.71,-1.99,0.17,-4.65,-0.47,4.59,3.72,3.31,1.42,3.41,-1.04,5.84,-1.58,-1.30,5.59,-1.05,2.97,4.72,-4.85,-3.61,6.19,-0.03,-0.20,5.99,2.85,-6.42,-4.98,4.72,-0.13,-0.29,-0.36,7.70,1.07,1.49,-1.12,-5.69,-0.85,4.09,3.51,1.50,0.93,-1.70,-6.36,-23.25,14.68,-2.84,7.53,7.49,2.84,1.22,3.51,11.39,7.81,-2.48,6.56,1.11,-0.41])
+X = []
+prev = 100
+for i in range(len(percentages)):
+  pp = percentages[i]/100
+  if(i==0):
+    X.append(100)
+  val = prev*(1+(pp))
+  X.append(val)
+  prev = val
+
+X_norm = ((X - np.min(X))/(np.max(X) - np.min(X)))
+X_norm = X_norm/np.sum(X_norm)
+cdf_norm = np.cumsum(X_norm)
+plt.plot(range(len(X_norm)), X_norm)
+plt.xlabel(&#39;time&#39;)
+plt.ylabel(&#39;% move&#39;)
+plt.title(&quot;Nifty50 2010-2021 chart as PDF&quot;)
+plt.show()
+
+#print(stats.kstest(X, lambda X: cdf_norm))
+step = 5
+test = X_norm[20::step]
+
+d,p_val = stats.ks_2samp(X_norm, test)
+print(&quot;P-value : &quot;, p_val)
+
+plt.plot(range(len(test)), test)
+plt.xlabel(&#39;time&#39;)
+plt.ylabel(&#39;% move&#39;)
+plt.title(&quot;Using the data with step {} as PDF to compare&quot;.format(step))
+plt.show()</code></pre></div>
+
+<p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-29%20at%204.07.03%20PM.png" alt=""></p>
+
+<h3 id="toc_43">Another example for hypothesis testing</h3>
+
+<p>Given 2 cities c1 and c2, determine if the <strong>population mean</strong> \(\mu_1\) and \(\mu_2\)(not the sample mean) of heights of people in these two cities is same or not. </p>
+
+<p><u>Designing an Expt :</u> I&#39;ll randomnly pick 50 people in both cities, because we can&#39;t get the height of all people in both cities. Calculate sample means. Then we observed \(\mu_1\) as 162 cm and \(\mu_2\) as 167 cm.</p>
+
+<p><u>Test Statistic:</u>   x=\(\mu_2 - \mu_1\) = 5 cm</p>
+
+<p><u>Null Hypothesis</u> \(H_0\): No difference in the population means.</p>
+
+<p>Compute : P(x=5cm | \(H_0\)) (i.e) probability of observing a diff of 5 cm in sample means of heights of sample size 50 between c1 and c2 if there is no population diff in mean heights.</p>
+
+<p><u>Case 1 :</u> Let&#39;s say P(x=5 | \(H_0\)) = 0.2 . Accept \(H_0\) as p-val &gt; 5%.<br>
+<u>Case 2 :</u> Let&#39;s say P(x=5 | \(H_0\)) = 0.03 . Reject \(H_0\) as p-val &lt; 5%.</p>
+
+<p>Let&#39;s calculate p-value now.<br>
+Step 1 : Create a big set of 100 with all heights of both samples in \(S\).</p>
+
+<p>Step 2 : Resample now. Create new c1 with 50 randomnly picked height. Same for c2. Calculate diff in means \(\delta_1\). Repeat for 10k times. \(\delta_1\), \(\delta_2\), \(\delta_3\), .... \(\delta_{10k}\)</p>
+
+<p>Step 3 : Sort \(\delta\)&#39;s such that \(\delta&#39;_1\) &lt;= \(\delta&#39;_2\) &lt;= ... &lt;= \(\delta&#39;_{1ok}\) </p>
+
+<p>Let&#39;s say that there are 20% \(\delta\)&#39;s are greater than the observed difference (ie) P(X=5 | \(H_0\))=20%. Accept \(H_0\).</p>
+
+<p>If it&#39;s 3%, then reject \(H_0\). So there is a difference in the mean heights.</p>
+
+<h2 id="toc_44">How to use hypothesis testing?</h2>
+
+<p>KS Testing is an application of hypothesis testing.</p>
+
+<p>Consider a case where there are 2 drugs D1 and D2. D1 is already in market and it will reduce fever in 4 hours. D2 is new to market and it claims that it&#39;ll reduce the fever much significantly faster than D1.</p>
+
+<p>Expt : If the claim is true or not.</p>
+
+<p>2 patient groups with 50 members each and given D1 &amp; D2 correspondingly. We measured the time taken for fever to reduce in both groups. </p>
+
+<p>Compute the mean to come down: Let&#39;s say \(\mu_1\) = 4 hours for D1, \(\mu_2\) = 2 hours for D2. It seems that D2 works well. </p>
+
+<p>Test Statistics : x=\(\mu_1\) - \(\mu_2\) = 2<br>
+Null Hypothesis : There is no difference in drug performance.</p>
+
+<p>P(x &gt;= 2 | \(H_0\)) = 1% (ie) If there is no difference in D1 and D2, the probability of observing the difference in performance of the drugs (x &gt;= 2) is 1%. Reject \(H_0\)</p>
+
+<p>Choosing \(\alpha\) depends on the usecase.</p>
+
+<h2 id="toc_45">Proportional Sampling</h2>
+
+<p>Pick an element amongst n elements (\(d_1\), \(d_2\), .. \(d_n\)) such that the probability of picking that element is proportional to the element.</p>
+
+<p>X = {2,6,1.2,5.8,20} Probability of picking 20 should be larger as it&#39;s the largest value.</p>
+
+<p>Step 1a : Sum, S = \(\sum{d_i}\) = 35<br>
+Step 1b : Normalize the values usinng sum, \(d&#39;_i = \frac{d_i}{S}\)<br>
+So new array is [0.0571, 0.171428, .0343, 0.1657, 0.5714]. They all lie between 0 to 1 and sum to 1.<br>
+Step 1c : Compute the cumulative normalied sum. \(\tilde{d_i}\) \([0.0571, 0.2285, 0.262828,  0.428528, 1]\)</p>
+
+<p>Step 2 : <br>
+r = np.random.uniform(0,1,1)<br>
+let r = 0.6</p>
+
+<p>Step 3:<br>
+proportional sampling</p>
+
+<div><pre class="line-numbers"><code class="language-none">if r &lt;= d_i :
+    return i</code></pre></div>
+
+<h2 id="toc_46">Interview questions</h2>
+
+<ul>
+<li>What is a random variable?</li>
+<li>What are the conditions for a function to be a probability mass function?(<a href="http://www.statisticshowto.com/probability-mass-function-pmf/">http://www.statisticshowto.com/probability-mass-function-pmf/</a>)</li>
+<li>What are the conditions for a function to be a probability density function ?(Covered in our videos)</li>
+<li>What is conditional probability? </li>
+<li>State the Chain rule of conditional probabilities?(<a href="https://en.wikipedia.org/wiki/Chain_rule_(probability)">https://en.wikipedia.org/wiki/Chain_rule_(probability)</a>)</li>
+<li>What are the conditions for independence and conditional independence of two random variables?(<a href="https://math.stackexchange.com/questions/22407/independence-and-conditional-independence-between-random-variables">https://math.stackexchange.com/questions/22407/independence-and-conditional-independence-between-random-variables</a>)</li>
+<li>What are expectation, variance and covariance?(Covered in our videos)</li>
+<li>Compare covariance and independence?(<a href="https://stats.stackexchange.com/questions/12842/covariance-and-independence">https://stats.stackexchange.com/questions/12842/covariance-and-independence</a>)</li>
+<li>What is the covariance for a vector of random variables?(<a href="https://math.stackexchange.com/questions/2697376/find-the-covariance-matrix-of-a-vector-of-random-variables">https://math.stackexchange.com/questions/2697376/find-the-covariance-matrix-of-a-vector-of-random-variables</a>)</li>
+<li>What is a Bernoulli distribution? </li>
+<li>What is a normal distribution?</li>
+<li>What is the central limit theorem?</li>
+<li>Write the formula for Bayes rule?</li>
+<li>If two random variables are related in a deterministic way, how are the PDFs related?</li>
+<li>What is Kullback-Leibler (KL) divergence?</li>
+<li>Can KL divergence be used as a distance measure?</li>
+<li>What is Bayes’ Theorem? How is it useful in a machine learning context?</li>
+<li>Why is “Naive” Bayes naive?</li>
+<li>What’s a Fourier transform?</li>
+<li>What is the difference between covariance and correlation?</li>
+<li>Is it possible capture the correlation between continuous and categorical variable? If yes, how?</li>
+<li>What is the Box-Cox transformation used for?</li>
+<li>What does P-value signify about the statistical data?</li>
+<li>A test has a true positive rate of 100% and false positive rate of 5%. There is a population with a 1/1000 rate of having the condition the test identifies. Considering a positive test, what is the probability of having that condition?</li>
+<li>How you can make data normal using Box-Cox transformation?</li>
+<li>Explain about the box cox transformation in regression models.</li>
+<li>What is the difference between skewed and uniform distribution?</li>
+<li>What do you understand by Hypothesis in the content of Machine Learning?</li>
+<li>How will you find the correlation between a categorical variable and a continuous variable ?</li>
+<li>How to sample from a Normal Distribution with known mean and variance?</li>
+</ul>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
