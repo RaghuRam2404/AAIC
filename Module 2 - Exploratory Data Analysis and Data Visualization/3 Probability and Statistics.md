@@ -45,6 +45,20 @@ $\bar{x} = \frac{\sum_{i=1}^{n}height_i}{n} \ \ with\ n = 1000$
 
 Note : As $n$ increases, $\bar{x}$ equals the population mean $\mu$.
 
+## Distributions for types of rv
+
+Continous RV
+1. Normal 
+2. Gaussian
+3. Power law
+4. log normal
+5. pareto
+6. student's t
+
+Discrete RV
+1. Bernoulli
+2. Binomial
+
 ## Gaussian/Normal Distribution and it's PDF & CDF
 
 _It has 2 parameters :_ $\mu$ (mean) and $\sigma$ (stanndard deviation)
@@ -104,6 +118,14 @@ _Left / Negative skew :_ long tail on the left side. The left side of the symmet
 
 Skewness estimator :
 ![](./3 Probability and Statistics/5 Screen Shot 2021-05-23 at 1.40.12 PM.png)
+
+```
+def skewness(data):
+  mu = data.mean()
+  m3 = sum((data - mu)**3)/len(data)
+  s3 = (sum((data - mu)**2)/(len(data)-1))**(3/2)
+  return m3/s3
+```
 
 Why this formula is useful? How (right/left) tailed in which direction.
 
@@ -293,6 +315,11 @@ Is given distribution a log-normal?
 
 It is a Power Law distribution. Originally applied to describing the distribution of wealth in a society, fitting the trend that a large portion of wealth is held by a small fraction of the population.
 
+Find alpha using
+$\alpha$ = 1 + $\frac{n}{\sum_{i=1}^n (ln(x_i)/(x_{min} - 1/2)) }$
+
+Ref : [https://math.stackexchange.com/questions/410894/power-law-probability-distribution-from-observations](https://math.stackexchange.com/questions/410894/power-law-probability-distribution-from-observations)
+
 ### Pareto distribution (represented as Pr)
 
 ![](./3 Probability and Statistics/Screen Shot 2021-05-24 at 4.11.27 PM.png)
@@ -305,6 +332,9 @@ As $\alpha$ decreases, the tail length increases.
 
 We can use log-log plot to find if a distribution is power law or not. Take log in both X and Y axis and plot the points.
 
+For 80:20 (4:1) rule, $\alpha = \frac{log(4+1)}{log(4)}$
+
+Ref : [https://stats.stackexchange.com/questions/88394/how-to-derive-the-alpha-for-the-pareto-rule](https://stats.stackexchange.com/questions/88394/how-to-derive-the-alpha-for-the-pareto-rule) , [https://en.wikipedia.org/wiki/Pareto_index](https://en.wikipedia.org/wiki/Pareto_index)
 
 ## Power Transform (Box-Cox Transform)
 
@@ -329,6 +359,44 @@ Probability of rainfall with > 20 cms. Based on this, dam's height can be determ
 
 Say that only once it occurred in 200 data points. We can't ignore it as it has 0.5%. So statistian build theoretical model with few data points. After trying many distributions, weibull fits well. Now we can get many properties of this distribution and take decisions.
 
+## Check type of distribution
+
+```
+def do_kstest(data, tp, s_or_d):
+  """
+  Do the ks test and compare by the p-value
+  """
+  distributions = ["norm", "uniform", "lognorm", "pareto", "powerlaw", "t"]
+  p_val = []
+  print("Various distributions for {} people with attribute {}".format(s_or_d, tp))
+  for distname in distributions:
+    dist = getattr(stats, distname)
+    cparam = dist.fit(data)
+    D, pval = stats.kstest(data, distname, args=cparam)
+    p_val.append(pval)
+    print("Result for {} distribution with D:{} and p-value:{}".format(distname, D, pval))
+
+  maxp = np.max(p_val)
+  if(maxp*100 > 1):
+    dist_max = distributions[np.argmax(p_val)]
+    print("\ndistribution \"{}\" has max probability with p-val:{}\n".format(dist_max, maxp))
+  else:
+    print("\nNo distribution matches\n")
+
+```
+
+```
+Various distributions for survived people with attribute age
+Result for norm distribution with D:0.06076349805176273 and p-value:0.36472928333432364
+Result for uniform distribution with D:0.13531914893617025 and p-value:0.000469777188595703
+Result for lognorm distribution with D:0.05869191547850938 and p-value:0.40828477762857013
+Result for pareto distribution with D:0.27367743658243215 and p-value:2.204918993854509e-15
+Result for powerlaw distribution with D:0.1392923528083332 and p-value:0.0002856855788064733
+Result for t distribution with D:0.0607640890896291 and p-value:0.3647173427726764
+
+distribution "lognorm" has max probability with p-val:0.40828477762857013
+```
+
 ## Measure relations between random variables
 
 Let X - heights, Y - weights of corresponding students in a class
@@ -339,8 +407,8 @@ Is there a relationship between X and Y ?
 3. Spearmen rank correlation coefficient
 
 ### Covariance (for linear relation)
-cov(X,Y) = $\frac{1}{n}$ $\sum_{i-1}^n (x_i-\mu_x)*(y_i-\mu_y)$
-cov(X,X) = $\frac{1}{n}$ $\sum_{i-1}^n (x_i-\mu_x)*(x_i-\mu_x)$ = variance(X)
+cov(X,Y) = $\frac{1}{n-1}$ $\sum_{i=1}^n (x_i-\mu_x)*(y_i-\mu_y)$
+cov(X,X) = $\frac{1}{n-1}$ $\sum_{i=1}^n (x_i-\mu_x)*(x_i-\mu_x)$ = variance(X)
 
 cov(X,Y) = +ve if X increases, Y increases
 cov(X,Y) = -ve if X increases, Y decreases
@@ -349,11 +417,14 @@ If we changes from 'cm' to 'ft', the covariance will change and it is not a desi
 
 ### Pearson correlation coefficient (pcc) (for linear relation)
 
-Denoted by $\rho$
+Denoted by $\rho$ for the population.
 
 $\rho$ = $\frac{cov(X,Y)}{\sigma_x * \sigma_y}$ (-1 <= $\rho$ <= 1)
 
 if $\rho$=0, then it is not at all related.
+
+For a sample, it is calculated as 
+$r_{x,y} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\ \sqrt{\sum_{i=1}^n (y_i-\bar{y})^2} }$
 
 ### Spearman's rank correlation coefficient (for non-linear relation)
 
@@ -365,6 +436,27 @@ r = 1 => X increases, Y increases
 r = -1 => X increases, Y decreases
 
 It returns good value, when we have some outliers. It is much robust
+
+```
+def cov(X, Y):
+  mu_x = np.mean(X)
+  mu_y = np.mean(Y)
+  return sum((X-mu_x)*(Y-mu_y))/(len(X)-1)
+
+print("Comparison of age and node for survived people : ")
+a = hm_survived['age'] 
+b = hm_survived['node'] 
+print("Covariance value : ", cov(a, b))
+print("Pearsonn Correlation coeff : ", stats.pearsonr(a,b))
+print("Spearman rank correlation : ", stats.spearmanr(a,b))
+
+print("\nComparison of age and node for died people : ")
+a = hm_died['age'] 
+b = hm_died['node'] 
+print("Covariance value : ", cov(a, b))
+print("Pearsonn Correlation coeff : ", stats.pearsonr(a,b))
+print("Spearman rank correlation : ", stats.spearmanr(a,b))
+```
 
 ## Correlation vs causation
 
@@ -438,6 +530,16 @@ $t_{\alpha v}\frac{S_n}{\sqrt{n}}$ = 4.88
 With confidence of 90%, we have true mean $\mu$ lying above 168.5-4.88=163.62 and lies below 168.5+4.88168.5+4.88=173.38
 
 So, with 80% confidence, the true mean lies in the range of (163.62,173.38)
+
+### For log normal distribution
+
+```
+data = hm_survived['age']
+s, loc, scale = getattr(stats, 'lognorm').fit(data)
+stats.lognorm.interval(0.95, s, loc, scale)
+
+(31.182967567798357, 74.27683596077213)
+```
 
 
 ## CI for any statistics (except mean) of a random variable using empirical bootstrapping

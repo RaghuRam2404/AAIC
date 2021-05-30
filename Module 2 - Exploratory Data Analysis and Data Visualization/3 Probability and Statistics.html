@@ -566,7 +566,21 @@ Y = between 120 cm and 190 cm</p>
 
 <p>Note : As \(n\) increases, \(\bar{x}\) equals the population mean \(\mu\).</p>
 
-<h2 id="toc_8">Gaussian/Normal Distribution and it&#39;s PDF &amp; CDF</h2>
+<h2 id="toc_8">Distributions for types of rv</h2>
+
+<p>Continous RV<br>
+1. Normal <br>
+2. Gaussian<br>
+3. Power law<br>
+4. log normal<br>
+5. pareto<br>
+6. student&#39;s t</p>
+
+<p>Discrete RV<br>
+1. Bernoulli<br>
+2. Binomial</p>
+
+<h2 id="toc_9">Gaussian/Normal Distribution and it&#39;s PDF &amp; CDF</h2>
 
 <p><u>It has 2 parameters :</u> \(\mu\) (mean) and \(\sigma\) (stanndard deviation)</p>
 
@@ -584,7 +598,7 @@ X - has PDF looked like bell shaped curve. Then it is <strong>Gaussian/Normally 
 
 <p><img src="./3%20Probability%20and%20Statistics/1%20Screen%20Shot%202021-05-23%20at%2012.25.20%20PM.png" alt=""></p>
 
-<h3 id="toc_9">PDF</h3>
+<h3 id="toc_10">PDF</h3>
 
 <p>The <strong>PDF at a given point</strong> gives the <strong>probability density</strong> and not the probability at that point itself. We need to think about the probability that <u>x is close to a single number</u>. <u>If the probability density around a point x is large</u>, that means the <u>random variable X is likely to be close to x</u>. If, on the other hand, ρ(x)=0 in some interval, then X won&#39;t be <strong>in that interval</strong>. That is why for a continuous distribution, probability is calculated for a range and not a single discrete value and the probability that X takes a single discrete value is 0.</p>
 
@@ -596,7 +610,7 @@ X - has PDF looked like bell shaped curve. Then it is <strong>Gaussian/Normally 
 1. As \(x\) moves away from \(\mu\), \(y\) decreases (i.e.) probability density reduces exponentially<br>
 2. Symmetric in both sides of the curve</p>
 
-<h3 id="toc_10">CDF</h3>
+<h3 id="toc_11">CDF</h3>
 
 <p><img src="./3%20Probability%20and%20Statistics/2%20Screen%20Shot%202021-05-23%20at%201.06.23%20PM.png" alt=""></p>
 
@@ -611,7 +625,7 @@ If X is a random cont. variable (of student&#39;s height) following Gaussion/Nor
 <p><strong>To check if a distribution is Gaussian or not,</strong><br>
 Change values to \(\frac{x_i-\mu}{\sigma}\). If this is roughly equals to N(0,1), then it is a gaussian distribution.</p>
 
-<h2 id="toc_11">Symmetric Distribution, Skewness and Kurtosis</h2>
+<h2 id="toc_12">Symmetric Distribution, Skewness and Kurtosis</h2>
 
 <p>Help us understand the shape of PDF.</p>
 
@@ -625,6 +639,12 @@ Change values to \(\frac{x_i-\mu}{\sigma}\). If this is roughly equals to N(0,1)
 
 <p>Skewness estimator :<br>
 <img src="./3%20Probability%20and%20Statistics/5%20Screen%20Shot%202021-05-23%20at%201.40.12%20PM.png" alt=""></p>
+
+<div><pre class="line-numbers"><code class="language-none">def skewness(data):
+  mu = data.mean()
+  m3 = sum((data - mu)**3)/len(data)
+  s3 = (sum((data - mu)**2)/(len(data)-1))**(3/2)
+  return m3/s3</code></pre></div>
 
 <p>Why this formula is useful? How (right/left) tailed in which direction.</p>
 
@@ -644,7 +664,7 @@ Change values to \(\frac{x_i-\mu}{\sigma}\). If this is roughly equals to N(0,1)
 
 <p>So it tells me the <strong>problem of outliers</strong> in the data.</p>
 
-<h2 id="toc_12">Standard normal variate (Z) and Standardization</h2>
+<h2 id="toc_13">Standard normal variate (Z) and Standardization</h2>
 
 <p>Z ~ N(0,1) with mean 0 and variance 1</p>
 
@@ -653,13 +673,13 @@ Change values to \(\frac{x_i-\mu}{\sigma}\). If this is roughly equals to N(0,1)
 
 <p>Now, \(X&#39;\) will have mean <code>0</code> and variance <code>1</code>. This process is called <strong>standardization</strong> of the data. This can be interpreted by <strong><em>68, 95, 99 percent rule</em></strong>.</p>
 
-<h2 id="toc_13">Kernel Density Estimation</h2>
+<h2 id="toc_14">Kernel Density Estimation</h2>
 
 <p>We know that from histogram bars, we can find the PDF using smoothing. It&#39;ll be done by <strong>kernel density estimate (kde)</strong>. At each data point, a kernel is built. A kernel is a gaussian distribution withe that <u>data point as mean</u> and <u>bandwidth as variance</u>. The bandwidth will be chosen optimally by the <code>sns</code> library till we get a decent smooth PDF. Then at each point of the plot, we add the kernel&#39;s value and use the final value as curve&#39;s value.</p>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%202.46.20%20PM.png" alt=""></p>
 
-<h2 id="toc_14">Sampling Distribution &amp; Central Limit Theorem (CLT)</h2>
+<h2 id="toc_15">Sampling Distribution &amp; Central Limit Theorem (CLT)</h2>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%202.57.58%20PM.png" alt=""></p>
 
@@ -676,7 +696,7 @@ The Central Limit Theorem is important for statistics because it allows us to sa
 
 <p>Refer <a href="https://statisticsbyjim.com/basics/central-limit-theorem/">https://statisticsbyjim.com/basics/central-limit-theorem/</a> and <a href="https://www.youtube.com/watch?v=YAlJCEDH2uY">https://www.youtube.com/watch?v=YAlJCEDH2uY</a></p>
 
-<h2 id="toc_15">Student&#39;s t-distribution</h2>
+<h2 id="toc_16">Student&#39;s t-distribution</h2>
 
 <p>In probability and statistics, Student&#39;s t-distribution (or simply the t-distribution) is any member of a family of continuous probability distributions that arise when estimating the <strong>mean</strong> of a normally-distributed population in situations where the <strong>sample size is small</strong> and the <strong>population&#39;s standard deviation is unknown</strong>. Mainly to find the <strong>CI</strong></p>
 
@@ -692,7 +712,7 @@ And with 90% confidence we have a true mean lying above \(9.414\)</p>
 
 <p>So that at 80% confidence (calculated from 100% − 2 × (1 − 90%) = <strong>80%</strong>), we have a true mean lying within the interval \((9.414, 10.585)\)</p>
 
-<h2 id="toc_16">Q-Q Plot</h2>
+<h2 id="toc_17">Q-Q Plot</h2>
 
 <p>Quantile-Quantile Plot (Graphical)</p>
 
@@ -714,7 +734,7 @@ And with 90% confidence we have a true mean lying above \(9.414\)</p>
 
 <p>It won&#39;t work or we can&#39;t interpret for smaller \(X\).</p>
 
-<h2 id="toc_17">How to use these distributions?</h2>
+<h2 id="toc_18">How to use these distributions?</h2>
 
 <p>All (probability &amp; distributions) are used for EDA (anwering questions about data).</p>
 
@@ -726,7 +746,7 @@ And with 90% confidence we have a true mean lying above \(9.414\)</p>
 
 <p>Say if a doctor says that the heights will usually be normally distributed and we know mean and std, we can use the pdf and cdf. Then we&#39;ll know how many XL t-shirts to order.</p>
 
-<h2 id="toc_18">Chebyshev’s inequality</h2>
+<h2 id="toc_19">Chebyshev’s inequality</h2>
 
 <p>For people&#39;s salary, if I know mean \(\mu\) of 40k &amp; std \(\sigma\) of 10k, but I don&#39;t know the distribution, what % of individuals have a salary in the range of 20k and 60k dollars?</p>
 
@@ -739,9 +759,9 @@ And with 90% confidence we have a true mean lying above \(9.414\)</p>
 
 <p>Greater than 75% of people lie in 20k to 60k range, but not sure, it depends on what kind of distribution of the people&#39;s salary.</p>
 
-<h2 id="toc_19">Discrete and Continuous Uniform distributions</h2>
+<h2 id="toc_20">Discrete and Continuous Uniform distributions</h2>
 
-<h3 id="toc_20">Discrete uniform distributions</h3>
+<h3 id="toc_21">Discrete uniform distributions</h3>
 
 <p>Throwing a dice is example for Discrete random variable.<br>
 Probability of getting a value in a fair dice is (1/6).</p>
@@ -751,7 +771,7 @@ Probability of getting a value in a fair dice is (1/6).</p>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.02.29%20PM.png" alt=""></p>
 
-<h3 id="toc_21">Continous uniform distributions</h3>
+<h3 id="toc_22">Continous uniform distributions</h3>
 
 <p><u>It has 2 Parameters :</u> <code>a</code> - min value, <code>b</code> - max value</p>
 
@@ -759,7 +779,7 @@ Probability of getting a value in a fair dice is (1/6).</p>
 <img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.04.43%20PM.png" alt=""><br>
 <img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-23%20at%205.05.02%20PM.png" alt=""></p>
 
-<h2 id="toc_22">Bernoulli Distribution</h2>
+<h2 id="toc_23">Bernoulli Distribution</h2>
 
 <p>Coin Toss. P(Head)=1/2 P(Tail)=1/2<br>
 Distribution with only k=2 possibilities with one probability <code>p</code> and another one with <code>q = 1-p</code>. So \(p+q\ =\ 1\)</p>
@@ -772,7 +792,7 @@ Distribution with only k=2 possibilities with one probability <code>p</code> and
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.10.14%20PM.png" alt=""></p>
 
-<h2 id="toc_23">Binomial Distribution</h2>
+<h2 id="toc_24">Binomial Distribution</h2>
 
 <p>Fair coin toss : X ~ Bernoulli(p=0.5)</p>
 
@@ -785,7 +805,7 @@ Distribution with only k=2 possibilities with one probability <code>p</code> and
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.16.51%20PM.png" alt=""></p>
 
-<h2 id="toc_24">Log Normal Distribution</h2>
+<h2 id="toc_25">Log Normal Distribution</h2>
 
 <p>X ~ ln(\(\mu\), \(\sigma\))</p>
 
@@ -801,13 +821,18 @@ Distribution with only k=2 possibilities with one probability <code>p</code> and
 1. Take \(ln\) (i.e) \(log_e{x_i}\)<br>
 2. Check the new distributing using QQ Plot</p>
 
-<h2 id="toc_25">Power Law Distribution &amp; Pareto Distribution</h2>
+<h2 id="toc_26">Power Law Distribution &amp; Pareto Distribution</h2>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%203.40.26%20PM.png" alt=""></p>
 
 <p>It is a Power Law distribution. Originally applied to describing the distribution of wealth in a society, fitting the trend that a large portion of wealth is held by a small fraction of the population.</p>
 
-<h3 id="toc_26">Pareto distribution (represented as Pr)</h3>
+<p>Find alpha using<br>
+\(\alpha\) = 1 + \(\frac{n}{\sum_{i=1}^n (ln(x_i)/(x_{min} - 1/2)) }\)</p>
+
+<p>Ref : <a href="https://math.stackexchange.com/questions/410894/power-law-probability-distribution-from-observations">https://math.stackexchange.com/questions/410894/power-law-probability-distribution-from-observations</a></p>
+
+<h3 id="toc_27">Pareto distribution (represented as Pr)</h3>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-24%20at%204.11.27%20PM.png" alt=""></p>
 
@@ -819,7 +844,11 @@ Distribution with only k=2 possibilities with one probability <code>p</code> and
 
 <p>We can use log-log plot to find if a distribution is power law or not. Take log in both X and Y axis and plot the points.</p>
 
-<h2 id="toc_27">Power Transform (Box-Cox Transform)</h2>
+<p>For 80:20 (4:1) rule, \(\alpha = \frac{log(4+1)}{log(4)}\)</p>
+
+<p>Ref : <a href="https://stats.stackexchange.com/questions/88394/how-to-derive-the-alpha-for-the-pareto-rule">https://stats.stackexchange.com/questions/88394/how-to-derive-the-alpha-for-the-pareto-rule</a> , <a href="https://en.wikipedia.org/wiki/Pareto_index">https://en.wikipedia.org/wiki/Pareto_index</a></p>
+
+<h2 id="toc_28">Power Transform (Box-Cox Transform)</h2>
 
 <p>If \(X\) ~ \(ln(\mu,\sigma)\), then we can take \(ln\) to make it \(Y\) ~ \(N(\mu^{&#39;}, \sigma^{&#39;})\)</p>
 
@@ -833,7 +862,7 @@ Distribution with only k=2 possibilities with one probability <code>p</code> and
 
 <p>Box-cox transform is not guaranteed to work on all Pareto or power-law distributed data. It works only on some of them and we need to perform the box-cox transform and observe the QQ-plot to be certain of it working well on our data.</p>
 
-<h2 id="toc_28">Application of non-Gaussian distributions</h2>
+<h2 id="toc_29">Application of non-Gaussian distributions</h2>
 
 <p>They include Normal, power law, binomial, bernoulli, log-normal distributions.</p>
 
@@ -842,7 +871,41 @@ Probability of rainfall with &gt; 20 cms. Based on this, dam&#39;s height can be
 
 <p>Say that only once it occurred in 200 data points. We can&#39;t ignore it as it has 0.5%. So statistian build theoretical model with few data points. After trying many distributions, weibull fits well. Now we can get many properties of this distribution and take decisions.</p>
 
-<h2 id="toc_29">Measure relations between random variables</h2>
+<h2 id="toc_30">Check type of distribution</h2>
+
+<div><pre class="line-numbers"><code class="language-none">def do_kstest(data, tp, s_or_d):
+  &quot;&quot;&quot;
+  Do the ks test and compare by the p-value
+  &quot;&quot;&quot;
+  distributions = [&quot;norm&quot;, &quot;uniform&quot;, &quot;lognorm&quot;, &quot;pareto&quot;, &quot;powerlaw&quot;, &quot;t&quot;]
+  p_val = []
+  print(&quot;Various distributions for {} people with attribute {}&quot;.format(s_or_d, tp))
+  for distname in distributions:
+    dist = getattr(stats, distname)
+    cparam = dist.fit(data)
+    D, pval = stats.kstest(data, distname, args=cparam)
+    p_val.append(pval)
+    print(&quot;Result for {} distribution with D:{} and p-value:{}&quot;.format(distname, D, pval))
+
+  maxp = np.max(p_val)
+  if(maxp*100 &gt; 1):
+    dist_max = distributions[np.argmax(p_val)]
+    print(&quot;\ndistribution \&quot;{}\&quot; has max probability with p-val:{}\n&quot;.format(dist_max, maxp))
+  else:
+    print(&quot;\nNo distribution matches\n&quot;)
+</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-none">Various distributions for survived people with attribute age
+Result for norm distribution with D:0.06076349805176273 and p-value:0.36472928333432364
+Result for uniform distribution with D:0.13531914893617025 and p-value:0.000469777188595703
+Result for lognorm distribution with D:0.05869191547850938 and p-value:0.40828477762857013
+Result for pareto distribution with D:0.27367743658243215 and p-value:2.204918993854509e-15
+Result for powerlaw distribution with D:0.1392923528083332 and p-value:0.0002856855788064733
+Result for t distribution with D:0.0607640890896291 and p-value:0.3647173427726764
+
+distribution &quot;lognorm&quot; has max probability with p-val:0.40828477762857013</code></pre></div>
+
+<h2 id="toc_31">Measure relations between random variables</h2>
 
 <p>Let X - heights, Y - weights of corresponding students in a class</p>
 
@@ -851,25 +914,28 @@ Probability of rainfall with &gt; 20 cms. Based on this, dam&#39;s height can be
 2. Pearson correlation coefficient<br>
 3. Spearmen rank correlation coefficient</p>
 
-<h3 id="toc_30">Covariance (for linear relation)</h3>
+<h3 id="toc_32">Covariance (for linear relation)</h3>
 
-<p>cov(X,Y) = \(\frac{1}{n}\) \(\sum_{i-1}^n (x_i-\mu_x)*(y_i-\mu_y)\)<br>
-cov(X,X) = \(\frac{1}{n}\) \(\sum_{i-1}^n (x_i-\mu_x)*(x_i-\mu_x)\) = variance(X)</p>
+<p>cov(X,Y) = \(\frac{1}{n-1}\) \(\sum_{i=1}^n (x_i-\mu_x)*(y_i-\mu_y)\)<br>
+cov(X,X) = \(\frac{1}{n-1}\) \(\sum_{i=1}^n (x_i-\mu_x)*(x_i-\mu_x)\) = variance(X)</p>
 
 <p>cov(X,Y) = +ve if X increases, Y increases<br>
 cov(X,Y) = -ve if X increases, Y decreases</p>
 
 <p>If we changes from &#39;cm&#39; to &#39;ft&#39;, the covariance will change and it is not a desired one. </p>
 
-<h3 id="toc_31">Pearson correlation coefficient (pcc) (for linear relation)</h3>
+<h3 id="toc_33">Pearson correlation coefficient (pcc) (for linear relation)</h3>
 
-<p>Denoted by \(\rho\)</p>
+<p>Denoted by \(\rho\) for the population.</p>
 
 <p>\(\rho\) = \(\frac{cov(X,Y)}{\sigma_x * \sigma_y}\) (-1 &lt;= \(\rho\) &lt;= 1)</p>
 
 <p>if \(\rho\)=0, then it is not at all related.</p>
 
-<h3 id="toc_32">Spearman&#39;s rank correlation coefficient (for non-linear relation)</h3>
+<p>For a sample, it is calculated as <br>
+\(r_{x,y} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\ \sqrt{\sum_{i=1}^n (y_i-\bar{y})^2} }\)</p>
+
+<h3 id="toc_34">Spearman&#39;s rank correlation coefficient (for non-linear relation)</h3>
 
 <p>If X increases, Y increases but not linearly (but like \(x^2\)). Create rank of x and y, smallest one will be rank of 1.</p>
 
@@ -880,7 +946,26 @@ r = -1 =&gt; X increases, Y decreases</p>
 
 <p>It returns good value, when we have some outliers. It is much robust</p>
 
-<h2 id="toc_33">Correlation vs causation</h2>
+<div><pre class="line-numbers"><code class="language-none">def cov(X, Y):
+  mu_x = np.mean(X)
+  mu_y = np.mean(Y)
+  return sum((X-mu_x)*(Y-mu_y))/(len(X)-1)
+
+print(&quot;Comparison of age and node for survived people : &quot;)
+a = hm_survived[&#39;age&#39;] 
+b = hm_survived[&#39;node&#39;] 
+print(&quot;Covariance value : &quot;, cov(a, b))
+print(&quot;Pearsonn Correlation coeff : &quot;, stats.pearsonr(a,b))
+print(&quot;Spearman rank correlation : &quot;, stats.spearmanr(a,b))
+
+print(&quot;\nComparison of age and node for died people : &quot;)
+a = hm_died[&#39;age&#39;] 
+b = hm_died[&#39;node&#39;] 
+print(&quot;Covariance value : &quot;, cov(a, b))
+print(&quot;Pearsonn Correlation coeff : &quot;, stats.pearsonr(a,b))
+print(&quot;Spearman rank correlation : &quot;, stats.spearmanr(a,b))</code></pre></div>
+
+<h2 id="toc_35">Correlation vs causation</h2>
 
 <p>correlation doesn&#39;t imply causation. <br>
 Eg : <br>
@@ -889,14 +974,14 @@ Y - No of nobel laureatues in a country</p>
 
 <p>Let&#39;s say X &amp; Y are linearly correlated. It doesn&#39;t mean they are related.</p>
 
-<h2 id="toc_34">Application of a correlation</h2>
+<h2 id="toc_36">Application of a correlation</h2>
 
 <ol>
 <li>Is salary related to sqft of the home? </li>
 <li>Is no of years of education related to the salary?</li>
 </ol>
 
-<h2 id="toc_35">Confidence Intervals</h2>
+<h2 id="toc_37">Confidence Intervals</h2>
 
 <p>X = {\(x_1, x_2, ... x_{10} \)} random sample of heights of n=10 students. We <strong>don&#39;t know the distribution</strong> type of the population.<br>
 Estimate the population mean (\(\mu\)).</p>
@@ -909,7 +994,7 @@ Estimate the population mean (\(\mu\)).</p>
 
 <p>(Or) We can say that we think the population mean \(\mu\ \epsilon\ [162.1, 174.9]\) with <strong>95% probability</strong>. This is the <strong>confidence interval</strong>.</p>
 
-<h2 id="toc_36">Computing CI given the underlying distribution</h2>
+<h2 id="toc_38">Computing CI given the underlying distribution</h2>
 
 <p>Let heights : X ~ N(\(\mu=168 cm,\ \sigma=5 cm\))</p>
 
@@ -920,7 +1005,7 @@ Estimate the population mean (\(\mu\)).</p>
 <p>Question : Heights with C=90%?<br>
 Use logarithmic table to know left and right range.</p>
 
-<h2 id="toc_37">C.I for mean of a random variable</h2>
+<h2 id="toc_39">C.I for mean of a random variable</h2>
 
 <p>Let there be <strong>any distribution (F)</strong> for random variable X with population mean \(\mu\) and \(\sigma\)</p>
 
@@ -955,7 +1040,15 @@ t score with 90%, degrees of freedom 9 = \(1.383\) (from t-table)</p>
 
 <p>So, with 80% confidence, the true mean lies in the range of (163.62,173.38)</p>
 
-<h2 id="toc_38">CI for any statistics (except mean) of a random variable using empirical bootstrapping</h2>
+<h3 id="toc_40">For log normal distribution</h3>
+
+<div><pre class="line-numbers"><code class="language-none">data = hm_survived[&#39;age&#39;]
+s, loc, scale = getattr(stats, &#39;lognorm&#39;).fit(data)
+stats.lognorm.interval(0.95, s, loc, scale)
+
+(31.182967567798357, 74.27683596077213)</code></pre></div>
+
+<h2 id="toc_41">CI for any statistics (except mean) of a random variable using empirical bootstrapping</h2>
 
 <p>For median, var, std-dev, n-th percentile<br>
 Using programming &amp; simulation based techniques. It uses computers to guess the confidence intervals. It is a non-parametric technique (i.e.) working without any assumptions.</p>
@@ -981,7 +1074,7 @@ Solution : [... \(m&#39;_{25} ... m&#39;_{275}\) ...]</p>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-28%20at%206.37.43%20PM.png" alt=""></p>
 
-<h2 id="toc_39">Hypothesis testing</h2>
+<h2 id="toc_42">Hypothesis testing</h2>
 
 <p>Lets say that there are 2 classes <code>cl1</code> and <code>cl2</code> with heights of 50 students each. Question : <q>Is there any difference in the heights of students in both classes?</q> How can we quantify that?</p>
 
@@ -1027,7 +1120,7 @@ P(X=3|\(H_0\)) = 12.5%</p>
 
 <p>Since p-value &gt; 5%, I am accepting the null hypothesis \(H_0\) which is <strong>coin is not biased</strong>.</p>
 
-<h3 id="toc_40">Resampling &amp; p-value (permutation testing)</h3>
+<h3 id="toc_43">Resampling &amp; p-value (permutation testing)</h3>
 
 <p>Consider the height of students in the classroom example. Let&#39;s find the mean \(\mu_1\) annd \(\mu_2\). Their difference is \(\Delta\)</p>
 
@@ -1041,7 +1134,7 @@ P(X=3|\(H_0\)) = 12.5%</p>
 
 <p>p-value depends on what kind of test we are doing?</p>
 
-<h2 id="toc_41">K-S Test for similarity of two distributions</h2>
+<h2 id="toc_44">K-S Test for similarity of two distributions</h2>
 
 <p>Kolmogorov-Smirnov test.</p>
 
@@ -1067,7 +1160,7 @@ where \(c(\alpha)\ =\ \sqrt{-\frac{1}{2}ln(\frac{\alpha}{2})}\)</p>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-29%20at%202.01.38%20PM.png" alt=""></p>
 
-<h3 id="toc_42">My try on Nifty pattern comparison</h3>
+<h3 id="toc_45">My try on Nifty pattern comparison</h3>
 
 <div><pre class="line-numbers"><code class="language-none">#Thinking the stock market graph as PDF and comparing it with another
 percentages = np.array([-6.13,0.82,6.64,0.55,-3.63,4.45,1.04,0.65,11.62,-0.20,-2.58,4.64,-10.25,-3.14,9.38,-1.44,-3.29,1.57,-2.93,-8.77,-1.15,7.76,-9.28,-4.30,12.43,3.58,-1.66,-0.90,-6.17,7.20,-0.95,0.56,8.46,-1.47,4.63,0.43,2.20,-5.66,-0.18,4.36,0.94,-2.40,-1.72,-4.71,4.82,9.83,-1.95,2.07,-3.40,3.08,6.81,-0.12,7.97,5.28,1.44,3.02,0.13,4.49,3.20,-3.56,6.35,1.06,-4.62,-3.65,3.08,-0.77,1.96,-6.58,-0.28,1.47,-1.62,0.14,-4.82,-7.62,10.75,1.44,3.95,1.56,4.23,1.71,-1.99,0.17,-4.65,-0.47,4.59,3.72,3.31,1.42,3.41,-1.04,5.84,-1.58,-1.30,5.59,-1.05,2.97,4.72,-4.85,-3.61,6.19,-0.03,-0.20,5.99,2.85,-6.42,-4.98,4.72,-0.13,-0.29,-0.36,7.70,1.07,1.49,-1.12,-5.69,-0.85,4.09,3.51,1.50,0.93,-1.70,-6.36,-23.25,14.68,-2.84,7.53,7.49,2.84,1.22,3.51,11.39,7.81,-2.48,6.56,1.11,-0.41])
@@ -1105,7 +1198,7 @@ plt.show()</code></pre></div>
 
 <p><img src="./3%20Probability%20and%20Statistics/Screen%20Shot%202021-05-29%20at%204.07.03%20PM.png" alt=""></p>
 
-<h3 id="toc_43">Another example for hypothesis testing</h3>
+<h3 id="toc_46">Another example for hypothesis testing</h3>
 
 <p>Given 2 cities c1 and c2, determine if the <strong>population mean</strong> \(\mu_1\) and \(\mu_2\)(not the sample mean) of heights of people in these two cities is same or not. </p>
 
@@ -1131,7 +1224,7 @@ Step 1 : Create a big set of 100 with all heights of both samples in \(S\).</p>
 
 <p>If it&#39;s 3%, then reject \(H_0\). So there is a difference in the mean heights.</p>
 
-<h2 id="toc_44">How to use hypothesis testing?</h2>
+<h2 id="toc_47">How to use hypothesis testing?</h2>
 
 <p>KS Testing is an application of hypothesis testing.</p>
 
@@ -1150,7 +1243,7 @@ Null Hypothesis : There is no difference in drug performance.</p>
 
 <p>Choosing \(\alpha\) depends on the usecase.</p>
 
-<h2 id="toc_45">Proportional Sampling</h2>
+<h2 id="toc_48">Proportional Sampling</h2>
 
 <p>Pick an element amongst n elements (\(d_1\), \(d_2\), .. \(d_n\)) such that the probability of picking that element is proportional to the element.</p>
 
@@ -1171,7 +1264,7 @@ proportional sampling</p>
 <div><pre class="line-numbers"><code class="language-none">if r &lt;= d_i :
     return i</code></pre></div>
 
-<h2 id="toc_46">Interview questions</h2>
+<h2 id="toc_49">Interview questions</h2>
 
 <ul>
 <li>What is a random variable?</li>
