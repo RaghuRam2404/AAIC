@@ -11,7 +11,7 @@ $x_i\ \epsilon\ R^d$ , we'll assume that $x_i$ is a column vector.
 
 _**Represent a dataset (D)**_
 
-Collection of data points. $D\ =\ \{{x_i, y_i}\}_{i=1}^n$
+Collection of data points. $D\ =\ \{x_i, y_i\}_{i=1}^n$
 where $x_i\ \epsilon\ R^d$ and $y_i\ \epsilon\ \{setosa, virginica, versicolor\}$
 It is **d=4** dimensional, with features as [sepal length, sepal width, petal length, petal width].
 
