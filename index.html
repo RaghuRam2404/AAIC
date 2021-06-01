@@ -70,6 +70,10 @@ h2 {
   color: #000;
 }
 
+.folder{
+  cursor: pointer;
+}
+
 .directory-list .folder,
 .directory-list .folder > a {
   color: #777;
@@ -113,12 +117,12 @@ if(url.endsWith(".html"))
 if(url.endsWith("/"))
   baseurl = baseurl.substr(0,baseurl.length-1)
 
-function getProperHTML(keyname, inp){
+function getProperHTML(keyname, inp, level){
   if(Array.isArray(inp)){
     // it's folder contents
     var tempStr = "";
     for(var i=0; i<inp.length; i++){
-      tempStr += getProperHTML(keyname, inp[i])
+      tempStr += getProperHTML(keyname, inp[i], level+1)
     }
     return tempStr;
   }else if(typeof(inp) === "string"){
@@ -126,11 +130,32 @@ function getProperHTML(keyname, inp){
   }else{
     //it's a folder
     var key = Object.keys(inp)[0];
-    var tempStr = '<li class="folder">'+key+'<br /><ul>'
-    tempStr += getProperHTML(keyname+"/"+key, inp[key])
+    var disnone = "", oc=""
+    if(level >= 2){
+      disnone = 'style="display:none;"'
+      oc = 'onclick="folderClicked(this); event.stopPropagation()"'
+    }
+
+    var tempStr = '<li class="folder" '+oc+' >'+key+'<br /><ul '+disnone+' >'
+    tempStr += getProperHTML(keyname+"/"+key, inp[key], level+1)
     tempStr += '</ul></li>';
     return tempStr;
   }
+}
+
+function folderClicked(elt){
+  var status = $(elt).children("ul").css("display")
+  if (status == "none")
+    $(elt).children("ul").css("display", "block")
+  else{
+    $(elt).children("ul").css("display", "none")
+    /*var children = elt.getElementsByTagName("ul")
+    for(var i=0; i<children.length; i++){
+      var child = children[i]
+      child.style.display = "none"
+    }*/
+  }
+  console.log(elt)
 }
 
 function populateData(){
@@ -138,12 +163,11 @@ function populateData(){
   $.get("files.json", function(data, status){
     if(Array.isArray(data)){
       var htmlAppend = '<ul class="directory-list">';
-      htmlAppend += getProperHTML("",data);
+      htmlAppend += getProperHTML("",data,1);
       htmlAppend += '</ul>'
-      $(".box").html(htmlAppend)
+      $(".box").append(htmlAppend)
     }
   });
-
 }
 </script>
 
@@ -151,6 +175,7 @@ function populateData(){
 <body onload='populateData()'>
 <h2>Applied AI Course</h2>
 <div class="box">
+  
 </div>
 </body>
 </html>
