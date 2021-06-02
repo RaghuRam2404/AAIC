@@ -14,13 +14,18 @@ Python for Data Science : Introduction, Data Structures, Functions, Files, Excep
 ### Module 2 - Data Science and Exploratory Data Analysis
 EDA, Linear Algebra, Probability and Statistics, Dimensionality reduction & visualization, Principal Component Analysis, (t-SNE)T-distributed Stochastic Neighbourhood Embedding
 
-**My Workouts:**  
-1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)  
-1.2 [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)  
-1.3 [Python Numpy](https://colab.research.google.com/drive/1nRbBIrXV7no_oTUt5BJwFsBZyGWDM2w4?authuser=1#scrollTo=fSBCxNXqQpxM)  
-1.4 [Python Matplotlib](https://colab.research.google.com/drive/1IaXH-9Kt_8D5eFW60VJsha0fvjSqYAht?authuser=1)  
-1.5 [Python Pandas](https://colab.research.google.com/drive/15TZOFwNSSHi3KThDgev7Q48P_dXOxoLP?authuser=1)  
-2.1 [Exploratory Data Analysis](https://colab.research.google.com/drive/1lUSLJFXK46_K7q7IfJq4JSdP426PWhPq?authuser=1)
+### Module 3 - Foundation of Natural Language Processing and Machine Learning
+Real world problem: Predict rating given product reviews on Amazon,  Classification And Regression Models: K-Nearest Neighbors, Classification algorithms in various situations, Performance measurement of models, Naive Bayes, Logistic Regression, Linear Regression, Solving Optimization Problems.
 
-Other helpful links:  
+**My Workouts:**  
+1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)
+1.2 [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)
+1.3 [Python Numpy](https://colab.research.google.com/drive/1nRbBIrXV7no_oTUt5BJwFsBZyGWDM2w4?authuser=1#scrollTo=fSBCxNXqQpxM)
+1.4 [Python Matplotlib](https://colab.research.google.com/drive/1IaXH-9Kt_8D5eFW60VJsha0fvjSqYAht?authuser=1)
+1.5 [Python Pandas](https://colab.research.google.com/drive/15TZOFwNSSHi3KThDgev7Q48P_dXOxoLP?authuser=1)
+2.1 [Exploratory Data Analysis](https://colab.research.google.com/drive/1lUSLJFXK46_K7q7IfJq4JSdP426PWhPq?authuser=1)
+2.2 [Probability & Statistics](https://colab.research.google.com/drive/1-UZ_1Y1Hp563hL7T8brsJzME-P-bJXkW?authuser=1)
+2.3 [MNIST Dataset & Visualization](https://colab.research.google.com/drive/1VlaTW1Egz5vXNrK-aOwkcDpPxO-OcT3D?authuser=1)
+
+Other helpful links:
 1. [LaTex Symbols](https://gist.github.com/LKS90/252ac41bd4a173be35b0)
