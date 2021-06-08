@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Pandas</title>
+<title>1 Real world problem- Predict rating given product reviews on Amazon</title>
 
 
 <style type="text/css">
@@ -514,199 +514,192 @@ pre.line-numbers > code {
 
 <body>
 
-<h1 id="toc_0">Pandas</h1>
+<h1 id="toc_0">Real world problem: Predict rating given product reviews on Amazon</h1>
 
-<p><code>import pandas as pd</code></p>
+<p>It is based on amazon food review data.</p>
 
-<p>Reading the csv or xls/xlsx</p>
+<h2 id="toc_1">Text Preprocessing</h2>
 
-<p><code>pd.read_csv()</code>   -&gt; returns <strong>DataFrame</strong><br>
-<code>pd.read_excel(&quot;excel file&quot;)</code> install package <code>#pip3 install xlrd</code></p>
+<ol>
+<li>Removing stop-words.</li>
+<li>Make all words lowercase.</li>
+<li>Stemming.</li>
+<li>Lemmitization.</li>
+<li>Tokenization.</li>
+</ol>
 
-<hr>
+<p>We can use fields &#39;Text&#39; and &#39;Summary&#39; for better analysis.</p>
 
-<p>Exporting to csv or xls</p>
+<p>From Linear Algebra, we know that, if we have any input as vector, we can leverage all the mathematical learned in linear algebra.</p>
 
-<p><code>df.to_csv(&#39;file.csv&#39;, index=False)</code><br>
-<code>df.to_excel(&#39;excel.xlsx&#39;)</code> install package  <code>#pip3 install openpyxl</code><br>
-<code>xldf = pd.read_excel(&quot;excel.xlsx&quot;)</code><br>
-<code>xldf = pd.read_excel(&quot;excel.xlsx&quot;, index_col=0, sheet_name=&#39;Sheet1&#39;)</code></p>
+<p>How to convert simple text, words and sentences to numerical vectors?</p>
 
-<hr>
+<p>Convert <strong>Review</strong> text to <strong>d-dim</strong> vector. Then we can draw <strong>hyperplane</strong> to do the classification.</p>
 
-<p>Create DataFrame</p>
+<p><img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-01%20at%208.42.23%20PM.png" alt=""></p>
 
-<ul>
-<li><code>df = pd.DataFrame(data={array of tuples}, columns=[&#39;&#39;,&#39;&#39;,&#39;&#39;])</code></li>
-<li><code>df = pd.DataFrame({&quot;col1&quot;:[&quot;val1&quot;, &quot;val2&quot;, &quot;val3&quot;], &quot;col2&quot;:[val1,val2,val3], &quot;col3&quot;:[val1, val2, val3]})</code></li>
-</ul>
+<p>Text \(\rightarrow\) \(d\)-dim vector, the <strong>rules</strong> are</p>
 
-<hr>
+<blockquote>
+<p>Suppose reviews \(r_1\), \(r_2\), \(r_3\) has vectors \(v_1\), \(v_2\), \(v_3\) correspondingly. If \(r_1\) and \(r_2\) are more similar <strong>semantically</strong> than \(r_1\) and \(r_3\), then the distance between \(v_1\) and \(v_2\) should be less than distance between \(v_1\) and \(v_3\). It means that similar points are closer.<br>
+(i.e.) If sem(\(r_1\), \(r_2\)) &gt; sem(\(r_1\), \(r_3\)), then dist(\(v_1\), \(v_2\)) &lt; dist(\(v_1\), \(v_3\))</p>
+</blockquote>
 
-<p>DataFrame&#39;s Attributes &amp; Functions</p>
+<p>Find {Text \(\rightarrow\) \(d\)-dim vector}, such that similar text must be closer geometrically.</p>
 
-<ul>
-<li><code>df.shape</code> - returns the shape in the <code>tuple</code></li>
-<li><code>df.columns</code> - returns the columns array</li>
-<li><code>df.index</code> - returns the index</li>
-<li><code>df.head()</code> or <code>df.head(5)</code> -&gt; returns the top rows</li>
-<li><code>df.tail()</code> or <code>df.tail(5)</code> -&gt; returns the bottom rows</li>
-<li><code>df.info()</code> - summary of basic information</li>
-<li><code>df.describe()</code> - returns the statistical variables (mean/std/median &amp; so on) of the numerical columnns</li>
-<li><code>df[&#39;newindex&#39;] = [val1, val2, val3, ...]</code> - to add a new row with index</li>
-<li><code>df.append({col1:val1, col2:val2}, ignoreIndex=True)</code> - add a new row with just data</li>
-<li><code>df.drop(&#39;indexname&#39;)</code> - drop a row by index</li>
-<li><code>df.iloc[]</code> - indexing similar to the array indexinng</li>
-<li><code>df.loc[]</code> - indexing done based on the <strong>custom index</strong> passed</li>
-<li><code>df.drop_duplicates(subset={&quot;UserId&quot;, &quot;ProfileName&quot;, &quot;Time&quot;, &quot;Text&quot;}, keep=&#39;first&#39;, inplace=False)</code> - check duplicates with that column and drop others</li>
-<li><code>g = df.group_by(&#39;col1&#39;)</code> - returns the iterable <code>col1</code> and it&#39;s <code>df</code></li>
-<li><code>df[&#39;col&#39;].replace([&#39;oldval1&#39;, &#39;oldval2&#39;], [&#39;newval1&#39;, &#39;newval2&#39;])</code> - replacing values</li>
-<li><code>df.sort_values(by=[col1, col2])</code> - sorting the dataframe</li>
-<li><code>g.max()</code> , <code>g.mean()</code> , <code>g.describe()</code> - operations on the numerical columns</li>
-</ul>
+<p>Each review is a <strong>document</strong>. And collection of documents is called <strong>corpus</strong>.</p>
 
-<hr>
+<p>Such techniques are<br>
+1. Bag of Words (BoW)<br>
+2. tf-idf<br>
+3. Word2Vec</p>
 
-<p>Functions on DataFrame&#39;s Column</p>
+<h2 id="toc_2">Bag of Words (BoW)</h2>
 
-<ul>
-<li><code>df[&#39;col&#39;].mean()</code> - find the average of that column</li>
-<li><code>df[&#39;col&#39;].max()</code> - max value of that column</li>
-<li><code>df[&#39;col&#39;].isna()</code> - to get the True/False value for data with <code>NaN</code> values</li>
-</ul>
+<p>Lets<br>
+\(r_1\) : This pasta is very tasty and affordable<br>
+\(r_2\) : This pasta is not tasty and is affordable<br>
+\(r_3\) : This pasta is delicious and cheap<br>
+\(r_4\) : Pasta is tasty and pasta tastes good</p>
 
-<hr>
+<p>Steps :<br>
+1. Constructing a <strong>dictionary</strong> (set of all the words in your reviews). \(d\)-unique words across all reviews or document.<br>
+2. Each word is a different dimension, with \(d\) dimensions for a document. For each review, we&#39;ll construct a vector with \(d\) dimension with value as the <strong>count of the corresponding words</strong>. Let&#39;s say for \(r_1\), the value is <strong>1</strong> for the index of the words <q>this</q>, <q>pasta</q>, <q>is</q>, <q>very</q>, <q>tasty</q>, <q>and</q> &amp; <q>affordable</q> and it&#39;ll be available in \(v_1\). \(v_1\) will be very sparse with most of the elements are <em>0</em>.</p>
 
-<p>Filtering</p>
+<p>Now, we converted <strong>text</strong> to <strong>vector</strong>. If 2 documents are similar semantically, the resultant vectors must be closer.</p>
 
-<ul>
-<li><code>df[df[col1] == df[col1].max()][&#39;col2&#39;]</code> - fetch the <code>col2</code> data where <code>col1</code> has the max value</li>
-</ul>
+<p><img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-01%20at%209.19.32%20PM.png" alt=""></p>
 
-<hr>
+<p><u>Correction:</u> <strong>is</strong> will occur only once. And the count will be put in the cell. So distance varies.</p>
 
-<p>Operations</p>
+<p>The length is very close. But their meanings are extremely opposite.</p>
 
-<ul>
-<li><code>pd.concat([df1, df2], ignore_index=True)</code> - concate 2 dataframes</li>
-<li><code>pd.concat([df1, df2], ignore_index=True, axis=1)</code> - concate 2 dataframes horizontally</li>
-<li><code>pd.merge(df1, df2, on=&quot;col&quot;)</code> - inner join performed on 2 dataframes</li>
-<li><code>pd.merge(df1, df2, on=&quot;col&quot;, how=&quot;right/left/outer/inner&quot;)</code> - other join options</li>
-</ul>
+<p><strong>Binary/Boolean BoW :</strong> We&#39;ll put <strong>1</strong> if a number occurs else <strong>0</strong>. It&#39;ll return the <strong>no. of differing words</strong>.</p>
 
-<hr>
+<p>Also, the trivial words like <strong>is</strong>, <strong>this</strong>, <strong>and</strong> etc are not important. They are called <strong>stop</strong> words.</p>
 
-<div><pre class="line-numbers"><code class="language-none">#construct using list of tuples
-tuples = [(&quot;1/1/2017&quot;,32,6,&quot;Rain&quot;),
-(&quot;1/2/2017&quot;,35,7,&quot;Sunny&quot;),
-(&quot;1/3/2017&quot;,28,2,&quot;Snow&quot;),
-(&quot;1/4/2017&quot;,24,7,&quot;Snow&quot;),
-(&quot;1/5/2017&quot;,32,4,&quot;Rain&quot;),
-(&quot;1/6/2017&quot;,31,2,&quot;Sunny&quot;)]
-df = pd.DataFrame(data=tuples, columns=[&#39;day&#39;, &#39;temperature&#39;, &#39;windspeed&#39;, &#39;event&#39;])
-df</code></pre></div>
+<p>After removing those, the \(v_i\) vectors will be small and more meaningful. Also we are throwing away some information. In english, <strong>not</strong> is a stop word. But removing it will cause problem.</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.32.28%20PM.png" alt=""></p>
+<h3 id="toc_3">Stemming</h3>
 
-<div><pre class="line-numbers"><code class="language-none">df.shape
+<p><strong>Tasty</strong>, <strong>tasting</strong>, <strong>tasteful</strong> - instead of having them as 3 words in BoW, convert each of these words into their common form <strong>tast</strong> and replace those words with this. So many algorithms to do this like <em>Porter stemmer</em> and <em>snow ball stemmer</em>.</p>
 
-(6,4)</code></pre></div>
+<h3 id="toc_4">Lemmitization</h3>
 
-<div><pre class="line-numbers"><code class="language-none">df.describe()</code></pre></div>
+<p>Lemmatisation is the algorithmic process of determining the lemma of a word based on its intended meaning. Unlike stemming, lemmatization depends on correctly identifying the intended part of speech and meaning of a word in a sentence, as well as within the larger context surrounding that sentence, such as neighboring sentences or even an entire document. <strong>Tasty</strong>, <strong>tasting</strong>, <strong>tasteful</strong> will be converted to <strong>taste</strong></p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.33.31%20PM.png" alt=""></p>
+<p>Read : <a href="https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/">https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/</a></p>
 
-<div><pre class="line-numbers"><code class="language-none">df.columns
+<h3 id="toc_5">Tokenization</h3>
 
-Index([&#39;day&#39;, &#39;temperature&#39;, &#39;windspeed&#39;, &#39;event&#39;], dtype=&#39;object&#39;)</code></pre></div>
+<p>Breaking a sentence into words. We use <q><strong>space</strong></q> to separate sentence into words. But in case of word <q>New York</q>, it is not possible as it is <strong>language dependent</strong> and <strong>context dependent</strong>. <strong>Tasty</strong> and <strong>delicious</strong> are synonyms.<br>
+We can make use of <strong>Word2Vec</strong> to achieve this synonyms.</p>
 
-<div><pre class="line-numbers"><code class="language-none">df.index
+<p><strong>BoW</strong> doesn&#39;t take the semantic meaning into the consideration.</p>
 
-RangeIndex(start=0, stop=6, step=1)</code></pre></div>
+<h3 id="toc_6">uni-gram, bi-gram, n-grams.</h3>
 
-<div><pre class="line-numbers"><code class="language-none">df[&#39;temperature&#39;].max()
+<p>\(r_1\) : This pasta is very tasty and affordable<br>
+\(r_2\) : This pasta is not tasty and is affordable</p>
 
-35</code></pre></div>
+<p>After removing stop words (this, is, not, very, and), \(v_1\) and \(v_2\) are exactly the same. Then we&#39;ll consider the both are similar but in reality, they are not.</p>
 
-<div><pre class="line-numbers"><code class="language-none"># Get the data with max temperature
-df[df[&#39;temperature&#39;] == df[&#39;temperature&#39;].max()]
+<p>We can fix it by &#39;bi-gram&#39; or &#39;tri-gram&#39; as unigram BoW discard the sequence of information. In <strong>unigram</strong>, each word will be considered a dimension. In <strong>bi-gram</strong>, pair of words will form a dimension. So &#39;This pasta&#39;, &#39;pasta is&#39;, &#39;is very&#39;, &#39;very tasty&#39; and so on will form dimensions. Inn <strong>tri-gram</strong>, take 3 consecutive words as one dimension and it follows for <strong>n-gram</strong>. Other than, unigram, others will retain some of the sequential information.</p>
 
-</code></pre></div>
+<p>If <strong>there are repeated words</strong>, the dimensions in <code>#n-gram</code> \(\geq\) <code>#tri-gram</code> \(\geq\) <code>#bi-gram</code> \(\geq\) <code>#uni-gram</code>.</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.34.27%20PM.png" alt=""></p>
+<p>Eg :<br>
+<strong>horse is a horse, of course, of course. accept  it</strong><br>
+Here there are repeated words<br>
+unigrams --&gt; horse, of, course, a, is, it, accept --&gt; #7<br>
+bigrams --&gt; horse is, is a , a horse, horse of, of course, course of, course accept, accept it --&gt; #8<br>
+trigrams --&gt; horse is a, is a horse, a horse of, horse of course, of course of, course of course, of course accept, course accept it --&gt; #8</p>
 
-<div><pre class="line-numbers"><code class="language-none">df[df[&#39;temperature&#39;] == df[&#39;temperature&#39;].max()][&#39;day&#39;] == &#39;1/2/2017&#39;
+<h2 id="toc_7">tf-idf (term frequency- inverse document frequency) BoW</h2>
 
-True</code></pre></div>
+<p>This method doesn&#39;t take the semantic meaning into the consideration.</p>
 
-<h2 id="toc_1">Groupby</h2>
+<p>Let&#39;s assume we have \(N\) documents/reviews.</p>
 
-<div><pre class="line-numbers"><code class="language-none">group = df.groupby(&quot;city&quot;)
-for g, df in group:
-print(g)
-print(df)
-print(&quot;----------------------------------------------------------&quot;)</code></pre></div>
+<p><strong>Term frequency</strong> of word \(W_i\) occuring in the document/review \(r_j\) is<br>
+\(TF=\frac{\#\ of\ times\ W_i\ occurs\ in\ r_j}{total\ \#\ of\ words\ in\ r_j}\)</p>
 
-<div><pre class="line-numbers"><code class="language-none">group.get_group(&#39;new york&#39;) #prints the particular dataframe</code></pre></div>
+<p>\(D_c\) is set of all the below reviews. It is <strong>corpus</strong><br>
+\(r_1\) is \(W_1\), \(W_2\), \(W_3\), \(W_2\), \(W_5\)<br>
+\(r_2\) is \(W_1\), \(W_2\), \(W_4\), \(W_3\), \(W_5\), \(W_6\)<br>
+...<br>
+\(r_N\)</p>
 
-<div><pre class="line-numbers"><code class="language-none">group.max()
-group.mean()
-group.describe()</code></pre></div>
+<p>\(TF(W_2,r_1)=\frac{2}{5}\)</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.35.58%20PM.png" alt=""><br>
-<img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.36.02%20PM.png" alt=""><br>
-<img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.36.05%20PM.png" alt=""></p>
+<p>\(0\ \leq\ TF\ \leq\ 1\), so it is like probability of finding a word in the document.</p>
 
-<h2 id="toc_2">Concatenation</h2>
+<p><strong>IDF</strong> : If a word occurs in many documents, then IDF is low. If a word is a rare or low frequency, then IDF is high.</p>
 
-<div><pre class="line-numbers"><code class="language-none">india_weather = pd.DataFrame({&quot;city&quot;:[&quot;Mumbai&quot;, &quot;Delhi&quot;, &quot;Bangalore&quot;], &quot;temperature&quot;:[32,45,30], &quot;humidity&quot;:[80, 60,78]})
-us_weather_tuples = [(&quot;new york&quot;, 68, 21), (&quot;chicago&quot;, 65, 14), (&quot;orlando&quot;, 75, 35)]
-us_weather = pd.DataFrame(data=us_weather_tuples, columns=[&quot;city&quot;, &quot;temperature&quot;, &quot;humidity&quot;])
-df = pd.concat([india_weather, us_weather], ignore_index=True)
-df</code></pre></div>
+<p>\(IDF(W_i, D_c)\) = \(log(\frac{N}{n_i})\) where \(n_i\) is the no of documents which has the word \(W_i\)</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.37.07%20PM.png" alt=""></p>
+<p>\(n_i\ \leq\ N\ \Longrightarrow\ \frac{N}{n_i}\geq1\ \Longrightarrow\ IDF=log(\frac{N}{n_i})\geq0\)<br>
+As \(n_i\) increases, \(\frac{N}{n_i}\) and \(log(\frac{N}{n_i})\) both decreases.</p>
 
-<h2 id="toc_3">Merging</h2>
+<p><strong>It means that if a word occurs more frequently in the corpus, then the \(IDF\) value is smaller.</strong><br>
+(i.e.) if \(n_i\uparrow\), \(IDF\downarrow\). Also if \(n_i\downarrow,IDF\uparrow\)</p>
 
-<div><pre class="line-numbers"><code class="language-none">temperature_df = pd.DataFrame({&quot;city&quot;:[&quot;Mumbai&quot;, &quot;Delhi&quot;, &quot;Bangalore&quot;, &quot;Hyderabad&quot;], &#39;temperature&#39;:[32,45,30,40]});
-humidity_df = pd.DataFrame({&quot;city&quot;:[&quot;Mumbai&quot;, &quot;Delhi&quot;, &quot;Bangalore&quot;, &quot;Chennai&quot;], &#39;humidity&#39;:[68,65,75,80]});
-df = pd.merge(temperature_df, humidity_df, on=&quot;city&quot;)
-df</code></pre></div>
+<p>Usually in <strong>BoW</strong>, we&#39;ll fill the vector with the count of words.<br>
+But now, we&#39;ll fill <strong>index</strong> corresponding to the word \(W_i\) with <strong>\(TF(W_i, r_j)*IDF(W_i,D_c)\)</strong> in the document \(r_j\). It gives more weightwage to the most frequent words in a document and less weightage to the common words in the corpus.</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.37.34%20PM.png" alt=""></p>
+<p><strong>More importance to the rarer word in the corpus and to the frequent word in a document.</strong></p>
 
-<div><pre class="line-numbers"><code class="language-none">df = pd.merge(temperature_df, humidity_df, on=&quot;city&quot;, how=&quot;outer&quot;)
-df</code></pre></div>
+<p>It still doesn&#39;t take into account the semmantic meaning of the word.</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.37.49%20PM.png" alt=""></p>
+<h3 id="toc_8">Why use log in IDF?</h3>
 
-<h2 id="toc_4">Indexing</h2>
+<p>As per Zipf&#39;s law, the common words in english will occur much more and rarer words will be less. It follows <strong>power-law</strong> distribution.<br>
+<img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.06.23%20AM.png" alt=""><br>
+<img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.07.53%20AM.png" alt=""><br>
+Instead of giving weightage 1000 to the word <strong>civilization</strong>, we are just giving \(6.9\) .</p>
 
-<div><pre class="line-numbers"><code class="language-none">df = pd.DataFrame(data=[1,2,3,4,5,6,7,8,9,10], index=[50,49,48,47,46,45,44,43,42,41], columns=[&#39;num&#39;])
-df</code></pre></div>
+<p><code>Both BoW and tf-idf convert a full text/document into a sparse vector.</code></p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.38.08%20PM.png" alt=""></p>
+<h2 id="toc_9">Word2Vec</h2>
 
-<div><pre class="line-numbers"><code class="language-none">df.loc[44] #by our given index
+<p>Takes the <strong>semantics into the consideration</strong>. It is the state of the art technique. It learns relationships automatically from raw text.</p>
 
-7</code></pre></div>
+<p>Given a <strong>word</strong>, it&#39;ll be converted to <strong>d-dimensional dense vector</strong> (typically d will be 100,200,300). Note that, here word is converted to a vector not a sentence or document.</p>
 
-<div><pre class="line-numbers"><code class="language-none">df.iloc[3] #by the row
+<p>Take 3 words <q>tasty</q>, <q>delicious</q>, <q>baseball</q>. As Word2Vec knows English, it&#39;ll return 3 vectors \(v_1,v_2\) and \(v_3\) respectively such that the distance between first 2 are closer and \(v_3\) is far.</p>
 
-4</code></pre></div>
+<ol>
+<li>So, given any 2 semantically similar words, Word2Vec converts them to 2 vectors with minimal distance.</li>
+<li>Relationships are satisfied. Take words man, woman, king and queen, their vectors \(v_{man}\), \(v_{woman}\), \(v_{king}\) and \(v_{queen}\), then (\(v_{man}\)-\(v_{woman}\)) vector is parallel to (\(v_{king}\)-\(v_{queen}\)) vector. Same applicable for country-capital, verb tense, gender and so on. </li>
+</ol>
 
-<div><pre class="line-numbers"><code class="language-none">df.iloc[:3] #row 0, 1, 2 excluding 3</code></pre></div>
+<p><img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.45.52%20AM.png" alt=""></p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.38.37%20PM.png" alt=""></p>
+<p><img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.50.18%20AM.png" alt=""></p>
 
-<div><pre class="line-numbers"><code class="language-none">df.loc[44:42] #from index &#39;44&#39; to &#39;42&#39;</code></pre></div>
+<p>As corpus size increases, the d-dimensions will also increase with information rich vectors.</p>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.39.04%20PM.png" alt=""></p>
+<p>Intuitively, it works like if the neighborhood of the word \(W_i\) is similar to the word \(W_j\), then \(v_i\) is similar to \(v_j\)<br>
+(i.e) \(N(W_i)\approx N(W_j)\)  \(\Longrightarrow\) \(v_i\approx v_j\)</p>
 
-<div><pre class="line-numbers"><code class="language-none">df.iloc[1:4] #from 1st to excluding 4th row</code></pre></div>
+<h3 id="toc_10">Using sentences, how to convert using word2vec?</h3>
 
-<p><img src="./Pandas/Screen%20Shot%202021-05-15%20at%201.39.34%20PM.png" alt=""></p>
+<p>Using Avg-Word2Vec, tf-idf weighted Word2Vec weighing strategies.</p>
+
+<p><strong><u>Avg-Word2Vec</u></strong><br>
+\(r_1\) : \(W_1\) \(W_2\) \(W_1\) \(W_3\) \(W_4\) \(W_5\) </p>
+
+<p>Then \(r_1\rightarrow v_1\) is \(\frac{W2V(W_1)+W2V(W_2)+W2V(W_1)...W2V(W_5)}{n_1}\)</p>
+
+<p>This is averaging all the vectors. It is not perfect. It is well enough.</p>
+
+<p><strong><u>tf-idf weighted Word2Vec</u></strong></p>
+
+<p>Compute the <strong>tf_idf</strong> for \(r_1\), then multiply each corresponding value with the \(W2V(W_i)\)</p>
+
+<p><img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2012.12.55%20PM.png" alt=""></p>
+
+<p>\(tfidf_w2v(r_1)=\frac{\sum_{i:words}t_i*w2v(W_i)}{\sum_{i:words}t_i}\)</p>
 
 
 

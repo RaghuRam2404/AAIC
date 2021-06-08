@@ -63,6 +63,22 @@ if $\theta$ is **90**, then both vectors are perpendicular to each other (ie) **
 
 $a.a = ||a||$
 
+It is a measure of how **similar two vectors are**. Say if dot product of 2 unit vector is **+ve**, both of them are pointing in [$\deg{0}$,$\deg{90}$] . If that dot product equals 1, then they are both similar (as they point in the same direction exactly). If zero, perpendicular to each other. If -ve, they are in opposite direction.
+
+Example 1:
+Where this is useful, consider a solar panel mounted at an angle to the roof. The sun is at different angle. So the energy obtained will be more if both of them are aligned in the same direction (i.e) angle between them is zero.
+
+Example 2:
+Watching someone push their car out of snow or a group pushing it out of a ditch and they push into their car slanted instead of straight. The Work you do pushing is the dot product of your force vector and the other vector is the direction the car actually pointing. Obviously pushing it straight makes a cos(0)=1 and maximizes your effort, any slant is just wasting energy.
+
+
+**Applications :** 
+1. Above 2 example
+2. Games (to know POV of 2 people)
+3. Video rendering (for shades of light)
+4. Document plagiarism
+
+Ref : [https://www.youtube.com/watch?v=TBpDMLCC2uY](https://www.youtube.com/watch?v=TBpDMLCC2uY)
 
 ### Cross product (not used much in ML)
 

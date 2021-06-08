@@ -39,6 +39,7 @@ DataFrame's Attributes & Functions
 - `df.drop('indexname')` - drop a row by index
 - `df.iloc[]` - indexing similar to the array indexinng
 - `df.loc[]` - indexing done based on the **custom index** passed
+- `df.drop_duplicates(subset={"UserId",	"ProfileName", "Time", "Text"}, keep='first', inplace=False)` - check duplicates with that column and drop others
 - `g = df.group_by('col1')` - returns the iterable `col1` and it's `df`
 - `df['col'].replace(['oldval1', 'oldval2'], ['newval1', 'newval2'])` - replacing values
 - `df.sort_values(by=[col1, col2])` - sorting the dataframe
