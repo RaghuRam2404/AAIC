@@ -3,8 +3,9 @@
 |Package|Function|
 |---|----|
 |BeautifulSoup||
-|ScikitLearn|CountVectorizer|
+|ScikitLearn|CountVectorizer, TfidfVectorizer |
 |NLTK|PorterStemmer, stopwords, WordNetLemmatizer,FreqDist |
+|gensim| Word2Vec |
 |Re|compile,sub|
 
 ## Beautiful Soup
