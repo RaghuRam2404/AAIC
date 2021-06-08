@@ -1,49 +1,100 @@
 # Other helpful libraries used
 
-|Package|Function|Help|
-|---|----|---|
-|ScikitLearn|CountVectorizer|Using BoW|
-|Re|compile,sub|[https://pymotw.com/3/re/](https://pymotw.com/3/re/)|
+|Package|Function|
+|---|----|
+|BeautifulSoup||
+|ScikitLearn|CountVectorizer|
+|NLTK|PorterStemmer, stopwords, WordNetLemmatizer,FreqDist |
+|Re|compile,sub|
 
+## Beautiful Soup
+Remove html tags from the text. Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=R4eEj7-ZG6bV)
 
-#ScikitLearn
-##CountVectorizer
+```
+from bs4 import BeautifulSoup 
+BeautifulSoup(sentence, "lxml").get_text() 
+```
+
+##ScikitLearn
+###CountVectorizer
+
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi)
+
 ```
 from sklearn.feature_extraction.text import CountVectorizer
-```
 
-```
 count_vec = CountVectorizer()
 count_vec.fit(fdata['Text'])
-print("some feature names ", count_vec.get_feature_names()[200:210])
-
 fdata_bow = count_vec.transform(fdata['Text'])
-print("Type of fdata_bow  : ", type(fdata_bow))
-print("BoW matrix's shape : ", fdata_bow.get_shape())
-print("No of unique words : ", fdata_bow.shape[1])
-```
-```
-some feature names  ['30th', '31', '32', '320', '32oz', '33', '330mg', '336', '34', '349']
-Type of fdata_bow  :  <class 'scipy.sparse.csr.csr_matrix'>
-BoW matrix's shape :  (4986, 13510)
-No of unique words :  13510
-```
-```
+
 all_words = count_vec.get_feature_names()
-print(fdata.iloc[0]['Text'])
 cx = fdata_bow[0]
 
 for (index, count) in zip(cx.indices, cx.data):
   print("word {}".format("{"+all_words[index]+"}"), " with count : ", count)
 ```
+
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=kNMGnU-fF4Z3)
+
 ```
-I have bought several of the Vitality canned dog food products and have found them all to be of good quality. The product looks more like a stew than a processed meat and it smells better. My Labrador is finicky and she appreciates this product better than  most.
-word {all}  with count :  1
-word {and}  with count :  3
-----and so on---
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+count_vec = TfidfVectorizer(ngram_range=(1,2))
+count_vec.fit(fdata['Processed Text'])
+fdata_tfidf = count_vec.transform(fdata['Processed Text'])
+print(count_vec.idf_) #idf values
 ```
 
 
-#NLTK
+##NLTK
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi)
 
-#re
+```
+import nltk
+```
+
+```
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+return ps.stem(word)
+```
+
+```
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+stop_words = set(stopwords.words('english'))
+```
+
+```
+from nltk.stem.wordnet import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+print(lemmatizer.lemmatize("bats")) #prints bat
+```
+
+```
+apw = nltk.FreqDist(all_positive_words)
+print(apw.most_common(20))
+```
+
+##gensim
+
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=FCtdXsiIJE13)
+
+```
+from gensim.models import Word2Vec
+w2v_model = Word2Vec(tqdm(list_of_sentences), min_count=5, size=100, workers=4)
+w2v_model.wv.most_similar('flavor')
+w2v_model.wv.similarity("flavor", "taste")
+w2v_model.wv['taste']
+```
+
+##re
+
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=R4eEj7-ZG6bV), [https://pymotw.com/3/re/](https://pymotw.com/3/re/)
+
+```
+import re
+
+re.sub(r'(http://\S+)|(https://\S+)', '', sentence)
+#removes the http and https urls
+```
