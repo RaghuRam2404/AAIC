@@ -48,6 +48,7 @@ print(count_vec.idf_) #idf values
 ```
 
 Refer [3.3 KNN](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=pnY19qYH98cu)
+
 ```
 from sklearn.neighbors import KNeighborsClassifier
 X_1, X_test, Y_1, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
