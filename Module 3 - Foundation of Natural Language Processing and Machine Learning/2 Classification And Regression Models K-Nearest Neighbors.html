@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>2 Classification And Regression Models K-Nearest Neighbors</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Classification And Regression Models : K-Nearest Neighbors</h1>
+
+<p>In training phase, the algorithm learns and it&#39;ll be applied over the test/validation data set. Then check the accuracy.</p>
+
+<p>Each matrix row is the transpose of the \(x_i\) (which is a column vector representing the features of that particular data). So \(i^{th}\) row is \(x_i^T\)</p>
+
+<p><u><em>How Classification works?</em></u><br>
+In Amazon fine food reviews case, given a new review, determine/predict if the review is positive or not. It is <strong>binary classification</strong> or <strong>2-class classification</strong>.<br>
+\(y=f(x)\) where \(x\) is the query review text and \(y\) is either \(+ve\) or \(-ve\).<br>
+Typically \(y\) will have some classes.</p>
+
+<p>Data : \(D=\{(x_i,y_i)_{i=1}^n\) such that \(x_i\ \epsilon\ R^d, y_i\ \epsilon\ \{0,1\}\)</p>
+
+<p>In MNIST dataset, it is <strong>10-class classification</strong>.</p>
+
+<p><u><em>How Regression differs from Classification?</em></u><br>
+Consider the case, where I was given <em><u>weight</u></em>, <u><em>age</em></u>, <u><em>gender</em></u>, <u><em>race</em></u>, predict the <strong>height</strong>, which is a real number. Here there are no classes.</p>
+
+<p>Data : \(D=\{(x_{i:weight},x_{i:age},x_{i:gender},x_{i:race},y_i)_{i=1}^n\) such that \(x_i\ \epsilon\ R^d, y_i\ \epsilon\ R^d\)</p>
+
+<h2 id="toc_1">K - Nearest neighbours for classification</h2>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%202.50.09%20PM.png" alt=""></p>
+
+<p>For the query point \(x_q\), we check the points in it&#39;s proximity and find which class it might belong to.</p>
+
+<p>Steps:<br>
+1. Find <strong>k-nearest</strong> points (in terms of distance) to \(x_q\) in \(D\).<br>
+2. Let&#39;s say <strong>k=3</strong>, so we&#39;ll have 3 \(y\) points \(\{y_1,y_2,y_3\}\). We&#39;ll use majority vote. If the majority vote is \(+ve\), then \(y_q\) is \(+ve\). So better to take <strong>k</strong> as <strong>odd</strong> number to take majority vote.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%203.01.40%20PM.png" alt=""></p>
+
+<p><strong>Failure cases</strong><br>
+1. Fails when \(x_q\) is <strong>far away</strong> from the rest of the points. We are not sure of it&#39;s class label. In that case, it is better to say <strong>don&#39;t know about the class</strong>.<br>
+2. When the data is not at all grouped (i.e) randomnly spread, then we can&#39;t make use of this algo.</p>
+
+<h3 id="toc_2">Distance measures: Euclidean(L2) , Manhattan(L1), Minkowski, Hamming, Cosine</h3>
+
+<p>Let \(x_1\) = (\(x_{11},x_{12}\)) and \(x_2\) = (\(x_{21},x_{22}\))</p>
+
+<p><u><strong>Euclidean distance :</strong></u></p>
+
+<p>\(\sqrt{(x_{21}-x_{11})^2 + (x_{22}-x_{12})^2}\) = \(||x_1-<br>
+x_2||_2\) , where underscore 2 is \(L_2\) norm<br>
+In n-dimensions, where \(x_1\epsilon \ R^d\) and \(x_2\epsilon \ R^d\), euclidean distance is \(\sqrt{\sum_{i=1}^d(x_{1i}-x_{2i})^2}\)</p>
+
+<p><strong><u>Manhattan distance:</u></strong></p>
+
+<p>It&#39;s similar to walking around the block to reach some buildings. You can&#39;t cross the block because in between buildings will be there.</p>
+
+<p>\(||x_1-x_2||_1\ =\ \sum_{i=1}^d |x_{1i}-x_{2i}|\) It is \(L_1\) norm.</p>
+
+<p>Where to use it?</p>
+
+<p><strong><u>Minkowski distance:</u></strong></p>
+
+<p>We have seen \(L_1\) and \(L_2\) norm distance. Minkowski distance is \(L_p\) norm distance, where \(p&gt;0\).</p>
+
+<p>\(||x_1-x_2||_p\) = \((\sum_{i=1}^d|x_{1i}-x_{2i}|^p)^{1/p}\)</p>
+
+<p>\(p=1\) : Manhattan distance<br>
+\(p=2\) : Euclidean distance</p>
+
+<p>Where to use it?</p>
+
+<p><strong><u>Hamming distance:</u></strong></p>
+
+<p>It is between 2 boolean vectors (like binary BoW vectors). It is just the <strong>number of locations/dimensions where the boolean value differ</strong></p>
+
+<p>\(x_1\) = [\(0,1,0,0,1\)]<br>
+\(x_2\) = [\(1,1,0,0,0\)]</p>
+
+<p>Hamming dist( \(x_1\), \(x_2\)) = 2</p>
+
+<p>In case of string vectors, we&#39;ll count the no of alphabets changed in particular position.</p>
+
+<p>Used in Gene code sequence.</p>
+
+<p><strong><u>Cosine Distance &amp; Cosine Similarity</u></strong></p>
+
+<p>When we think about 2 points, if the distance increases, then the similarity decreases and vice versa.</p>
+
+<p>\(1-cos\_sim(x_1,x_2)=cos\_dist(x_1,x_2)\)<br>
+\(cos\_sim(x_1,x_2)=cos(\theta)=\frac{x_1.x_2}{||x_1||_2||x_2||_2}\) where \(\theta\) is the angle between 2 vectors.</p>
+
+<p>if \(x_1\) and \(x_2\) are very similar, then \(cos\_sim(x_1,x_2)=+1\) and when they are dissimilar, it is \(-1\).</p>
+
+<p>If the angle between two vectors is zero, then they are <strong>similar</strong>. It is based on that concept.</p>
+
+<h3 id="toc_3">How good KNN is?</h3>
+
+<p>Let&#39;s use the Amazonn food review example. \(x_q\) is the query and find \(y_q\) as polarity.</p>
+
+<p>Find some k nearest neighbours and take the majority vote. To check how well it works, let&#39;s divide the dataset \(D\) (size \(n\)) into \(D_{train}\) size \(n_1\) (with 70%) and \(D_{test}\) size \(n_2\) (with 30%).</p>
+
+<p>count = 0<br>
+For each point \(pt\) in \(D_{test}\):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make \(x_q=pt\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use \(D_{train}\) and \(K-NN\) to predict \(y_q\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if \(y_q\) == \(y_{pt}\):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count += 1<br>
+accuracy = \(\frac{count}{n_2}\)</p>
+
+<p>0 \(\leq\) accuracy \(\leq\) 1</p>
+
+<p><u>Conclusion :</u> K-NN on amazon find food reviews using \(D_{train}\) gives accuracy of \(x\) percentage</p>
+
+<h3 id="toc_4">Space and time complexity</h3>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%204.28.47%20PM.png" alt=""></p>
+
+<p>Time Complexity is \(O(nd)\) as \(k\) nearest comparison is much smaller. If \(d\ll n\), then complexity is \(O(n)\). For Amazon fine food review case, the no of data is \(364k\) with \(100k\) dimensions, it&#39;ll add upto \(36B\) computation.</p>
+
+<p>Space complexity : We need to save \(D_{train}\) in memory. Complexity is \(O(nd)\). For Amazon fine food review case, the no of data is \(364k\) with \(100k\) dimensions, it&#39;ll add upto \(\sim 36GB\) (without sparse matrix).</p>
+
+<p>This complexity is a lot. It is a <strong>big limitation</strong> of KNN. That&#39;s why KNN is <strong>not used extensively</strong>. We&#39;ll use <strong>kd-tree</strong>, <strong>LSH</strong>.</p>
+
+<h3 id="toc_5">Decision surface for K-NN as K changes</h3>
+
+<p>\(k\) is the hyper parameter.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%204.51.51%20PM.png" alt=""></p>
+
+<p>The lines/curves which separate 2 different group of points are called <strong>decision surfaces</strong></p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%204.58.13%20PM.png" alt=""></p>
+
+<p>In K-NN, the smoothness of the decision surface increases as <strong>k</strong> increases.<br>
+What is k=n? We&#39;ll <strong>always</strong> get the class of the group which has higher data.</p>
+
+<p>From above example,<br>
+\(k=1\) \(\rightarrow\) <strong>overfitting</strong> (accomodates all small errors to fit the model)<br>
+\(k=5\) \(\rightarrow\) <strong>correct hyper param</strong><br>
+\(k=n\) \(\rightarrow\) <strong>underfitting</strong> (under working to find the proper hyperplane/surface)</p>
+
+<h3 id="toc_6">Need for Cross validation</h3>
+
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>Train</th>
+<th>accuracy on \(D_{test}\)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>k=1</td>
+<td>\(D_{train}\)</td>
+<td>0.78</td>
+</tr>
+<tr>
+<td>k=2</td>
+<td>&quot;</td>
+<td>0.82</td>
+</tr>
+<tr>
+<td>k=3</td>
+<td>&quot;</td>
+<td>0.85</td>
+</tr>
+</tbody>
+</table>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%205.19.25%20PM.png" alt=""></p>
+
+<p>Using \(D_{train}\) and <strong>6-NN</strong>, we are getting accuracy of 0.96. But the small problem here is that for <strong>future unseen problem</strong>, how accurate this model is going to predict? If the model works <strong>well on future unseen problems</strong>, then the model is said to be <strong>well generalized</strong>. Only with \(D_{test}\) we can&#39;t assure that our model will be <strong>96%</strong> accurate with future unseen problems. So, follow like below.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%205.29.41%20PM.png" alt=""></p>
+
+<p>Note : <strong><u>Use cross validation set to find the hyperparameters of the model and use test set to find the accuracy</u></strong>.</p>
+
+<p>Usually we&#39;ll have \(D_{train}\) with 60% data, \(D_{cv}\) with 20% data and \(D_{test}\) with 20% data. Not a hard rule for this.</p>
+
+<p>Now, we can say that using \(D_{train}\) as training data, we find <strong>6-NN</strong> to have a <strong>generalization accuracy</strong> of 93% on future unseen data.</p>
+
+<h3 id="toc_7">K-fold cross validation</h3>
+
+<p>In the above data split, we used only 60% to find <strong>NN</strong>. But is there a way to use 80% data (20% data remain unseen) to find <strong>NN</strong>. Because more data is better for learning. We can use <strong>k-fold cross validationn</strong>, this <strong>k</strong> is not same as in <strong>k-nn</strong>.</p>
+
+<p><em><u>Steps:</u></em><br>
+1. Split \(D\) into 80% \(D_{train}\) and 20% \(D_{test}\). With that 80% data, we need to find both <strong>nn</strong> and <strong>k (hyperparameter)</strong>.<br>
+2. Randomnly breaking \(D_{train}\) into 4 parts.<br>
+3. Run validation as below</p>
+
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>\(D_{train}\)</th>
+<th>CV</th>
+<th>accuracy on cv</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>k=1</td>
+<td>\(D_1\),\(D_2\),\(D_3\)</td>
+<td>\(D_4\)</td>
+<td>\(a_4\)</td>
+</tr>
+<tr>
+<td>k=1</td>
+<td>\(D_1\),\(D_2\),\(D_4\)</td>
+<td>\(D_3\)</td>
+<td>\(a_3\)</td>
+</tr>
+<tr>
+<td>k=1</td>
+<td>\(D_1\),\(D_3\),\(D_4\)</td>
+<td>\(D_2\)</td>
+<td>\(a_2\)</td>
+</tr>
+<tr>
+<td>k=1</td>
+<td>\(D_2\),\(D_3\),\(D_4\)</td>
+<td>\(D_1\)</td>
+<td>\(a_1\)</td>
+</tr>
+<tr>
+<td>k=2</td>
+<td>\(D_1\),\(D_2\),\(D_3\)</td>
+<td>\(D_4\)</td>
+<td>\(a_4\)</td>
+</tr>
+<tr>
+<td>k=2</td>
+<td>\(D_1\),\(D_2\),\(D_4\)</td>
+<td>\(D_3\)</td>
+<td>\(a_3\)</td>
+</tr>
+<tr>
+<td>k=2</td>
+<td>\(D_1\),\(D_3\),\(D_4\)</td>
+<td>\(D_2\)</td>
+<td>\(a_2\)</td>
+</tr>
+<tr>
+<td>k=2</td>
+<td>\(D_2\),\(D_3\),\(D_4\)</td>
+<td>\(D_1\)</td>
+<td>\(a_1\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>\(a_{k=1}=\frac{a_1+a_2+a_3+a_4}{4}\ \forall\ k=1\)</p>
+
+<p>For \(k=1\), we need only one accuracy to map in graph. So we can get the average of \(a_1\), \(a_2\), \(a_3\) and \(a_4\) as \(a_{k=1}\). Use this for k=1. Repeat the same for \(k=2\) and find \(a_{k=2}\) and so on. This is <strong>4-fold cross validation</strong>. Here we are making use of all data for the training. But <strong>it&#39;ll increase the time by 4 times for 4-fold cv</strong>.</p>
+
+<p>How to find the proper <strong>k-fold</strong> number? Typically, we&#39;ll apply <strong>10-fold cross validation</strong> (no scientific reason).</p>
+
+<h3 id="toc_8">Visualizing train, validation and test datasets</h3>
+
+<ul>
+<li>\(D_{train}\) and \(D_{cv}\) points do not overlap perfectly</li>
+<li>If there are <strong>many points</strong> in the \(+ve\)/\(-ve\) points from \(D_{train}\) in a region, then it is very likely to find <strong>many points</strong> from \(D_{cv}\) from that region.</li>
+<li>Similarly, if there are <strong>less points</strong> in the \(+ve\)/\(-ve\) points from \(D_{train}\) in a region, then it is very likely to find <strong>less points</strong> from \(D_{cv}\) from that region. These are points are basically noise/outliers.</li>
+</ul>
+
+<h3 id="toc_9">How to determine overfitting and underfitting?</h3>
+
+<p>Using <strong>k-fold cv</strong> or <strong>cv</strong>, we can find hyperparameter <strong>k</strong> which will be neither overfit or underfit. But how can we be really sure that we are not underfitting or overfitting?</p>
+
+<p>\(accuracy=\frac{\#\ correctly\ predicted\ points}{Total\ \#\ points}\)<br>
+\(error = 1 - accuracy\)</p>
+
+<p>We need to maximize <strong>accuracy</strong> and minimize <strong>error</strong>.</p>
+
+<p><strong>Train error</strong> is we use the \(D_{train}\) data itself to find the accuracy &amp; error rather than \(D_{cv}\) .<br>
+. Training Data \(\rightarrow\) \(D_{train}\)<br>
+. Accuracy/Error on \(\rightarrow\) \(D_{train}\)</p>
+
+<p><strong>Validation error</strong> is we use the \(D_{train}\) data to train and \(D_{cv}\) to find the accuracy &amp; error.<br>
+. Training Data \(\rightarrow\) \(D_{train}\)<br>
+. Accuracy/Error on \(\rightarrow\) \(D_{cv}\)</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%207.24.13%20PM.png" alt=""></p>
+
+<p>Train error <strong>high</strong> and CV error <strong>high</strong> \(\longrightarrow\) <strong>underfit</strong><br>
+Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\longrightarrow\) <strong>overfit</strong></p>
+
+<h3 id="toc_10">Time based splitting</h3>
+
+<p>Better than random splitting for amazon food reviews problem.</p>
+
+<ol>
+<li>Sort the reviews in ascending order based on time added.</li>
+<li>Take the first 60% for train, 20% for cv and 20% for test.</li>
+</ol>
+
+<p>With time goes on, the products and reviews change. If I can give accuracy based on that, it&#39;ll hold good for future reviews too. But not the same for random splitting. Whenever time is available and behaviour changes in time, then <strong>time based splitting is suitable</strong>.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%208.04.42%20PM.png" alt=""></p>
+
+<h2 id="toc_11">K - Nearest neighbours for Regression</h2>
+
+<ol>
+<li>Given \(x_q\), find k-nearest neighbours (\(x_1\),\(y_1\)), (\(x_2\),\(y_2\)) ... (\(x_k\),\(y_k\))</li>
+<li>Instead of taking majority vote, we&#39;ll take the \(mean(y_i)_{i=1}^k\) or \(median(y_i)_{i=1}^k\)</li>
+</ol>
+
+<p>For some of the classification algorithms, we can extend the algo to regression.</p>
+
+<h2 id="toc_12">weighted k-nn</h2>
+
+<p>For query point \(x_q\) in <strong>5-nn</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>\(x_i\)</th>
+<th>\(y_i\)</th>
+<th>\(d_i\) from \(x_q\)</th>
+<th>\(w_i=\frac{1}{d_i}\)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>\(x_1\)</td>
+<td>\(y_1=-ve\)</td>
+<td>\(d_1=0.1\)</td>
+<td>10</td>
+</tr>
+<tr>
+<td>\(x_2\)</td>
+<td>\(y_2=-ve\)</td>
+<td>\(d_2=0.2\)</td>
+<td>5</td>
+</tr>
+<tr>
+<td>\(x_3\)</td>
+<td>\(y_3=+ve\)</td>
+<td>\(d_3=1\)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>\(x_4\)</td>
+<td>\(y_4=+ve\)</td>
+<td>\(d_4=2\)</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>\(x_5\)</td>
+<td>\(y_5=+ve\)</td>
+<td>\(d_5=4\)</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+
+<p>For \(x_q\), \(x_1\) is very close compared to \(x_3\),\(x_4\),\(x_5\). So we have to give more importance to \(x_1\). So give more weights to \(x_1\)</p>
+
+<p>One way to find is \(w_i\) = \(\frac{1}{d_i}\)</p>
+
+<p>Then, \((10+5)&gt;(1+0.2+0.5)\), so \(y_q\) is \(-ve\) opposite of majority vote</p>
+
+<h2 id="toc_13">Voronoi diagram</h2>
+
+<p>Diagram with k-nn concept (k=1)</p>
+
+<p>In mathematics, a Voronoi diagram is a partition of a plane into regions close to each of a given set of objects. In the simplest case, these objects are just finitely many points in the plane (called seeds, sites, or generators). For each seed there is a corresponding region, called Voronoi cells, consisting of all points of the plane closer to that seed than to any other. The Voronoi diagram of a set of points is dual to its Delaunay triangulation.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%208.31.31%20PM.png" alt=""></p>
+
+<h2 id="toc_14">kd-tree</h2>
+
+<p>KNN takes \(O(n)\) when k,d are small. We can use *<em>kd-tree</em> for optimization (based on binary search tree)</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%209.04.43%20PM.png" alt=""></p>
+
+<p>It is breaking up the space into axis parallel lines/planes/hyperplanes. We&#39;ll build the tree iterating each dimension once and repeating again, till we reach leaf nodes.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%209.07.59%20PM.png" alt=""></p>
+
+<ol>
+<li>Take the query point \(q:(x_q,y_q)\), we&#39;ll apply the kd-tree.</li>
+<li>For 1-NN, we can easily find by navigating the tree that \(c\) <strong>could be a</strong> neighbour of \(x\).</li>
+<li>We&#39;ll draw a <strong>hypersphere</strong> with the <strong>distance</strong> \(d\) <strong>between c and q</strong> as radius annd <strong>q as center</strong>.</li>
+<li>Now that hypersphere intersects \(y=y_1\), so we&#39;ll do the backtracking to the \(y\leq y_1\) node</li>
+<li>Navigate down from that node, we see that \(x\leq x_2\) is false, so \(e\) <strong>could be my neighbour</strong>. Find the distance \(d&#39;\) from point \(q\) and \(e\).</li>
+<li>\(d&#39;&lt;d\), so we&#39;ll ignore \(c\) and draw <strong>new hypersphere</strong> using \(q\) and \(e\).</li>
+<li>It intersects \(y\leq y_1\) node and since we have already done the backtracking for this, we need not do it again. We&#39;ll conclude that <strong>e is now 1-NN</strong>.</li>
+</ol>
+
+<p><u>Time Complexity for 1-NN:</u><br>
+Best case scenario for # of comparisons : \(O(lg(n))\)<br>
+Worst case scenario for # of comparisons : \(O(n)\)</p>
+
+<p><u>Time Complexity for k-NN:</u><br>
+Best case scenario for # of comparisons : \(O(k * lg(n))\)<br>
+Worst case scenario for # of comparisons : \(O(k*n)\)</p>
+
+<p>Space complexity is still \(O(n)\) considering dimensions \(d\) is small.</p>
+
+<h3 id="toc_15">Limitations</h3>
+
+<p>1 &gt; When \(d\) is not small, then if a hypersphere cuts all the lines, then we have to check for \(2^d\) adjoining cells. Even when \(d=10\), we have to check for \(1024\) adjoining cells.</p>
+
+<p>Time complexity for 1-nn : \(O(2^d*lg(n))\) it is worse than \(O(n*log(n))\)</p>
+
+<p>2 &gt; \(O(log(n))\) holds good only when the data is uniformly distributed.</p>
+
+<p>It is recommended for computer graphics.</p>
+
+<h2 id="toc_16">Hashing vs Locality Sensitive Hashing (LSH)</h2>
+
+<p>LSH \(\longrightarrow\) We want to find a hash function \(h(x)\) such that the neighbours of \(x\) will go to the same bucket of the hash of \(x\). It is a <strong>randomized algorithm</strong> (not always give the correct answer, answer with high probability ).</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%201.28.05%20PM.png" alt=""></p>
+
+<p>It works even when <strong>d is large</strong></p>
+
+<h3 id="toc_17">LSH for cosine similarity</h3>
+
+<p>If 2 points (\(x_1\), \(x_2\)) are very close (\(\theta\) between them is very small), then they are very similar to the points (say \(x_3\), \(x_4\)) which are very close. The close points \(x_1\), \(x_2\) will go to the same bucket.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%202.56.32%20PM.png" alt=""></p>
+
+<p>We are drawing <strong>m</strong> hyperplanes (\(\pi_1\), \(\pi_2\), \(\pi_3\)) in the space and take \(m\) <strong>unit normal vectors</strong> (\(m_1\), \(m_2\), \(m_3\)) to those planes. These hyperplanes are generated using normal distribution \(N(0,1)\)</p>
+
+<p>Then apply \(x_i^Tm\) (scalar) for each point in each hyperplane. If the point is above the hyperplane, then the value is \(+ve\) otherwise it&#39;ll be \(-ve\).</p>
+
+<p>So for a point, we&#39;ll have <strong>m-dimensional</strong> vector with sign of the value applied. It&#39;ll work as hash value.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.02.08%20PM.png" alt=""></p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.04.54%20PM.png" alt=""></p>
+
+<p>Time to construct this hash table : \(O(mdn)\)<br>
+Space is atleast \(O(n)\)</p>
+
+<p>Given a query point \(x_q\), construct \(h(x_q)\). Use this as key in the hashtable/dict to get the value. They <strong>could be</strong> the nearest point and find the cosine similarity of those points and get <strong>k</strong> nearest neighbours.</p>
+
+<p>Time complexity for querying : \(O(mdn&#39;)\) where \(n&#39;\) elements in the bucket (assuming \(n&#39; &lt; n\))</p>
+
+<p>So, typically we&#39;ll set \(m=log(n)\)</p>
+
+<p><strong><u>Limitations</u></strong>:<br>
+We could miss nearest points on both sides of the hyperplane.</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.17.03%20PM.png" alt=""></p>
+
+<p>So, we&#39;ll have new set of m hyperplanes and get another hash table. And repeat it for <strong>L times</strong> (typically small).<br>
+<img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.17.19%20PM.png" alt=""></p>
+
+<p>In the final query poinnt \(x_q\), we&#39;ll have a union of all the <strong>values</strong> in all <strong>L-hashtables</strong></p>
+
+<p>Time complexity for querying : \(O(mdL)\)</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.20.23%20PM.png" alt=""></p>
+
+<h3 id="toc_18">LSH for euclidean distance</h3>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.43.51%20PM.png" alt=""></p>
+
+<p>We&#39;ll divide the \(\pi\) into segments.<br>
+<img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.44.22%20PM.png" alt=""><br>
+<img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.44.36%20PM.png" alt=""></p>
+
+<p>The two points which are in same group will be projected in the same segment/region.</p>
+
+<p>Edge cases:<br>
+<img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.46.34%20PM.png" alt=""></p>
+
+<h2 id="toc_19">Probabilistic class label</h2>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.51.17%20PM.png" alt=""></p>
+
+<p>Consider these 2 cases, where one query point \(x_q\) with 4 -ve and 3 +ve points and another query point \(x_q&#39;\) is surrounded by same class. For the second point, we can say that it is \(y_q&#39;\) -ve point. But not for first point as -ve \(y_q\)  &amp; it is not fair.</p>
+
+<p><strong>Instead we can give answer as probability</strong>,<br>
+\(P(y_q=-ve) = \frac{4}{7}\)<br>
+\(P(y_q&#39;=-ve) = \frac{7}{7}\)</p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>

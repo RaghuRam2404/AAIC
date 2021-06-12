@@ -18,8 +18,9 @@ EDA, Linear Algebra, Probability and Statistics, Dimensionality reduction & visu
 Real world problem: Predict rating given product reviews on Amazon,  Classification And Regression Models: K-Nearest Neighbors, Classification algorithms in various situations, Performance measurement of models, Naive Bayes, Logistic Regression, Linear Regression, Solving Optimization Problems.
 
 **My Workouts:**  
+
 1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)
-1.2 [Python Functions](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)
+1.2 [Python Functions & Files](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)
 1.3 [Python Numpy](https://colab.research.google.com/drive/1nRbBIrXV7no_oTUt5BJwFsBZyGWDM2w4?authuser=1#scrollTo=fSBCxNXqQpxM)
 1.4 [Python Matplotlib](https://colab.research.google.com/drive/1IaXH-9Kt_8D5eFW60VJsha0fvjSqYAht?authuser=1)
 1.5 [Python Pandas](https://colab.research.google.com/drive/15TZOFwNSSHi3KThDgev7Q48P_dXOxoLP?authuser=1)
@@ -27,6 +28,9 @@ Real world problem: Predict rating given product reviews on Amazon,  Classificat
 2.2 [Probability & Statistics](https://colab.research.google.com/drive/1-UZ_1Y1Hp563hL7T8brsJzME-P-bJXkW?authuser=1)
 2.3 [MNIST Dataset & Visualization](https://colab.research.google.com/drive/1VlaTW1Egz5vXNrK-aOwkcDpPxO-OcT3D?authuser=1)
 3.1 [Amazon Food Reviews - NLTK](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1)
+3.2 [BoW implementation](https://colab.research.google.com/drive/1Rd5Mx6eeBiIemInxY1y2hZvMkA3oZoaP?authuser=1#scrollTo=JQDj94EcflkN)
+3.3 [KNN & k-fold](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1)
 
 Other helpful links:
+
 1. [LaTex Symbols](https://gist.github.com/LKS90/252ac41bd4a173be35b0)

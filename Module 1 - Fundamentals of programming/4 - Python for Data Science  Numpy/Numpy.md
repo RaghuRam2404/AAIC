@@ -28,6 +28,8 @@ Array Create
 - `np.mean(a)` - find the mean (average) of elements
 - `np.median(a)` - find the median of elements
 - `np.percentile(a, reqd_percentiles)` - find the percentile values passed in the `reqd_percentiles` array or scalar
+- `xx,yy=np.meshgrid(np.arange(0, 5, 1), np.arange(0, 10, 1))` - returns 5x10 matrix with all combinations (as in the graph grid)
+- `np.c_[xx.ravel(), yy.ravel()]` - using the index values in mesh grid using `c_`
 
 
 Array's attributes

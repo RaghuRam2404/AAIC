@@ -531,7 +531,7 @@ pre.line-numbers > code {
 </tr>
 <tr>
 <td>ScikitLearn</td>
-<td>CountVectorizer, TfidfVectorizer</td>
+<td>CountVectorizer, TfidfVectorizer, KNeighborsClassifier, train_test_split, cross_val_score, accuracy_score</td>
 </tr>
 <tr>
 <td>NLTK</td>
@@ -544,6 +544,10 @@ pre.line-numbers > code {
 <tr>
 <td>Re</td>
 <td>compile,sub</td>
+</tr>
+<tr>
+<td>mlxtend</td>
+<td>plot_decision_regions</td>
 </tr>
 </tbody>
 </table>
@@ -581,6 +585,17 @@ count_vec = TfidfVectorizer(ngram_range=(1,2))
 count_vec.fit(fdata[&#39;Processed Text&#39;])
 fdata_tfidf = count_vec.transform(fdata[&#39;Processed Text&#39;])
 print(count_vec.idf_) #idf values</code></pre></div>
+
+<p>Refer <a href="https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=pnY19qYH98cu">3.3 KNN</a><br>
+<code><br>
+from sklearn.neighbors import KNeighborsClassifier<br>
+X_1, X_test, Y_1, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)<br>
+model = KNeighborsClassifier(n_neighbors=k_val)<br>
+model.fit(X_1,Y_1)<br>
+y_pred = model.predict(X_test)<br>
+acc = accuracy_score(Y_test, y_pred, normalize=True) * float(100)<br>
+acc_scores = cross_val_score(model, X_1, Y_1, cv=10, scoring=&quot;accuracy&quot;)<br>
+</code></p>
 
 <h2 id="toc_4">NLTK</h2>
 
@@ -621,6 +636,15 @@ w2v_model.wv[&#39;taste&#39;]</code></pre></div>
 
 re.sub(r&#39;(http://\S+)|(https://\S+)&#39;, &#39;&#39;, sentence)
 #removes the http and https urls</code></pre></div>
+
+<h2 id="toc_7">mlxtend</h2>
+
+<div><pre class="line-numbers"><code class="language-none">from mlxtend.plotting import plot_decision_regions
+x = data[:,0:2]
+y = data[:, 2]
+model = KNeighborsClassifier(n_neighbors=k_val)
+model.fit(x,y)
+plot_decision_regions(x, y.astype(int), clf=model, legend=2, ax=ax)</code></pre></div>
 
 
 
