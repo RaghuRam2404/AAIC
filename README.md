@@ -17,7 +17,7 @@ EDA, Linear Algebra, Probability and Statistics, Dimensionality reduction & visu
 ### Module 3 - Foundation of Natural Language Processing and Machine Learning
 Real world problem: Predict rating given product reviews on Amazon,  Classification And Regression Models: K-Nearest Neighbors, Classification algorithms in various situations, Performance measurement of models, Naive Bayes, Logistic Regression, Linear Regression, Solving Optimization Problems.
 
-**My Workouts:**  
+**My Workouts:** (Private Google Collab ipynb files)  
 
 1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)
 1.2 [Python Functions & Files](https://colab.research.google.com/drive/1x-4lk6G41667XPSgDq7X_tUd7un6hHH5?authuser=1)
@@ -30,6 +30,7 @@ Real world problem: Predict rating given product reviews on Amazon,  Classificat
 3.1 [Amazon Food Reviews - NLTK](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1)
 3.2 [BoW implementation](https://colab.research.google.com/drive/1Rd5Mx6eeBiIemInxY1y2hZvMkA3oZoaP?authuser=1#scrollTo=JQDj94EcflkN)
 3.3 [KNN & k-fold](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1)
+3.4.1 [GridSearchCV](https://colab.research.google.com/drive/1JUhuYOFuxsEcbu8xtX0rg8E0okHOHJQE?authuser=1)
 
 Other helpful links:
 
