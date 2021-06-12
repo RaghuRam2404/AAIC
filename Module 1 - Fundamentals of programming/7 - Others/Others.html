@@ -586,16 +586,15 @@ count_vec.fit(fdata[&#39;Processed Text&#39;])
 fdata_tfidf = count_vec.transform(fdata[&#39;Processed Text&#39;])
 print(count_vec.idf_) #idf values</code></pre></div>
 
-<p>Refer <a href="https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=pnY19qYH98cu">3.3 KNN</a><br>
-<code><br>
-from sklearn.neighbors import KNeighborsClassifier<br>
-X_1, X_test, Y_1, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)<br>
-model = KNeighborsClassifier(n_neighbors=k_val)<br>
-model.fit(X_1,Y_1)<br>
-y_pred = model.predict(X_test)<br>
-acc = accuracy_score(Y_test, y_pred, normalize=True) * float(100)<br>
-acc_scores = cross_val_score(model, X_1, Y_1, cv=10, scoring=&quot;accuracy&quot;)<br>
-</code></p>
+<p>Refer <a href="https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=pnY19qYH98cu">3.3 KNN</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">from sklearn.neighbors import KNeighborsClassifier
+X_1, X_test, Y_1, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+model = KNeighborsClassifier(n_neighbors=k_val)
+model.fit(X_1,Y_1)
+y_pred = model.predict(X_test)
+acc = accuracy_score(Y_test, y_pred, normalize=True) * float(100)
+acc_scores = cross_val_score(model, X_1, Y_1, cv=10, scoring=&quot;accuracy&quot;)</code></pre></div>
 
 <h2 id="toc_4">NLTK</h2>
 
