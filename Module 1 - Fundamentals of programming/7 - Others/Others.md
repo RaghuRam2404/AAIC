@@ -3,7 +3,7 @@
 |Package|Function|
 |---|----|
 |BeautifulSoup||
-|ScikitLearn|CountVectorizer, TfidfVectorizer, KNeighborsClassifier, train\_test\_split, cross\_val\_score, accuracy_score |
+|ScikitLearn|CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train\_test\_split, cross\_val\_score, accuracy_score |
 |NLTK|PorterStemmer, stopwords, WordNetLemmatizer,FreqDist |
 |gensim| Word2Vec |
 |Re|compile,sub|
@@ -57,6 +57,13 @@ model.fit(X_1,Y_1)
 y_pred = model.predict(X_test)
 acc = accuracy_score(Y_test, y_pred, normalize=True) * float(100)
 acc_scores = cross_val_score(model, X_1, Y_1, cv=10, scoring="accuracy")
+```
+Refer [3.3 KNN](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=azqnn2NI9bOO)
+
+```
+lof = LocalOutlierFactor(n_neighbors=3)
+fp = lof.fit_predict(data[:,0:2])
+filtered_data = data[np.where(fp == 1)]
 ```
 
 ##NLTK

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>3 Classification algorithms in various situations</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Classification algorithms in various situations</h1>
+
+<h2 id="toc_1">Imbalanced vs balanced dataset</h2>
+
+<p>Consider <strong>2-class classification</strong> with \(n_1\) \(+ve\) points and \(n_2\) \(-ve\) points in dataset \(D_n\).</p>
+
+<p>if \(n_1\sim n_2\) : Balanced dataset<br>
+if \((n_1\ll n_2)\) or \((n_1\gg n_2)\) : Imbalanced dataset<br>
+if \((n_1=5\%\ of\ n)\) or \((n_2=5\%\ of\ n)\) : Severely Imbalanced dataset. For KNN, severly imbalanced dataset will cause problems.</p>
+
+<p>We can get <strong>very high accuracy</strong> with the imbalanced dataset. It&#39;s because that if the model is more prone to the majority class and it&#39;ll contribute to the more accuracy.</p>
+
+<h3 id="toc_2">How to work around this?</h3>
+
+<ol>
+<li><strong>Undersampling</strong> : \(D_n\) with 1000 points, \(n_1=100\) (+ve) and \(n_2=900\) (-ve). Use sampling technique to create a new dataset such that \(n_1&#39;=100\) annd \(n_2&#39;=100\). So, new dataset \(D_n&#39;\) is of size \(200\). As we lose much data in \(n_1\), the model <u>may not work well</u>. <strong>Throwing away data must be avoided</strong></li>
+<li><strong>Oversampling</strong> : \(D_n\) with 1000 points, \(n_1=100\) (+ve) and \(n_2=900\) (-ve). We&#39;ll create a new dataset with \(800\) more data points in \(n_1\) (by the method of <strong>repeating</strong>). So, new dataset \(D_n&#39;\) is of size \(1800\). Or we can create <strong>artificial or synthetic points</strong>, with new points within the smaller region (using <strong>extrapolation</strong>).</li>
+<li><strong>class weight</strong> : \(D_n\) with 1000 points, \(n_1=100\) (+ve) and \(n_2=900\) (-ve). Here we&#39;ll give <strong>more weight to minority class</strong> and less weight to the majority class. \(w_1=9\) and \(w_2=1\) (just the ratio). So whenever we find \(+ve\) point, we&#39;ll count it as 9 rather than 1 (due to the weight). It is similar to <strong>repeating the points</strong></li>
+</ol>
+
+<p><u><strong><em>OVERSAMPLING IS PREFERRED OVERALL</em></strong></u></p>
+
+<h2 id="toc_3">Multiclass classification</h2>
+
+<p>Example is MNIST database where \(y_i\ \epsilon\ \{0,\ 1,\ 2\ ...\ 9\}\)</p>
+
+<p>Consider <strong>7-NN</strong> with <strong>c-classes</strong> and for \(x_q\) the result is \([0,6,1,...0]_{c}\). We can take majority vote and say that \(x_q\) belongs to class \(c_2\). In probabilistic classifier, \(P(q=c_2)=6/7\) and \(P(q=c_3)=1/7\).</p>
+
+<p>Not all classifiers will work easily as KNN to classify multiclass. <u>So can we convert the multiclass classification problem into binary class classification</u>?</p>
+
+<p>\(y_i\ \epsilon\ \{1,2,3\ ..\ c\}\) for the dataset \(D_n\)<br>
+1) \(D_n\ \longrightarrow\ \{x_i,y_i | y=1\}\) or \(\{x_i,y_i | y\neq1\}\) It is a binary classifier<br>
+2) \(D_n\ \longrightarrow\ \{x_i,y_i | y=2\}\) or \(\{x_i,y_i | y\neq2\}\)<br>
+3) \(D_n\ \longrightarrow\ \{x_i,y_i | y=3\}\) or \(\{x_i,y_i | y\neq3\}\)<br>
+And so on. It goes upto \(c\) classes with <strong>c-binary classifiers</strong>. It is <strong>one vs rest multiclass classification</strong>. Time and space complexity will increase as usual.</p>
+
+<h2 id="toc_4">k-NN, given a distance or similarity matrix</h2>
+
+<p>Consider a case where we can&#39;t convert an input into vector (like pharma medicals). But we can pharmacist to know the similarity of 2 medicals (say \(s_i,s_j\)). They can say it. So we can create a matrix with size \(n\)x\(n\) (from \(s_0\), \(s_1\), \(s_2\) to \(s_{n-1}\) as rows and columns). Fill that matrix. Now it&#39;ll give how similar each medical is to each other. \(S_{ij}\) represent the similarity of 2 medicals \(s_i\) and \(s_j\). We can take the <strong>inverse of those values in the matrix as distances</strong> (because as similarity increases, the distance between the vectors decreases and vice versa). Now, we can apply <strong>knn</strong> on that matrix.</p>
+
+<h2 id="toc_5">Train and test set differences</h2>
+
+<p>In Amazon find food reviews, we did <strong>time based splitting</strong> for train<u>test</u>split, because the products may improve over time and new categories will be added, old categories will be removed. So it is essential to have train and test dataset from same kind of distribution for our model to work.</p>
+
+<p>To check this, we&#39;ll create 2 datasets.<br>
+1. With \(D_{train}\) and \(y_i=1\) and \(x_i=(x_iy_i)\)<br>
+2. With \(D_{test}\) and \(y_i=0\) and \(x_i=(x_iy_i)\)<br>
+3. Do the binary classification between them.</p>
+
+<p>If they are separable with <strong>good accuracy</strong>, then it means that the <strong>features are changing over time</strong> and they are not stable. Find <strong>good features</strong> for the model to work with.</p>
+
+<p>But if they have <strong>less accuracy</strong>, then it means that <strong>the distributions of train and test dataset is very similar</strong> and we can&#39;t separate them. Our model will work good on it.</p>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%203.22.41%20PM.png" alt=""><br>
+<img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%203.25.12%20PM.png" alt=""><br>
+<img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%203.26.33%20PM.png" alt=""><br>
+<img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%203.27.26%20PM.png" alt=""></p>
+
+<h2 id="toc_6">Impact of outliers</h2>
+
+<p>model(f) \(\simeq\) decision surface</p>
+
+<p>If <strong>k is small</strong>, it is very prone to outliers and the accuracy will be more. So if 5 k&#39;s have same accuracy (k=1,2,3,4,5), then we can choose the highest k (k=5) among them as it is less prone to outliers.</p>
+
+<p>Or, remove the outliers using <strong>Local Outlier Factor (LOF)</strong>.</p>
+
+<h3 id="toc_7">Local Outlier Factor</h3>
+
+<p><strong><u>Simple solution :</u></strong> Mean distance to knnn<br>
+<img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%204.35.10%20PM.png" alt=""></p>
+
+<p>\(x_1\) and \(x_2\) are outliers and distant from the clusers \(c_1\) and \(c_2\). The avg distance of <strong>5-NN</strong> for \(c_1\) cluster points is \(d_1\), for \(c_2\) cluster points is \(d_3\), point \(x_1\) is \(d_2\) and point \(x_2\) is \(d_4\).</p>
+
+<p>Steps :<br>
+1. For every point \(x_i\), compute it&#39;s <strong>(k=5)-NN</strong><br>
+2. Compute avg distance from \(x_i\) to it <strong>5NN</strong><br>
+3. Sort \(x_i&#39;s\) based on the avg distance. If the avg distance is higher, then it is an outlier.</p>
+
+<p>But this solution won&#39;t work as it&#39;ll remove \(x_2\) and the cluster \(c_2\). And this won&#39;t declare \(x_1\) as outlier. Instead we&#39;ll find the <strong>local density</strong>.</p>
+
+<hr>
+
+<h3 id="toc_8">some terms</h3>
+
+<p><strong>kth distance</strong>, \(k\_distance(x_i)\) = distance to the \(k_{th}\) nearest neighbour (obtained from KNN) of \(x_i\) from \(x_i\). It&#39;ll be the element which is further way in the k neighbours.</p>
+
+<p><strong>Neighbourhood</strong>, \(N_{k=5}(x_i)\) = Neighbourhood of \(x_i\) = {\(x_1\), \(x_2\), \(x_3\), \(x_4\), \(x_5\)}</p>
+
+<p><strong>Reachability-Distance(A,B)</strong>, \(reachability\_distance(x_i,x_j)=max(k\_distance(x_j), dist(x_i,x_j))\)<br>
+If \(x_j\) belongs to the neigbourhood of \(x_i\), then we&#39;ll have the reachability distance as \(k\_distance(x_j)\), otherwise we&#39;ll have value as \(dist(x_i, x_j)\). At the end, we&#39;ll have a max value.<br>
+<img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%205.00.31%20PM.png" alt=""></p>
+
+<p><strong>LRD (i.e) Local reachability-density(A)</strong><br>
+\(lrd(x_i)=(\sum_{x_j\epsilon\ N(x_i)}\{\frac{reach\_dist(x_i, x_j)}{|N(x_i)|}\})^{-1}\) where \(|N(x_i)|\) represents the no of neighbour elements for \(x_i\) and it need not always be \(k\) because we can have 2 elements at same distance from the point. The denominator terms is almost like average reachability distance of \(x_i\) from it&#39;s neighbours.</p>
+
+<p>So <strong>LRD</strong> is <strong>inverse of average reachability distance of</strong> \(x_i\) <strong>from it&#39;s neighbours</strong>.</p>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%205.07.33%20PM.png" alt=""></p>
+
+<p><strong>Local outlier factor(</strong>\(x_i\)<strong>)</strong> = \(\frac{\sum_{x_j\ in\ N(x_i)}lrd(x_j)}{|N(x_i)|}\)*\(\frac{1}{lrd(x_i)}\)<br>
+LOF is large if \(lrd(x_i)\) is small or first term multiplier is large (i.e.)  (lrd) density is small for the point \(x_i\) compared to it neighbours.<br>
+So, if LOF is large, it is <strong>outlier</strong> otherwise it is <strong>inlier</strong>.</p>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%206.07.39%20PM.png" alt=""></p>
+
+<p><strong><u>Steps</u></strong><br>
+1) Find LOF of all points<br>
+2) remove the points which has high LOF. And how many points will be depending on us. It is a subjective decision. Usually in all applications, outlier will be in <strong>5% range</strong>.</p>
+
+<p>Since there is no range for LOF values, so there is <strong>no interpretability or hard to interpret</strong>.</p>
+
+<div><pre class="line-numbers"><code class="language-none">x_pve = np.linspace(1,10,10)
+y_pve = [x%4 for x in x_pve]
+x_nve = np.linspace(11,20,10)
+y_nve = [x%4 for x in x_nve]
+class_p = [1 for x in range(len(x_pve)+1)]
+class_n = [-1 for x in range(len(x_nve)+1)]
+
+## Outlier
+x_pve = np.concatenate((x_pve, 40), axis=None)
+y_pve = np.concatenate((y_pve, 3), axis=None)
+x_nve = np.concatenate((x_nve, -11), axis=None)
+y_nve = np.concatenate((y_nve, 0), axis=None)
+
+X = np.concatenate((x_pve, x_nve))
+Y = np.concatenate((y_pve, y_nve))
+C = np.concatenate((class_p, class_n))
+
+data = np.array([[x,y,c] for x,y,c in zip(X,Y,C)])
+
+fig, axes = plt.subplots(1,1)
+knn_plot(data, axes, k_val=1)
+plt.show()</code></pre></div>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%206.25.14%20PM.png" alt=""></p>
+
+<div><pre class="line-numbers"><code class="language-none">lof = LocalOutlierFactor(n_neighbors=3)
+fp = lof.fit_predict(data[:,0:2])
+print(fp)
+print(lof.negative_outlier_factor_)
+filtered_data = data[np.where(fp == 1)]
+fig, axes = plt.subplots(1,1)
+knn_plot(filtered_data, axes, k_val=1)
+plt.show()</code></pre></div>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%206.25.20%20PM.png" alt=""></p>
+
+<h2 id="toc_9">Impact of Scale &amp; Column standardization</h2>
+
+<p>Scale difference : 2 features in a data is in different range (like one feature in range 0-100 and another one in 0-1). It affects many parameters like euclidean distance.</p>
+
+<p>Column standardization :<br>
+Say for a row &#39;\(x_{i}\)&#39; and it&#39;s feature \(a\) , \(a&#39;=\frac{a-\mu_a}{\sigma_a}\)</p>
+
+<h2 id="toc_10">Interpretability</h2>
+
+<p>Training : \(D\) \(\longrightarrow\) \(f\)<br>
+Black box model Prediction : \(x_q\) \(\rightarrow\) \(f\) \(\rightarrow\) \(y_q\) (class label)</p>
+
+<p>Say it is for cancer prediction, doctor can&#39;t simply conclude that the patient has cancer or not. He <strong>needs reasoning</strong> (like feature 4&#39;s value is very high and feature 6&#39;s value is very low).</p>
+
+<p>Interpretable model prediction : \(x_q\) \(\rightarrow\) \(f\) \(\rightarrow\) \(y_q\) (class label and reasoning)</p>
+
+<p>In KNN with k=7, we can say reasoning as <q>all 7 neighbours has the value 1</q>. So KNN is interpretable when k is reasonably small.</p>
+
+<p><strong>Interpretability is important for all classification techniques.</strong></p>
+
+<h2 id="toc_11">Feature Importance and Forward Feature selection</h2>
+
+<p>10 features \(f_1\) to \(f_{10}\) with \(n\) points</p>
+
+<p><strong>Feature importance</strong> : sorting features by their importance. Helps in understanding a model better for it&#39;s interpretability.</p>
+
+<p>In KNN, can we get importance of features? We can&#39;t get it.</p>
+
+<p>Given any model, we can use the technique <strong>forward feature selectionn</strong> technique to find the top features among <strong>d features</strong>.</p>
+
+<p>We have split the data into test &amp; train dataset and choose to use <strong>KNN</strong> (but not yet done)</p>
+
+<p><u>Step 1:</u><br>
+{\(f_1\), \(f_2\), \(f_3\), ... \(f_d\)}<br>
+Use only \(f_1\) to build model and get the <strong>test accuracy</strong> \(a_1\)<br>
+Then use only \(f_2\) to build model and get the <strong>test accuracy</strong> \(a_2\)<br>
+...<br>
+Then use only \(f_d\) to build model and get the <strong>test accuracy</strong> \(a_d\)</p>
+
+<p>The feature which gives the highest accuracy, will be more important. Say \(f_{10}\)</p>
+
+<p><u>Step 2:</u><br>
+Use only \(f_1\) &amp; \(f_{10}\) to build model and get the <strong>test accuracy</strong> \(a_1\)<br>
+Then use only \(f_2\) &amp; \(f_{10}\) to build model and get the <strong>test accuracy</strong> \(a_2\)<br>
+...<br>
+but not \(a_{10}\)<br>
+...<br>
+Then use only \(f_d\) &amp; \(f_{10}\) to build model and get the <strong>test accuracy</strong> \(a_d\)</p>
+
+<p>The feature which gives the highest accuracy, will be more important. Say \(f_{5}\). SO we choose \(f_{10}\) and \(f_5\) are top 2 features.</p>
+
+<p>Keep repeating it <strong>d</strong> times. <strong>At each stage, we are asking, given that I already have some features which new features will add most value to my model.</strong></p>
+
+<p><strong>In backword feature selection, we&#39;ll remove the least important feature which drops the accuracy</strong>.</p>
+
+<p>It is <u><strong><em>very time consuming</em></strong></u>.</p>
+
+<h2 id="toc_12">Handling categorical and numerical features</h2>
+
+<p>features = {weight, hair color, country, age}<br>
+predict = {height}</p>
+
+<p><strong>weight</strong> :<br>
+Numerical feature. So we can leave it as such</p>
+
+<p><strong>hair color</strong> :<br>
+Categorical feature : set {black, brown, golden, grey, red}. Convert it to a numeric value.<br>
+We can give number 1,2,3,4,5. But we are introducing order between them like 1<2 or 4>2.<br>
+So we&#39;ll use <strong>one hot encoding</strong>. We&#39;ll create 5 binary features/vector. When one feature takes value 1, others will take 0. With this, there is no comparison between different values of hair color.</p>
+
+<p>In case the feature is categorical and they are on <strong>logical order</strong>. Say for reviews very good, good, avg, bad, worst as values in the feature, we can convert them to numeric 5,4,3,2,1 correspondingly.</p>
+
+<p><strong>Country:</strong><br>
+Categorical feature. We may have 200 values in this. We&#39;ll create 200 features. This increases the dimension. In this case, <strong>One hot encoding</strong> will create <strong>sparse and large vector</strong>.<br>
+<strong>Instead we can replace this feature with the <u>average value of height</u> or <u>distance from India</u>, of that particular country in that row.</strong> But this depends on each use case and domain knowledge.</p>
+
+<h2 id="toc_13">Handling missing values by imputation</h2>
+
+<p>It is very common in all the cases.</p>
+
+<p>1) <strong>Imputation</strong> : Replace value with something else (mean, median, mode). Mode is the most frequent values. Do it based on the class label (i.e) take mean/median for that particular class and populate it.</p>
+
+<p>2) <strong>New missing value feature:</strong> For the features with missing values, <strong>fill it with imputation</strong> method. And for that feature, <strong>create new boolean feature with value 0/1</strong>. If a particular row doesn&#39;t have that feature, we&#39;ll fill it up with 1 else 0.</p>
+
+<p>3) <strong>Model based imputation</strong> : Ignore \(y\), use regression/classification model to find the missing values of that particular feature by having training set as non empty rows and test set as missing rows. <strong>KNN</strong> is best used for this.</p>
+
+<h2 id="toc_14">curse of dimensionality</h2>
+
+<p>When \(d\) (dimensionality) is high</p>
+
+<p>1) <strong><u>ML :</u></strong><br>
+Consider 3 boolean features, we have \(2^3=8\) combination of data<br>
+Consider 10 boolean features, we have \(2^{10}=1024\) combination of data</p>
+
+<p>So as dimensionality \(\uparrow\), the data required to make a well trained model <strong>increases exponentially</strong>, because we need data in all possible combinations.</p>
+
+<p><strong><em>Hughes phenomenon :</em></strong><br>
+When size of dataset is fixed as \(n\), <strong>the predictive power decreases as dimensionality increases</strong>.</p>
+
+<p>2) <strong><u>Distance Functions :</u></strong><br>
+Especially euclidean distance. Intuition of euclidean distance in 3D is not valid in higher dimensions.</p>
+
+<p>\(dist\_min(x_i) = min_{x_j \neq x_i} \{euclidean\_dist(x_i,x_j)\}\)<br>
+\(dist\_max(x_i) = max_{x_j \neq x_i} \{euclidean\_dist(x_i,x_j)\}\)</p>
+
+<p>\(\frac{dist\_max(x_i)-dist\_minn(x_i)}{dist\_min(x_i)}&gt;0\) in 1D, 2D, 3D</p>
+
+<p>as \(d\) increases, by calculus, <strong>above value tends to zero</strong>. It is because those points in higher dimension are <strong>equally distant from each other</strong>. KNN doesn&#39;t work so good in higher dimension. Instead we can use <strong>cosine similarity</strong> (as it is less affected in higher dimension compared to the euclidean distance).</p>
+
+<p>In case of <strong>sparse data</strong>, higher dimension won&#39;t affect that much as the dense data.</p>
+
+<p>3) <strong><u>Overfitting &amp; Underfitting:</u></strong></p>
+
+<p>As dimensionality \(\uparrow\), overfitting \(\uparrow\) in KNN.</p>
+
+<p>Pick most useful features using <strong>forward feature selection</strong> or use <strong>PCA</strong> or <strong>t-sne</strong>.</p>
+
+<h2 id="toc_15">Bias-Variance tradeoff</h2>
+
+<p>In KNN, \(k=1\) it is overfitting.<br>
+In KNN, \(k=n\) it is underfitting.</p>
+
+<p>Generalization error is the error on future unseen data. Mathematicians told that<br>
+<strong>Generalization error =</strong> \(Bias^2+variance+irreducible\ error\) for the model \(m\)</p>
+
+<p>\(Bias^2\ \rightarrow\) due to <strong>simplifying assumptions</strong> (<strong>underfitting</strong>)<br>
+\(variance\ \rightarrow\) how much a model changes when training data changes. Small changes in training dataset, result in very different model. It is a <strong>high variance (overfit) model</strong>.<br>
+\(irreducible\ error\rightarrow\) we can&#39;t reduce the error further for a given model</p>
+
+<p>We need to find the right balance by <strong>bias variance trade off</strong>.</p>
+
+<h3 id="toc_16">Intuitive understanding</h3>
+
+<p>train error \(\uparrow\) , it has more Bias (underfit) \(\uparrow\)<br>
+train error \(\downarrow\) &amp; test error \(\uparrow\), it has more variance (overfit) \(\uparrow\). Or training data changes lightly, model changes leading to overfit problem.</p>
+
+<h2 id="toc_17">best and worst case of algorithm</h2>
+
+<p><strong>KNN is Good</strong> when<br>
+1. dim \(d\) is small. Runtime is low when d is low<br>
+2. When we know what distance measure works good for the type of the data we have. For genome data, we can use hamming distance.<br>
+3. If someone gives us similarity/distance matrix, we can use it.</p>
+
+<p><strong>KNN is bad</strong> when<br>
+1. we need Low latency system (i.e.) we can predict fast.</p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>

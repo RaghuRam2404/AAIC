@@ -531,7 +531,7 @@ pre.line-numbers > code {
 </tr>
 <tr>
 <td>ScikitLearn</td>
-<td>CountVectorizer, TfidfVectorizer, KNeighborsClassifier, train_test_split, cross_val_score, accuracy_score</td>
+<td>CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train_test_split, cross_val_score, accuracy_score</td>
 </tr>
 <tr>
 <td>NLTK</td>
@@ -595,6 +595,12 @@ model.fit(X_1,Y_1)
 y_pred = model.predict(X_test)
 acc = accuracy_score(Y_test, y_pred, normalize=True) * float(100)
 acc_scores = cross_val_score(model, X_1, Y_1, cv=10, scoring=&quot;accuracy&quot;)</code></pre></div>
+
+<p>Refer <a href="https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=azqnn2NI9bOO">3.3 KNN</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">lof = LocalOutlierFactor(n_neighbors=3)
+fp = lof.fit_predict(data[:,0:2])
+filtered_data = data[np.where(fp == 1)]</code></pre></div>
 
 <h2 id="toc_4">NLTK</h2>
 

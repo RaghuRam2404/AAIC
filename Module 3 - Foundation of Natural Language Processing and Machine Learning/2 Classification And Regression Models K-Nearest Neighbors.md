@@ -51,7 +51,7 @@ It's similar to walking around the block to reach some buildings. You can't cros
 
 $||x_1-x_2||_1\ =\ \sum_{i=1}^d |x_{1i}-x_{2i}|$ It is $L_1$ norm.
 
-Where to use it?
+Where to use it? For continuous variable (but not for categorical variable)
 
 **_Minkowski distance:_**
 
@@ -76,6 +76,7 @@ Hamming dist( $x_1$, $x_2$) = 2
 In case of string vectors, we'll count the no of alphabets changed in particular position.
 
 Used in Gene code sequence.
+Where to use it? For categorical variable (but not for continuouscontinuous variable)
 
 **_Cosine Distance & Cosine Similarity_**
 
@@ -360,3 +361,17 @@ Consider these 2 cases, where one query point $x_q$ with 4 -ve and 3 +ve points 
 **Instead we can give answer as probability**,
 $P(y_q=-ve) = \frac{4}{7}$
 $P(y_q'=-ve) = \frac{7}{7}$
+
+
+## Interview questions
+In k-means or kNN, we use euclidean distance to calculate the distance between nearest neighbours. Why not manhattan distance ?([https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/](https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/))
+
+How to test and know whether or not we have overfitting problem?([https://www.appliedaicourse.com/course/applied-ai-course-online/lessons/how-to-determine-overfitting-and-underfitting/](https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/))
+
+How is kNN different from k-means clustering?([https://stats.stackexchange.com/questions/56500/what-are-the-main-differences-between-k-means-and-k-nearest-neighbours](https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/))
+
+Can you explain the difference between a Test Set and a Validation Set?([https://stackoverflow.com/questions/2976452/whats-is-the-difference-between-train-validation-and-test-set-in-neural-netwo](https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/))
+
+How can you avoid overfitting in KNN?([https://www.appliedaicourse.com/course/applied-ai-course-online/lessons/how-to-determine-overfitting-and-underfitting/](https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/))
+
+[https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/](https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/)
