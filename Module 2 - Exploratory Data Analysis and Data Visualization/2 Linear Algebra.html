@@ -326,6 +326,189 @@ kbd {
 }
 </style>
 
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
 
 </head>
 
@@ -355,27 +538,27 @@ kbd {
 
 <h2 id="toc_3">Distance between points</h2>
 
-<p>p = [\(a_1\), \(a_2\)]
-q = [\(b_1\), \(b_2\)]
+<p>p = [\(a_1\), \(a_2\)]<br>
+q = [\(b_1\), \(b_2\)]<br>
 distance in 2D = \(\sqrt( (a_1-b_1)^2 + (a_2-b_2)^2)\)</p>
 
-<p>Apply the same for n dimensions.
+<p>Apply the same for n dimensions.<br>
 distance in nD = \(\sqrt( (a_1-b_1)^2 + (a_2-b_2)^2 + ... + (a_n-b_n)^2)\)</p>
 
 <h2 id="toc_4">Row &amp; column vector</h2>
 
-<p>Row vector :
+<p>Row vector :<br>
 A = [\(a_1\), \(a_2\) ... \(a_n\)] of size (1xn)</p>
 
-<p>Column vector :
-B =   [\(b_1\), \(b_2\) ... \(b_n\)]
+<p>Column vector :<br>
+B =   [\(b_1\), \(b_2\) ... \(b_n\)]<br>
 of size (nx1)</p>
 
 <p><strong>If nothing is told about a vector, it is normally assumed as column vector</strong></p>
 
 <h2 id="toc_5">Mathematical Operation on Row vectors</h2>
 
-<p>a = [\(a_1\), \(a_2\), ... \(a_n\)]
+<p>a = [\(a_1\), \(a_2\), ... \(a_n\)]<br>
 b = [\(b_1\), \(b_2\), ... \(b_n\)]</p>
 
 <p>a+b = [ (\(a_1\)+\(b_1\)), (\(a_2\)+\(b_2\)), ... (\(a_n\)+\(b_n\)) ]</p>
@@ -397,6 +580,22 @@ b = [\(b_1\), \(b_2\), ... \(b_n\)]</p>
 <p>if \(\theta\) is <strong>90</strong>, then both vectors are perpendicular to each other (ie) <strong>dot product is zero</strong></p>
 
 <p>\(a.a = ||a||\)</p>
+
+<p>It is a measure of how <strong>similar two vectors are</strong>. Say if dot product of 2 unit vector is <strong>+ve</strong>, both of them are pointing in [\(\deg{0}\),\(\deg{90}\)] . If that dot product equals 1, then they are both similar (as they point in the same direction exactly). If zero, perpendicular to each other. If -ve, they are in opposite direction.</p>
+
+<p>Example 1:<br>
+Where this is useful, consider a solar panel mounted at an angle to the roof. The sun is at different angle. So the energy obtained will be more if both of them are aligned in the same direction (i.e) angle between them is zero.</p>
+
+<p>Example 2:<br>
+Watching someone push their car out of snow or a group pushing it out of a ditch and they push into their car slanted instead of straight. The Work you do pushing is the dot product of your force vector and the other vector is the direction the car actually pointing. Obviously pushing it straight makes a cos(0)=1 and maximizes your effort, any slant is just wasting energy.</p>
+
+<p><strong>Applications :</strong> <br>
+1. Above 2 example<br>
+2. Games (to know POV of 2 people)<br>
+3. Video rendering (for shades of light)<br>
+4. Document plagiarism</p>
+
+<p>Ref : <a href="https://www.youtube.com/watch?v=TBpDMLCC2uY">https://www.youtube.com/watch?v=TBpDMLCC2uY</a></p>
 
 <h3 id="toc_7">Cross product (not used much in ML)</h3>
 
@@ -424,19 +623,19 @@ b = [\(b_1\), \(b_2\), ... \(b_n\)]</p>
 
 <p>Equation of line : <code>y=mx+c</code></p>
 
-<p>Line In 2D : \(ax_1 + bx_2 + c = 0\)
-2D in general : \(w_1a_1 + w_2a_2 + w_0 = 0\)
+<p>Line In 2D : \(ax_1 + bx_2 + c = 0\)<br>
+2D in general : \(w_1a_1 + w_2a_2 + w_0 = 0\)<br>
 3D in general (Plane) : \(w_1a_1 + w_2a_2 + w_3a_3 + w_0 = 0\)</p>
 
 <p>nD in general (Hyperplane) : \(w_1a_1 + w_2a_2 + .... + w_{n}a_{n} + w_0 = 0\)</p>
 
 <p>Simpler way ::: \(w_0 + \sum_{i=1}^{n} w_ia_i\)</p>
 
-<p>In vector notation :
-W = [\(w_1\), \(w_2\) ... \(w_n\)] ==&gt; (column vector)
+<p>In vector notation :<br>
+W = [\(w_1\), \(w_2\) ... \(w_n\)] ==&gt; (column vector)<br>
 X = [\(x_1\), \(x_2\) ... \(x_n\)] ==&gt; (column vector)</p>
 
-<p>hyperplane eqn is
+<p>hyperplane eqn is<br>
 \(w_0 + W.T*X\)</p>
 
 <p><img src="./2%20Linear%20Algebra/Screen%20Shot%202021-05-22%20at%2012.25.19%20PM.png" alt=""></p>
@@ -475,16 +674,16 @@ X = [\(x_1\), \(x_2\) ... \(x_n\)] ==&gt; (column vector)</p>
 
 <p>with center as <code>(0,0)</code>, the equation is \(x^2 + y^2 = r^2\) where \(r\) is the radius of the circle. If the center is <code>(h,k)</code>, then the eqn is \((x-h)^2 + (y-k)^2 = r^2\). For simplicity, we&#39;ll use the centre <code>(0,0)</code></p>
 
-<p>If a point (\(x_1\), \(x_2\)) lies<br>
-- <strong>inside the circle</strong>, then \(x_1^2 + x_2^2 &lt; r^2\)<br>
-- <strong>outside the circle</strong>, then \(x_1^2 + x_2^2 &gt; r^2\)<br>
+<p>If a point (\(x_1\), \(x_2\)) lies<br><br>
+- <strong>inside the circle</strong>, then \(x_1^2 + x_2^2 &lt; r^2\)<br><br>
+- <strong>outside the circle</strong>, then \(x_1^2 + x_2^2 &gt; r^2\)<br><br>
 - <strong>on the circle</strong>, then \(x_1^2 + x_2^2 = r^2\)</p>
 
 <p>Same concept can be extended to 3D (sphere) and nD (hyper sphere)</p>
 
-<p>In generic,<br>
-\(\sum_{i=1}^n x_i^2 &lt; r^2\) ==&gt; point inside the hypersphere<br>
-\(\sum_{i=1}^n x_i^2 &gt; r^2\) ==&gt; point outside the hypersphere<br>
+<p>In generic,<br><br>
+\(\sum_{i=1}^n x_i^2 &lt; r^2\) ==&gt; point inside the hypersphere<br><br>
+\(\sum_{i=1}^n x_i^2 &gt; r^2\) ==&gt; point outside the hypersphere<br><br>
 \(\sum_{i=1}^n x_i^2 = r^2\) ==&gt; point on the hypersphere  </p>
 
 <h3 id="toc_13">Ellipse, ellipsoid, hyper ellipsoid</h3>
@@ -493,16 +692,16 @@ X = [\(x_1\), \(x_2\) ... \(x_n\)] ==&gt; (column vector)</p>
 
 <p>Equation is \(\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1\) centered at <code>(0,0)</code></p>
 
-<p>If a point (\(x_1\), \(x_2\)) lies<br>
-- <strong>inside the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} &lt; 1\)<br>
-- <strong>outside the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} &gt; 1\)<br>
+<p>If a point (\(x_1\), \(x_2\)) lies<br><br>
+- <strong>inside the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} &lt; 1\)<br><br>
+- <strong>outside the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} &gt; 1\)<br><br>
 - <strong>on the ellipse</strong>, then \(\frac{x_1^2}{a^2} + \frac{y_1^2}{b^2} = 1\)</p>
 
 <p>Same concept for 3D (ellipsoid) and nD (hyper ellipsoid)</p>
 
-<p>Let&#39;s say <code>a</code> as \(a_1\) and <code>b</code> as \(a_2\). So in generically, we can write as<br>
-- <strong>inside the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} &lt; 1\)<br>
-- <strong>outside the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} &gt; 1\)<br>
+<p>Let&#39;s say <code>a</code> as \(a_1\) and <code>b</code> as \(a_2\). So in generically, we can write as<br><br>
+- <strong>inside the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} &lt; 1\)<br><br>
+- <strong>outside the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} &gt; 1\)<br><br>
 - <strong>on the hyper ellipse</strong>, then \(\sum_{i=1}^{n} \frac{x_i^2}{a_i^2} = 1\)</p>
 
 <h3 id="toc_14">Square &amp; Rectangle, Hyper Cube &amp; Hyper Cuboid</h3>
@@ -516,6 +715,14 @@ X = [\(x_1\), \(x_2\) ... \(x_n\)] ==&gt; (column vector)</p>
 <p>Eg: if the point is [1,2,3,4] we can compare it with each hyperplane and take decision.</p>
 
 
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
 
 <script type="text/x-mathjax-config">
 (function () {
