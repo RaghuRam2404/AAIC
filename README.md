@@ -35,3 +35,5 @@ Real world problem: Predict rating given product reviews on Amazon,  Classificat
 Other helpful links:
 
 1. [LaTex Symbols](https://gist.github.com/LKS90/252ac41bd4a173be35b0)
+2. [Diagnosing Learning Curves](https://machinelearningmastery.com/learning-curves-for-diagnosing-machine-learning-model-performance/)
+3. [How to use Naive Bayes effectively](https://towardsdatascience.com/naive-bayes-classifier-how-to-successfully-use-it-in-python-ecf76a995069)

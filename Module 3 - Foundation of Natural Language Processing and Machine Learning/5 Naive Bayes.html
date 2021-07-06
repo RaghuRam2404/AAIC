@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>5 Naive Bayes</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Naive Bayes</h1>
+
+<h2 id="toc_1">Probability ideas</h2>
+
+<h3 id="toc_2">Conditional Probability</h3>
+
+<p>A, B are random variables.<br>
+\(P(A|B)\ =\ Pr(A=a|B=b)\) - what is the probability of A given B occurs?<br>
+\(P(A|B)=\frac{P(A\bigcap B)}{P(B)}\) only if \(P(B)!=0\)</p>
+
+<p>Throwing two dices \(D_1\) annd \(D_2\), we have 36 possible outcomes. \(P(D_1=2)=6/36=1/6\)</p>
+
+<p>What is \(P(D_1+D_2\leq 5)\)? It is \(10/36\)<br>
+Then what is \(P(D_1=2\ |\ D_1+D_2\leq 5)\), it is \(\frac{3/36}{10/36} = 3/10=0.3\)</p>
+
+<h2 id="toc_3">Independent vs Mutually exclusive events</h2>
+
+<h3 id="toc_4">Independent</h3>
+
+<p>2 events \(A\) &amp; \(B\) are said to be independent if <br>
+\(P(A|B)=P(A)\)<br>
+\(P(B|A)=P(B)\)</p>
+
+<p>\(A\) : Getting 6 in Dice 1<br>
+\(B\) : Getting 3 in Dice 2</p>
+
+<p>\(P(A=6|B=3)=P(A=6)\) because B won&#39;t influence the A&#39;s outcome<br>
+\(P(B=3|A=6)=P(B=3)\) because A won&#39;t influence the B&#39;s outcome</p>
+
+<h3 id="toc_5">Mutually Exclusive</h3>
+
+<p>A : Dice 1 getting value of 6<br>
+B : Dice 1 getting value of 3</p>
+
+<p>\(P(A|B)=P(B|A)=0\) because \(P(A\bigcap B)=0\) because we can&#39;t get 2 output in a single dice.</p>
+
+<h2 id="toc_6">Bayes Theorem</h2>
+
+<p>\(P(A|B) = \frac{P(B|A)P(A)}{P(B)}\) givenn \(P(B)\neq0\)</p>
+
+<p>\(P(A|B)\ \longrightarrow\) posterior probability<br>
+\(P(B|A)\ \longrightarrow\) likelihood probability<br>
+\(P(A)\ \longrightarrow\) prior<br>
+\(P(B)\ \longrightarrow\) evidence</p>
+
+<p><u>Ex:</u><br>
+20% of items are produced in Machine \(A_1\), 30% of items are produced in Machine \(A_2\) and 50% of item in \(A_3\) in a factory. Their corresponding defect rate is 5%, 3%, 1%. Picking a random item from the entire items and it is found to be defective, what is the probability that this item is from third machine?</p>
+
+<p><u>Ans:</u><br>
+\(P(A_1)=0.2\), \(P(A_2)=0.3\), \(P(A_3)=0.5\)</p>
+
+<p>B : Probability of item being defective<br>
+\(P(B|A_1)=0.05\), \(P(B|A_2)=0.03\), \(P(B|A_3)=0.01\)</p>
+
+<p>we need to find \(P(A_3|B)\) (i.e) Probability of getting an item from third machine given that it is defective.</p>
+
+<p>\(P(B)\) = \(\sum_{i=1}^3P(B\bigcap A_i)\) = \(\sum_{i=1}^{3}P(B|A_i)P(A_i)\) = (0.2*0.05) + (0.3*0.03) + (0.5*0.01) = 0.024</p>
+
+<p>2.4% is the probability of item being defective from 3 machines.</p>
+
+<p>Now, \(P(A_3|B) = \frac{P(B|A_3)P(A_3)}{P(B)}\) = \(\frac{0.5*0.01}{0.024}\) = \(0.2083\)</p>
+
+<p>For curiosity, let&#39;s find what is probability of an defective item from \(A_1\) and \(A_2\),<br>
+\(P(A_1|B) = \frac{P(B|A_1)P(A_1)}{P(B)}\) = \(0.4167\)<br>
+\(P(A_2|B) = \frac{P(B|A_2)P(A_2)}{P(B)}\) = \(0.375\)</p>
+
+<p>\(P(A_2|B)+P(A_2|B)+P(A_3|B)=1\ \longrightarrow\) probability of an defective item from all machines</p>
+
+<h2 id="toc_7">Naive Bayes algorithm</h2>
+
+<p>\(x=(x_1, x_2\ ...\ x_n)\) with \(n\) features</p>
+
+<p>\(P(C_k\ |\ x_1, x_2\ ...\ x_n)\) for each of \(k\) possible outcomes or classes \(C_k\)</p>
+
+<p>\(P(C_k|x) = \frac{P(C_k)P(x|C_k)}{P(x)}= \frac{P(C_k,x)}{P(x)}\)<br>
+\(P(C_k,x)\) = \(P(C_k,x_1,x_2 ... x-n)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= \(P(x_1|x_2 ... x_n, C_k)P(x_2 ... x_n, C_k)\) (by chain rule)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= \(P(x_1|x_2 ... x_n, C_k)P(x_2 | x_3, x_4 ... x_n, C_k)P(x_3, x_4, .. x_n, C_k)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= ...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= \(P(x_1|x_2 ... x_n, C_k)P(x_2 | x_3, x_4 ... x_n, C_k)\ ..... \ P(x_{n-1}| x_n, C_k)P(x_n|C_k)P(C_k)\)</p>
+
+<p>\(P(x_1|x_2 ... x_n, C_k)\) calculating this term is very difficult as we need to exact \(x\) &amp; \(C_k\) values in our data set.</p>
+
+<p>Independence : \(P(A|B) = P(A)\)<br>
+Conditional Independence : \(P(A|B,C) = P(A|C)\) A&amp;B are conditionally independent given C</p>
+
+<p>So we can say that \(x_i\) is <strong>conditionally independent</strong> of \(x_{i+1}, x_{i+2}\ ...\ x_n\) given \(C_k\) (i.e)<br>
+\(P(x_i\ |\ x_{i+1}, x_{i+2}\ ...\ x_n, C_k) = P(x_i|C_k)\)<br>
+<em><u>Naive part : the conditional independent of the variables given</u></em> \(C_k\)</p>
+
+<p>\(P(C_k,x)= P(x_1|x_2 ... x_n, C_k)P(x_2 | x_3, x_4 ... x_n, C_k)\ ..... \ P(x_{n-1}| x_n, C_k)P(x_n|C_k)P(C_k)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\propto P(x_1|C_k)\ P(x_2|C_k)\ P(x_3|C_k)\ ... P(x_{n-1}|C_k)P(x_n|C_k)P(C_k)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\propto P(C_k)\prod_{i=1}^nP(x_i|C_k)\)</p>
+
+<h3 id="toc_8">maximum of posteriori rule</h3>
+
+<p>\(\hat{y}=\underset{k\ \epsilon\ {1,2...k}}{argmax}\ p(c_k)\prod_{i=1}^n\ p(x_i,c_k)\)</p>
+
+<p>Works well for <strong>categorical features</strong>.</p>
+
+<h3 id="toc_9">Implementation for categorical features</h3>
+
+<ol>
+<li>Find the conditional probability of each \(d\) features \(P(x_i|C_k)\) in each class \(c\) for all \(nn\) points</li>
+<li>For testing, query for the conditional probability and multiple all of them</li>
+<li>Take argmax for the class</li>
+</ol>
+
+<h4 id="toc_10">Space &amp; time complexity</h4>
+
+<p><strong><u>For training :</u></strong><br>
+Simple brute force implementation&#39;s <strong>time complexity</strong> is \(O(ndc)\) where \(n\) is no of points, \(d\) is the dimension and \(c\) classes.<br>
+<strong>Space complexity</strong> after training is O(dc)<br>
+<strong><u>For testing:</u></strong><br>
+<strong>time complexity</strong> is \(O(dc)\)</p>
+
+<h2 id="toc_11">Naive Bayes on Text data</h2>
+
+<p>Popular in text classification. Like <strong>Spam filter</strong>, <strong>polarity of the review</strong>.</p>
+
+<p>Say we have set of sentences/text and it&#39;s corresponding class. We&#39;ll do the removal of stop words, stemming, lemmatization first. We&#39;ll be end up with set of words. Binary BoW is good for <strong>spam filter</strong>.</p>
+
+<p>\(y\ \epsilon\ \{0,1\}\)<br>
+\(text\longrightarrow \{w_1, w_2, w_3 .... w_d\}\) </p>
+
+<p>\(P(y=1|text)\ =\ P(y=1|w_1,w_2,...w_d)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\( \propto P(y=1)P(w_1|y=1)P(w_2|y=1)...P(w_d|y=1)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\propto P(y=1)\prod_{i=1}^dP(w_i|y=1)\)</p>
+
+<p>We can calculate \(P(y=1)\) and \(P(y=0)\)<br>
+\(P(w_i|y=1) = \frac{no.\ of\ datapoints\ contain\ w_i\ with\ class\ label\ y=1}{no.\ of\ datapoints\ with\ class\ label\ y=1}\)</p>
+
+<p>This will act as <strong>benchmark</strong> for other classification problems.</p>
+
+<h3 id="toc_12">Laplace/Additive Smoothing</h3>
+
+<p>In test data, we have \(text_q=\{w_1, w_2, w_3, w&#39;\}\)<br>
+We have \(\{w_1, w_2, w_3\}\) in our training data and we have conditional probabilitis for those, but not \(w&#39;\).</p>
+
+<p>\(P(y=1|text_q) = P(y=1|w_1,w_2,w_3,w&#39;)\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(=P(y=1)*P(w_1|y=1)*P(w_2|y=1)*P(w_3|y=1)*P(w&#39;|y=1)\)</p>
+
+<p>What is the value of \(P(w&#39;|y=1)\) and \(P(w&#39;|y=1)\)? We can&#39;t ignore \(w&#39;\) word&#39;s conditional probability.</p>
+
+<p>By definition, \(P(w&#39;|y=1)\) = \(\frac{P(w1,y=1)}{P(y=1)}\) = \(\frac{0}{n_1}\) = 0</p>
+
+<p>We can do <strong>laplace/additive smoothing</strong> now.</p>
+
+<p>\(P(w_i|y=1)= \frac{\#\ of\ occurences\ of\ w_i\ in\ corpus\ +\ \alpha}{n_1+\alpha k}\) <br>
+where \(n_1\) is the no of data points in the particular class of \(y\) and \(k\) is the no of distinct values which \(w_i&#39;\) can take. Here, \(k\)=2, because \(w&#39;\) may present or may not present in binary BoW. Typically \(\alpha\)=1</p>
+
+<p><strong>Case 1 :</strong> Let \(\alpha\)=1 with \(n_1=100\). Then \(P(w&#39;|y=1)=\frac{0+1}{100+2*1}=\frac{1}{102}\)<br>
+Now, \(P(w&#39;|y=1)\neq 0\). So, \(P(y=1|text_q)\neq 0\)<br>
+<strong>Case 2 :</strong> Let \(\alpha\)=1000 with \(n_1=100\). Then \(P(w&#39;|y=1)=10000/20100\sim 1/2\)<br>
+We are saying \(P(w&#39;|y=1)\) is same as \(P(w&#39;|y=0)\). Since we don&#39;t knnow the probability of that word in \(y=1/0\), we are assuming it to be half. Same behaviour is applied even for words which are there in the corpus.</p>
+
+<p>Let&#39;s say \(P(x_i|y=1)=\frac{2}{50}\) without laplace smoothing.<br>
+With laplace smoothing,</p>
+
+<table>
+<thead>
+<tr>
+<th>\(\alpha\)</th>
+<th>with laplace smoothing, cond. prob. is</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>\(\frac{3}{54}=5.555\%\)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>\(\frac{12}{70}=17.14\%\)</td>
+</tr>
+<tr>
+<td>100</td>
+<td>\(\frac{102}{250}=40.8\%\)</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>\(\frac{1000}{2050}=48.78\%\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>As \(\alpha\ \uparrow\), we are moving the likelihood probabilities to the uniform distribution. If numerator &amp; denominator is small, we have less confidence in the ratio, so we are giving higher \(\alpha\).</p>
+
+<h3 id="toc_13">Log-probabilities for numerical stability</h3>
+
+<p>\(0.2*0.1*0.2*0.1=0.0004\)<br>
+Similarly consider having \(100\) such numbers to find the probability, we&#39;ll have many zeros. It&#39;ll lead to <strong>numerical underflow</strong> in python as it only has 16 significant digits in float variable. Python will start doing rounding which causes errors.</p>
+
+<p>Instead of using these probabilities, we can use the <strong>log of these probabilities</strong>.</p>
+
+<p>\(log(P(y=1|w_1,w_2,...w_d))=log(P(y=1)\prod_{i=1}^nP(x_i|y=1))\)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(=log(P(y=1))+\sum_{i=1}^mlog(P(x_i|y=1))\) <br>
+because \(log(ab)=log(a)+log(b)\)</p>
+
+<p>As \(x\) \(\uparrow\), \(log(x)\) \(\uparrow\). So, we can compare the log of \(P(y=1|x)\) and \(P(y=0|x)\).</p>
+
+<p>what is \(2.2^{3.6}\)? 17.089.. But how to find it. We need to use logs as<br>
+\(log(2.2^{3.6})\)<br>
+\(=3.6*log(2.2)\)<br>
+\(=3.6*0.342422\)<br>
+\(=1.232721\)</p>
+
+<p>Take antilog for \(0.2327\), we&#39;ll get \(1709\). Now, add \(.(dot)\) after the \(1+1\) digit ending up with \(17.09\)</p>
+
+<p>Another reason to use log is that, it converts <strong>multiplication</strong> into <strong>addition</strong>. And <strong>exponentitaion</strong> into <strong>multiplication</strong> making the computation much easier.</p>
+
+<h2 id="toc_14">Bias and Variance tradeoff</h2>
+
+<p>High bias \(\longrightarrow\) Underfitting<br>
+High Variance \(\longrightarrow\) Overfitting</p>
+
+<p>We have only one hyper parameter : \(\alpha\)</p>
+
+<p>Case 1 : \(\alpha = 0\)<br>
+Consider a case where we have very rare words (1 in 1000 ratio) and we still have probability for those. When we change the \(D_{train}\) and that didn&#39;t have those rare word, the probability becomes zero when we fit for the test data and this is a big change. It is <strong>overfitting or high variance</strong>.</p>
+
+<p>Case 2: \(\alpha=\)very large (like) \(\alpha=10000\)<br>
+\(P(w_i|y=1)=2/1000\) becomes \(P(w_i|y=1)=10002/21000 \sim 1/2\)<br>
+Same is the effect for any other words, We can&#39;t draw a good difference as all the probabilities \(P(x_i|y=0/1)\) are very near to 1/2. And we end up with decision which can be taken by \(P(y=1/0)\), if \(P(y=1) &gt; P(y=0)\), we&#39;ll always get the answer as <strong>+ve</strong> class<br>
+It is <strong>underfitting or high bias</strong>.</p>
+
+<p>How to find the right alpha \(\alpha\)?<br>
+We&#39;ll use it using <strong>cross-validation</strong> or <strong>k-fold validation</strong>.</p>
+
+<h2 id="toc_15">Feature importance and interpretability</h2>
+
+<p>For all words, find their conditional probabilities for each class and sort them. The word with the highest probability value is the most important feature/word.</p>
+
+<p>\(+ve\) class - Find words \(w_i\) with highest value of \(P(x_i|y=1)\)<br>
+\(-ve\) class - Find words \(w_i\) with highest value of \(P(x_i|y=0)\)</p>
+
+<p><strong><em>Interpretability:</em></strong></p>
+
+<p>Given \(x_q\) {\(w_1,w_2\ ...\ w_d\)} and we find \(y_q=1\). We can conclude that \(y_q=1\)  because it has words \(w_3, w_6, w_9\) with higher conditional probabilities.</p>
+
+<h2 id="toc_16">Imbalanced data</h2>
+
+<p>Consider \(n_1\) positive class samples annd \(n_2\) negative class samples. </p>
+
+<p>\(P(y=1|w_1,w_2, ... w_d)=P(y=1)\prod_{i=1}^dP(x_i|y=1)\)<br>
+\(P(y=0|w_1,w_2, ... w_d)=P(y=0)\prod_{i=1}^dP(x_i|y=0)\)<br>
+and \(n_1\gg n_2\) such that the <strong>prior</strong> \(P(y=1)=0.9\) and \(P(y=0)=0.1\).</p>
+
+<p>When we assume that <strong>likelihood is same for both P(y=0/1)</strong>, then the <strong>priors will take advantage in the output</strong>.</p>
+
+<p><strong>Solutions:</strong><br>
+1) Upsampling or downsampling<br>
+2) Or simply drop \(P(y=1) = P(y=0) = 1\)<br>
+3) Modified NB. </p>
+
+<p>Consider 900 +ve class datapoints and 100 -ve class datapoints. and we have alpha as 10. For some word, the likelihood is <br>
+\(P(w_i|y=1)=18/900=0.02\) (without laplace smoothening) and \(P(w_i|y=0)=2/100=0.02\)</p>
+
+<p>With laplace smoothening, it&#39;ll become \(P(w_i|y=1)=28/920=0.03\) and \(P(w_i|y=0)=12/120=0.1\). Here we can see that \(\alpha\) gave more worth to minority -ve class.</p>
+
+<p>We cann have a diff solution with \(\alpha_1\) for +ve class and \(\alpha_2\) for -ve class.</p>
+
+<h2 id="toc_17">Outliers</h2>
+
+<p>For text classification example, \(w&#39;\) not present during training. Laplace smoothing can take care of this. It is outlier in testing data.</p>
+
+<p>What about during training phase? \(w_8\) occurs <strong>very very few</strong> times.<br>
+<strong><u>Solution/hack</u></strong> : <br>
+1. If a word occurs very less or less than say 10, just <strong>remove that</strong>.<br>
+2. Use <strong>laplace smoothing</strong></p>
+
+<h2 id="toc_18">Missing values</h2>
+
+<p>For,<br>
+<strong>Text data</strong> (like amazon fine food reviews) : No case of missing data<br>
+<strong>Categorical data</strong> (like a climate type value missing) : Consider <strong>NaN</strong> as a category and proceed.<br>
+<strong>Numerical data</strong> : Take standard imputation methods.</p>
+
+<h2 id="toc_19">Handling Numerical features (Gaussian NB)</h2>
+
+<p>For real values features \(\{f_1,f_2, ... f_d\}\ \epsilon\ R^d\)<br>
+Let \(x_{ij}\) be the real value of the feature \(j\) in the \(i^{th}\) data.<br>
+What is \(P(x_{ij}|y=1)\)?</p>
+
+<p>We can plot the <strong>PDF</strong> for the feature \(f_j\) in the class \(y=1\) (\(D&#39;\) dataset with y=1). Get the probability from that curve. We <strong>assume</strong> that it is <strong>Guassian Distribution</strong> with N(\(\mu_j^1,\sigma_j^1\)) for the +ve class and N(\(\mu_j^0,\sigma_j^0\)) for the -ve class.</p>
+
+<p>Here we can put any distribution like powerlaw, bernoulli based on our data.</p>
+
+<h2 id="toc_20">Multiclass classification</h2>
+
+<p>Same as before,<br>
+we can find <br>
+\(P(y=C_1|w_1,w_2..w_d)\)<br>
+\(P(y=C_2|w_1,w_2..w_d)\)<br>
+....<br>
+\(P(y=C_k|w_1,w_2..w_d)\)</p>
+
+<p>Take argmax and find the class.</p>
+
+<h2 id="toc_21">Similarity or Distance matrix</h2>
+
+<p>Can NB work given the distance or similarity matrix?</p>
+
+<p><strong>NOPE</strong> since NB doesn&#39;t use the distance based method while it uses the probability of features.</p>
+
+<h2 id="toc_22">Large dimensionality</h2>
+
+<p>NB is used extensively in BoW which itself has many dimensions. And we must <strong>log probabilities</strong> to handle the <strong>number underflow</strong>.</p>
+
+<h2 id="toc_23">Best and worst cases</h2>
+
+<p>1) Conditional independence assumption is done. If it is true, NB does well. While it is becoming false, NB starts deteriorating. Even if some features are dependent, NB works reasonably well.</p>
+
+<p>2) For text classification problems (especially high dimensional data), NB works well and it&#39;ll act as benchmark.</p>
+
+<p>3) Used extensively for categorical features.</p>
+
+<p>4) NB is super interpretable and feature selection/importance. </p>
+
+<p>5) Timetaken for testing data is good for low-latency system.</p>
+
+<p>6) we can easily overfit (if we don&#39;t do laplace smoothing)</p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
