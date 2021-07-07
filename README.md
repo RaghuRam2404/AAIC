@@ -31,6 +31,7 @@ Real world problem: Predict rating given product reviews on Amazon,  Classificat
 3.2 [BoW implementation](https://colab.research.google.com/drive/1Rd5Mx6eeBiIemInxY1y2hZvMkA3oZoaP?authuser=1#scrollTo=JQDj94EcflkN)
 3.3 [KNN & k-fold](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1)
 3.4.1 [GridSearchCV](https://colab.research.google.com/drive/1JUhuYOFuxsEcbu8xtX0rg8E0okHOHJQE?authuser=1)
+3.5 [Logistic Regression](https://colab.research.google.com/drive/1iJ83HA6fm0WdluUFuoe0N9NeI8yw6rLo?authuser=1#scrollTo=cV9kCTaAXbW_)
 
 Other helpful links:
 
