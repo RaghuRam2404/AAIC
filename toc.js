@@ -27,14 +27,16 @@ $(document).ready(function() {
 			}
 			var tag = $hdr[0].tagName.toLowerCase()
 			var mar_left = (parseInt(tag.replaceAll("h",""))-1)*30
-			var style="margin-left:"+mar_left+"px; margin-top: 5px"
+			var style="margin-left:"+mar_left+"px; padding-top: 5px"
+			var tempbox = ""
 			if (tag == 'h3'){
-				style = "padding-left: 30px; margin-left: 30px; margin-top:5px; border-left: black solid 1px;"
+				style = "padding-left: 30px; border-left: black solid 1px;"
+				tempbox = "<span style='width:30px; padding-top:4px; padding-bottom:2px; padding-left:30px; border-left:black solid 1px;'>&nbsp;</span>"
 			}
 			if (tag == 'h2'){
-				style = "padding-left: 30px; margin-top:5px; border-left: black solid 1px;"
+				style = "padding-left: 30px; padding-top:5px; border-left: black solid 1px;"
 			}
-			toc += '<li class="' + tag + '" style="'+style+'"><a href="#' + tocId + '" style="text-decoration:none; color:#4d94ff;">' + $hdr.text() + '</a></li>';
+			toc += '<li class="' + tag + '" style="'+style+'">'+tempbox+'<a href="#' + tocId + '" style="text-decoration:none; color:#4d94ff;">' + $hdr.text() + '</a></li>';
 		});
 		$('#toc').html('<ul style="list-style-type:none; padding:0px;">' + toc + '</ul>');
 	});
