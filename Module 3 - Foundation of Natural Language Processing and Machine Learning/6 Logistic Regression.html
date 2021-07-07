@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>6 Logistic Regression</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Logistic Regression</h1>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+
+<script src="../toc.js" ></script>
+
+<div id='toc'></div>
+
+<p>It is a classification technique. Geometrically very elegant algo. We can interpret it using Geometry, probability and loss-function.</p>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%203.02.55%20PM.png" alt=""></p>
+
+<p>\(\pi\) = \(w^TX+b\) = 0 (b=0 if the hyperplane passes through the origin)<br>
+\(X,w\ \epsilon\ R^d\) and \(b\) is scalar</p>
+
+<p><strong><em>Logistic regression assumes that the data is almost or fully linearly separable</em></strong></p>
+
+<p>Now our task is to find the best hyperplan which separates the +ve (y=1) and -ve (y=-1) classes.</p>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%203.10.39%20PM.png" alt=""></p>
+
+<p>\(d_i\) = \(w^Tx\) &gt; 0 as \(x_i\) is in the same direction of \(w\) and \(w\) is a unit vector<br>
+\(d_j\) = \(w^Tx\) &lt; 0 as \(x_j\) is in the opposite direction of \(w\)</p>
+
+<p>Based on the decision surface (hyperplane)<br>
+if \(w^Tx&gt;0\), then \(y_i=1\) (mean \(x\) is a +ve point)<br>
+else if \(w^Tx&lt;0\), then \(y_i=-1\) (mean \(x\) is a -ve point)</p>
+
+<p>\(y_i * w^Tx_i\) is a <strong>signed distance</strong>, we&#39;ll use it.</p>
+
+<p>For<br>
+\(y_i\) = 1 and \(w^Tx_i&gt;0\)<br>
+(or)<br>
+\(y_i\) = -1 and \(w^Tx_i&lt;0\)</p>
+
+<p>\(y_i * w^Tx_i&gt;0\) Then they are <strong>correctly classified points</strong></p>
+
+<p>But consider<br>
+\(y_i\) = 1 and \(w^Tx_i&lt;0\)<br>
+(or)<br>
+\(y_i\) = -1 and \(w^Tx_i&gt;0\)</p>
+
+<p>\(y_i * w^Tx_i&lt;0\) Then they are <strong>misclassified points</strong></p>
+
+<p>Our goal is to maximise(\(w\)) \(\sum_{i=1}^Ny_i*w^Tx_i\) for the given dataset.<br>
+Optimal w, \(w^*=\underset{w}{argmax}(\sum_{i=1}^Ny_i*w^Tx_i)\). It is a <u><strong>math optimization problem</strong></u>.</p>
+
+<h2 id="toc_1">Sigmoid function: Squashing</h2>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%203.36.17%20PM.png" alt=""><br>
+5 +ve and 5 -ve points are correctly classified. Only one -ve point is misclassified</p>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%203.40.03%20PM.png" alt=""><br>
+5 +ve and 1 -ve points are correctly classified. 5 -ve points is misclassified. Accuracy is very less.</p>
+
+<p>But our \(\pi_1\) is the correct one and our signed distance fails in this one due to the <strong>extreme outlier point</strong> and it&#39;s max distance.<br>
+So, maximise(\(w\)) \(\sum_{i=1}^Ny_i*w^Tx_i\) is <strong>wrong</strong>.</p>
+
+<p>So we&#39;ll do <strong>squashing</strong>.<br>
+What if signed distance is <strong>large</strong>, then we&#39;ll change it to a <strong>smaller value</strong>. But in case of small signed distance, keep it as it is.<br>
+\(\sum_{i=1}^Ny_i*w^Tx_i\) \(\rightarrow\)  \(\sum_{i=1}^Nf(y_i*w^Tx_i)\)</p>
+
+<p>This functionn \(f(x)\) will take care of squashing. We can use the <strong>sigmoid function</strong> to achieve this.</p>
+
+<p>\(f(x)= \sigma(x)=\frac{1}{1+e^{-x}}\)<br>
+\(\sum_{i=1}^Ny_i*w^Tx_i\) \(\rightarrow\)  \(\sum_{i=1}^Nf(y_i*w^Tx_i)\) \(\rightarrow\)  \(\sum_{i=1}^N\sigma(y_i*w^Tx_i)\)</p>
+
+<p>This sigmoid function has <strong>good probabilitistic interpretation</strong>.<br>
+<strong>Example:</strong><br>
+1. If the point is on the hyperplane, then sigmoid value is 0.5. It means that the probability of that being on one side is 50%<br>
+2. If that point is so much distance from the plane, it&#39;s probability is 99.999% bcoz \(\sigma\) value gives 0.99999 value</p>
+
+<p>If \(y*w^Tx\) &gt; 0, then it is +ve class otherwise -ve class.<br>
+We&#39;ll apply \(\sigma(y*w^Tx)\) to find the <strong>probability</strong> of a class.</p>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%204.08.46%20PM.png" alt=""></p>
+
+<p><strong>Monotonic function</strong> is such if x increases, g(x) also increases.<br>
+If g(x) is a monotonic function, then for \(f(x)\) which could be any function (not necessarily be monotonic).<br>
+\(\underset{x}{argmin}\ f(x)\) = \(\underset{x}{argmin}\ g(f(x))\)<br>
+\(\underset{x}{argmax}\ f(x)\) = \(\underset{x}{argmax}\ g(f(x))\)</p>
+
+<p>So, \(w^*\) = \(\underset{w}{argmax} \sum_{i=1}^Nlog(\sigma(y_i*w^Tx_i))\) because \(log(x)\) is a monotonic function<br>
+= \(\underset{w}{argmax} \sum_{i=1}^Nlog{\frac{1}{1+exp(-y_i*w^Tx_i)}}\)<br>
+= \(\underset{w}{argmax} \sum_{i=1}^N-log({1+exp(-y_i*w^Tx_i))}\)</p>
+
+<p>By Math, \(argmax\ f(x)\) = \(argmin\ -f(x)\)<br>
+\(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-y_i*w^Tx_i))}\) where \(log(1+exp(-y_i*w^Tx_i))\) is the <strong>loss term</strong>.<br>
+If we solve further, we&#39;ll get it as \(argmax\) of sum of signed distances. But since they are prone to outliers, we are using the above equation for our <strong>optimization problem</strong> to find our optimal weight vector \(w^*\). We&#39;ll write it as \(w\)</p>
+
+<h3 id="toc_2">Weight vector</h3>
+
+<p>vector, \(w\) \(\epsilon\) \(R^d\). It is called <strong>weight vector</strong> because for each feature, it&#39;ll add a weight in \(w^Tx\) calculation.</p>
+
+<p>For query \(x_q\), if \(y*w^Tx_q\) &gt; 0, then it is +ve class otherwise -ve class.<br>
+We&#39;ll apply \(\sigma(y*w^Tx_q)\) to find the <strong>probability</strong> of a class.</p>
+
+<p><u>Interpretation:</u><br>
+1. If \(w_i\) is +ve, \(x_q\) \(\uparrow\), then \(w_i*x_q\) \(\uparrow\),  then \(\sigma(w_i*x_q)\) \(\uparrow\), \(P(y_q=+1)\) \(\uparrow\)<br>
+2. If \(w_i\) is -ve, \(x_q\) \(\uparrow\), then \(w_i*x_q\) \(\downarrow\),  then \(\sigma(w_i*x_q)\) \(\downarrow\), \(P(y_q=+1)\) \(\downarrow\) and \(P(y_q=-1)\) \(\uparrow\)</p>
+
+<h2 id="toc_3">L2 Regularization: Overfitting and Underfitting</h2>
+
+<p>Let \(z_i\) = \(y_i*w^Tx_i\)<br>
+\(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-z_i))}\)</p>
+
+<p>Always \(exp(-z_i)\) &gt; 0, so \(log\) term is always &gt; 0.<br>
+So minimal value of the full equation is zero. But when will it occur.</p>
+
+<p>If \(z_i \rightarrow \infty\), \(exp(-z_i)\rightarrow 0\) then \(log(1+exp(-z_i))\rightarrow 0\)</p>
+
+<p>If we pick \(w\) such that<br>
+1. all points are correctly classified<br>
+2. \(w\) is large \(\rightarrow z_i\rightarrow\ \infty\)<br>
+Then it is the best \(w\). But this will <strong>overfit the data</strong>.</p>
+
+<p><br><br>
+So, \(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-z_i))}+\lambda * w^Tw\)<br>
+= \(\underset{w}{argmin}\) (loss term + regularization term).<br>
+\(w^Tw=||w||_2^2\) (L2 Norm distance)<br>
+Hence the <q>L2 regularization</q>. WHen \(w\) is large, we&#39;ll overfit the data, so we are adding the <strong>regularization term</strong> at the end. This will reduce the overfitting the data because if \(w\) becomes large then first term (loss term) is zero and the regularization term becomes infinity. We need to minimize this term (which is our main objective from the beginning). So <strong>need to find balance between the two terms</strong>.</p>
+
+<p>We need to find the proper value of \(\lambda\) hyper parameter.<br>
+Case 1 : \(\lambda\)=0 \(\rightarrow\) Overfit<br>
+Case 2 : \(\lambda\)=large value \(\rightarrow\) Underfit</p>
+
+<h2 id="toc_4">L1 regularization and sparsity</h2>
+
+<p>Alternative to L2 regularization. Instead of L2 norm, we&#39;ll use L1 norm \(||w||_1=\sum_{i=1}^d|w_i|\)</p>
+
+<p>\(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-z_i))}+\lambda * ||w||_1\)<br>
+If we use this, all the unimportant feature&#39;s \(w_i\) becomes 0. It has a very big advantage which is <strong>sparsity</strong>.</p>
+
+<p><strong>Sparsity</strong><br>
+\(w=&lt;w_1, w_2, ... w_d&gt;\)<br>
+if many \(w\)&#39;s are zero, then it is sparse. But why in L1 norm? We&#39;ll see it later.</p>
+
+<p>We&#39;ll also use <strong>elastic-net</strong> where<br>
+\(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-z_i))}+\lambda_1 * ||w||_1+\lambda_2 * ||w||_2^2\)</p>
+
+<h2 id="toc_5">Probabilistic Interpretation: Gaussian Naive Bayes</h2>
+
+<p><a href="https://www.cs.cmu.edu/%7Etom/mlbook/NBayesLogReg.pdf">https://www.cs.cmu.edu/~tom/mlbook/NBayesLogReg.pdf</a><br>
+Refer section 3.1</p>
+
+<p>Logistic Regression = Gaussian Naive bayes + Bernoulli</p>
+
+<p>\(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^N-y_ilog(p_i) + (1-y_i)log(1-p_i) + regularization\ term\)<br>
+where \(p_i=\sigma (w^Tx)\) and \(y_i\ \epsilon \{0,1\}\)</p>
+
+<h2 id="toc_6">Loss minimization interpretation</h2>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%206.16.22%20PM.png" alt=""><br>
+<img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%206.18.17%20PM.png" alt=""></p>
+
+<p>We&#39;ll use differentiation to solve optimization problem in calculus. So the loss function has to be a continuous to be solvable.</p>
+
+<p>But in our case, error is either 1 or 0 and there is no value for \(z_i=0\). So we can&#39;t minimize the function (using differentiation) but rather we can approximate it. We can make use of <strong>logistic loss function</strong>.<br>
+<img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%206.21.33%20PM.png" alt=""></p>
+
+<p>But it is not compulsory to make use of it.</p>
+
+<p>We can also make use of <strong>hinge loss function</strong> and we get <strong>SVM</strong>.<br>
+We can also make use of <strong>exponential loss function</strong> and we get <strong>AdaBoost</strong>.<br>
+We can also make use of <strong>squared loss function</strong> and we get <strong>Linear Regression</strong>.</p>
+
+<h2 id="toc_7">Hyperparameter Search: Grid search and random search</h2>
+
+<p>Overfitting : \(\lambda=0\)<br>
+Underfitting : \(\lambda=\infty\)</p>
+
+<p>It is a real number. So possible values are <strong>infinity</strong>.</p>
+
+<p>We can make use of <strong>Grid Search(Brute Force)</strong>. We&#39;ll test \(\lambda\) as [0.001, 0.05, 0.01, 0.5, 0.1, 1, 2, 3, 10, 100, 1000]. Plot the <strong>train and cv error</strong> and get the best hyperparam.</p>
+
+<p>In case of elastic net, we&#39;ll set possible values for \(\lambda_1\) and \(\lambda_2\) and we&#39;ll run through all combinations.</p>
+
+<p>As the no of hyperparameters increase, the model needs to be trained increases exponentially.</p>
+
+<p>So we&#39;ll use the <strong>randomized search</strong> from the list of possible combinations of hyper parameters and find the best combo of hyper parameters. It is <strong>faster</strong> and <strong>as good as gridsearch</strong>.</p>
+
+<h2 id="toc_8">Column Standardization</h2>
+
+<p>\(x_i=\frac{x_i-\mu}{\sigma}\)</p>
+
+<p>Mean centering and scaling.</p>
+
+<p>for the same reason as we have seen before.</p>
+
+<h2 id="toc_9">Feature importance and Model interpretability</h2>
+
+<p>we have features : \([f_1,\ f_2\ ...\ f_d]\) with corresponding value of weight vector \([w_1,\ w_2,\ ...\ w_d]\)</p>
+
+<p>Assuming all features are <strong>independent</strong>, we can find the <strong>feature independence</strong> using \(w_i\)&#39;s.</p>
+
+<p><strong>case 1 :</strong> \(|w_i|\) is <strong>positive &amp; large</strong>, then it&#39;s contribution to \(w^Tx\) is <strong>large</strong> because \(P(y_q=+ve)\) is higher<br>
+<strong>case 2 :</strong> \(|w_i|\) is <strong>negative &amp; large</strong>, then it&#39;s contribution to \(w^Tx\) is <strong>large</strong> because \(P(y_q=-ve)\) is higher</p>
+
+<p>So, we can find the importance using \(|w_i|\) of the list of features.</p>
+
+<h3 id="toc_10">Collinearity of features</h3>
+
+<p>what if the features are <strong>not independent</strong> and we <strong>can&#39;t make use</strong> of \(|x_i|\) for the feature importance.</p>
+
+<p>Consider \(f_i\) and \(f_j\) are dependent with<br>
+\(f_i\) = \(a*f_j+b\)<br>
+Then \(f_i\), \(f_j\) are <strong>colinear</strong></p>
+
+<p>Consider \(f_i\), \(f_j\) and \(f_k\) are dependent with<br>
+\(f_i\) = \(a*f_j+b*f_k+c\)<br>
+Then \(f_i\), \(f_j\), \(f_k\) are <strong>multicolinear</strong></p>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%207.01.07%20PM.png" alt=""></p>
+
+<p><strong>The weight vector&#39;s value will be in the same linear relation as of the dependent features. So weight vector can&#39;t be used for feature importance.</strong></p>
+
+<h3 id="toc_11">How to check if the features are multi colinear or not?</h3>
+
+<p><strong>Pertubation technique.</strong></p>
+
+<p>Find the weight vectors<br>
+\(w=&lt;w_1, w_2 ... w_d&gt;\).</p>
+
+<p>Then to all \(x_{ij}\) add \(\epsilon\) (small noise term), we are pertubating the value. Fit the model and find the weight vectors again.<br>
+\(\tilde{w}=&lt;\tilde{w_1}, \tilde{w_2} ... \tilde{w_d}&gt;\).</p>
+
+<p>If they <strong>differ significantly</strong>, then the features are <strong>colinear</strong> and we <strong>can&#39;t make use</strong> of \(w_i\) for the feature importance.</p>
+
+<p>Even we can make use of <strong>forward feature selection</strong>.</p>
+
+<h2 id="toc_12">Train &amp; Run time space &amp; time complexity</h2>
+
+<p>Training LR (using Stochastic Gradient Descent) : \(O(nd)\) with \(n\) features and \(d\) dimensions</p>
+
+<p>Run time :<br>
+Space : \(O(d)\) for saving the weight vector<br>
+Time : \(O(d)\) for finding the value</p>
+
+<p>If \(d\) is <strong>very very small</strong>, it is <strong>so good</strong>. It is very <strong>memory efficient</strong>.</p>
+
+<p>If \(d\) is <strong>very very large</strong>, still it is good by using <strong>L1 regularization</strong> (as we will have removed unwanted features) for the proper \(\lambda\) (after the bias-variance trade off). It is importannt for <strong>low latency systems</strong></p>
+
+<h2 id="toc_13">Real world cases</h2>
+
+<p>We have hyper plane separating the points linearly.</p>
+
+<p>In case of imbalanced data, we&#39;ll do under/over sampling.</p>
+
+<p>Outliers ;<br>
+1. It can be handled using the <strong>sigmoid</strong> function.<br>
+2. People will find the \(w^Tx\) after finding \(w\). Remove the points which are farther. Then train and get the new \(\tilde{w}\)</p>
+
+<p>Missing values :<br>
+We&#39;ll do the base techniques</p>
+
+<p>Multiclass :<br>
+1. We&#39;ll do <strong>one vs rest</strong> methods.<br>
+2. MaxEnt models (extension to LR)<br>
+3. SoftMax classifier (deep learning)<br>
+4. Multinomial LR</p>
+
+<p>What if we have similarity matrix?<br>
+Actually it won&#39;t work. But we have a model named <strong>kernel LR</strong> and it can be used.</p>
+
+<h2 id="toc_14">Non-linearly separable data &amp; feature engineering</h2>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.02.38%20PM.png" alt=""><br>
+<img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.05.36%20PM.png" alt=""><br>
+<img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.06.37%20PM.png" alt=""></p>
+
+<p>How do we know which transform to apply?<br>
+We need to visualize and take decision.</p>
+
+<p>Another example</p>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.11.14%20PM.png" alt=""><br>
+<img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.13.05%20PM.png" alt=""></p>
+
+<h3 id="toc_15">Typical transformations</h3>
+
+<ol>
+<li>\(f_1*f_2\), \(f_1^2\), \(f_1^3\), \(f_1^2f_2\)</li>
+<li>Trigonometric functions</li>
+<li>For boolean features : using logical operators</li>
+<li>Other math functions : Log, exp, sigma etc.</li>
+</ol>
+
+<h3 id="toc_16">The most important in AI/ML is</h3>
+
+<ol>
+<li>Feature Engineering</li>
+<li>Bias variance tradeoff</li>
+<li>Data analysis and data visualization</li>
+</ol>
+
+<h2 id="toc_17">Extensions to Logistic Regression: Generalized linear models(GLM)</h2>
+
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.39.31%20PM.png" alt=""></p>
+
+<p>If we do different guesses, the model would vary to solve different problems.</p>
+
+<p>Ref : Part III of <a href="http://cs229.stanford.edu/notes2020spring/cs229-notes1.pdf">http://cs229.stanford.edu/notes2020spring/cs229-notes1.pdf</a></p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
