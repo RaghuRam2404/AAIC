@@ -1,5 +1,9 @@
 #Classification And Regression Models : K-Nearest Neighbors
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script src="../toc.js" ></script>
+<div id='toc'></div>
+
 In training phase, the algorithm learns and it'll be applied over the test/validation data set. Then check the accuracy.
 
 Each matrix row is the transpose of the $x_i$ (which is a column vector representing the features of that particular data). So $i^{th}$ row is $x_i^T$

@@ -516,6 +516,12 @@ pre.line-numbers > code {
 
 <h1 id="toc_0">Classification And Regression Models : K-Nearest Neighbors</h1>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+
+<script src="../toc.js" ></script>
+
+<div id='toc'></div>
+
 <p>In training phase, the algorithm learns and it&#39;ll be applied over the test/validation data set. Then check the accuracy.</p>
 
 <p>Each matrix row is the transpose of the \(x_i\) (which is a column vector representing the features of that particular data). So \(i^{th}\) row is \(x_i^T\)</p>
@@ -566,7 +572,7 @@ In n-dimensions, where \(x_1\epsilon \ R^d\) and \(x_2\epsilon \ R^d\), euclidea
 
 <p>\(||x_1-x_2||_1\ =\ \sum_{i=1}^d |x_{1i}-x_{2i}|\) It is \(L_1\) norm.</p>
 
-<p>Where to use it?</p>
+<p>Where to use it? For continuous variable (but not for categorical variable)</p>
 
 <p><strong><u>Minkowski distance:</u></strong></p>
 
@@ -590,7 +596,8 @@ In n-dimensions, where \(x_1\epsilon \ R^d\) and \(x_2\epsilon \ R^d\), euclidea
 
 <p>In case of string vectors, we&#39;ll count the no of alphabets changed in particular position.</p>
 
-<p>Used in Gene code sequence.</p>
+<p>Used in Gene code sequence.<br>
+Where to use it? For categorical variable (but not for continuouscontinuous variable)</p>
 
 <p><strong><u>Cosine Distance &amp; Cosine Similarity</u></strong></p>
 
@@ -991,6 +998,20 @@ We could miss nearest points on both sides of the hyperplane.</p>
 <p><strong>Instead we can give answer as probability</strong>,<br>
 \(P(y_q=-ve) = \frac{4}{7}\)<br>
 \(P(y_q&#39;=-ve) = \frac{7}{7}\)</p>
+
+<h2 id="toc_20">Interview questions</h2>
+
+<p>In k-means or kNN, we use euclidean distance to calculate the distance between nearest neighbours. Why not manhattan distance ?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/</a>)</p>
+
+<p>How to test and know whether or not we have overfitting problem?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.appliedaicourse.com/course/applied-ai-course-online/lessons/how-to-determine-overfitting-and-underfitting/</a>)</p>
+
+<p>How is kNN different from k-means clustering?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://stats.stackexchange.com/questions/56500/what-are-the-main-differences-between-k-means-and-k-nearest-neighbours</a>)</p>
+
+<p>Can you explain the difference between a Test Set and a Validation Set?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://stackoverflow.com/questions/2976452/whats-is-the-difference-between-train-validation-and-test-set-in-neural-netwo</a>)</p>
+
+<p>How can you avoid overfitting in KNN?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.appliedaicourse.com/course/applied-ai-course-online/lessons/how-to-determine-overfitting-and-underfitting/</a>)</p>
+
+<p><a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/</a></p>
 
 
 

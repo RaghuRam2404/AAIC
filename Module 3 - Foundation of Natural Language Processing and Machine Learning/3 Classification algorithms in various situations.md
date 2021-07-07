@@ -1,5 +1,9 @@
 #Classification algorithms in various situations
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script src="../toc.js" ></script>
+<div id='toc'></div>
+
 ## Imbalanced vs balanced dataset
 
 Consider **2-class classification** with $n_1$ $+ve$ points and $n_2$ $-ve$ points in dataset $D_n$.
