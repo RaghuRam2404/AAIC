@@ -17,6 +17,11 @@ EDA, Linear Algebra, Probability and Statistics, Dimensionality reduction & visu
 ### Module 3 - Foundation of Natural Language Processing and Machine Learning
 Real world problem: Predict rating given product reviews on Amazon,  Classification And Regression Models: K-Nearest Neighbors, Classification algorithms in various situations, Performance measurement of models, Naive Bayes, Logistic Regression, Linear Regression, Solving Optimization Problems.
 
+### Module 4 - Supervised Learning Models
+Support vector machines (SVM), Decision Trees and Ensemble models.
+
+<br /><br />
+
 **My Workouts:** (Private Google Collab ipynb files)  
 
 1.1 [Python Data Structures](https://colab.research.google.com/drive/1y0AaVoz_lMVuWPykrGL4ps-f_Y6zjHeP?authuser=1)  
@@ -36,6 +41,7 @@ Real world problem: Predict rating given product reviews on Amazon,  Classificat
 
 Other helpful links:
 
-1. [LaTex Symbols](https://gist.github.com/LKS90/252ac41bd4a173be35b0)
-2. [Diagnosing Learning Curves](https://machinelearningmastery.com/learning-curves-for-diagnosing-machine-learning-model-performance/)
+1. [LaTex Symbols](https://gist.github.com/LKS90/252ac41bd4a173be35b0)  
+2. [Diagnosing Learning Curves](https://machinelearningmastery.com/learning-curves-for-diagnosing-machine-learning-model-performance/)  
 3. [How to use Naive Bayes effectively](https://towardsdatascience.com/naive-bayes-classifier-how-to-successfully-use-it-in-python-ecf76a995069)
+4. [Andrew NG Stanford notes](http://cs229.stanford.edu/notes2020spring/) !!! MUST READ
