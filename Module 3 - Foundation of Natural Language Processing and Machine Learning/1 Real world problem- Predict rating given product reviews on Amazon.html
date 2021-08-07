@@ -578,32 +578,72 @@ pre.line-numbers > code {
 
 <p><u>Correction:</u> <strong>is</strong> will occur only once. And the count will be put in the cell. So distance varies.</p>
 
-<p>The length is very close. But their meanings are extremely opposite.</p>
+<p>The length is very close. But their meanings are extremely opposite. This is where <strong>BoW fails</strong>, so we&#39;ll use <strong>bi-gram or tri-gram</strong>.</p>
 
 <p><strong>Binary/Boolean BoW :</strong> We&#39;ll put <strong>1</strong> if a number occurs else <strong>0</strong>. It&#39;ll return the <strong>no. of differing words</strong>.</p>
+
+<h2 id="toc_3">Text Preprocessing</h2>
+
+<h3 id="toc_4">Stop Words</h3>
 
 <p>Also, the trivial words like <strong>is</strong>, <strong>this</strong>, <strong>and</strong> etc are not important. They are called <strong>stop</strong> words.</p>
 
 <p>After removing those, the \(v_i\) vectors will be small and more meaningful. Also we are throwing away some information. In english, <strong>not</strong> is a stop word. But removing it will cause problem.</p>
 
-<h3 id="toc_3">Stemming</h3>
+<div><pre class="line-numbers"><code class="language-none">from nltk.corpus import stopwords
+stop_words = set(stopwords.words(&#39;english&#39;))</code></pre></div>
 
-<p><strong>Tasty</strong>, <strong>tasting</strong>, <strong>tasteful</strong> - instead of having them as 3 words in BoW, convert each of these words into their common form <strong>tast</strong> and replace those words with this. So many algorithms to do this like <em>Porter stemmer</em> and <em>snow ball stemmer</em>.</p>
+<h3 id="toc_5">Stemming</h3>
 
-<h3 id="toc_4">Lemmitization</h3>
+<p><strong>Tasty</strong>, <strong>tasting</strong>, <strong>tasteful</strong> - instead of having them as 3 words in BoW, convert each of these words into their common form <strong>tast</strong> and replace those words with this. So many algorithms to do this like <em>Porter stemmer</em> (old one) and <em>snow ball stemmer</em> (latest one).</p>
+
+<div><pre class="line-numbers"><code class="language-none">from nltk.stem.snowball import SnowballStemmer
+snow_stemmer = SnowballStemmer(language=&#39;english&#39;)
+print(snow_stemmer.stem(&quot;cared&quot;) #care
+print(snow_stemmer.stem(&quot;university&quot;) #univers
+print(snow_stemmer.stem(&quot;easily&quot;) #easili</code></pre></div>
+
+<h3 id="toc_6">Lemmitization</h3>
 
 <p>Lemmatisation is the algorithmic process of determining the lemma of a word based on its intended meaning. Unlike stemming, lemmatization depends on correctly identifying the intended part of speech and meaning of a word in a sentence, as well as within the larger context surrounding that sentence, such as neighboring sentences or even an entire document. <strong>Tasty</strong>, <strong>tasting</strong>, <strong>tasteful</strong> will be converted to <strong>taste</strong></p>
 
-<p>Read : <a href="https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/">https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/</a></p>
+<p>Actually, lemmatization is preferred over Stemming because lemmatization does <strong>morphological analysis</strong> of the words.</p>
 
-<h3 id="toc_5">Tokenization</h3>
+<div><pre class="line-numbers"><code class="language-none">from nltk.stem import WordNetLemmatizer 
+lemmatizer = WordNetLemmatizer()
+print(lemmatizer.lemmatize(&quot;bats&quot;)) #bat
+print(lemmatizer.lemmatize(&quot;feet&quot;)) #foot</code></pre></div>
 
-<p>Breaking a sentence into words. We use <q><strong>space</strong></q> to separate sentence into words. But in case of word <q>New York</q>, it is not possible as it is <strong>language dependent</strong> and <strong>context dependent</strong>. <strong>Tasty</strong> and <strong>delicious</strong> are synonyms.<br>
+<p>Read : <a href="https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/">https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/</a> , <a href="https://www.machinelearningplus.com/nlp/lemmatization-examples-python/">https://www.machinelearningplus.com/nlp/lemmatization-examples-python/</a></p>
+
+<h3 id="toc_7">Tokenization</h3>
+
+<p>Breaking a sentence into words. We use <q><strong>space</strong></q> to separate sentence into words. But in case of word <q>New York</q>, it is not possible as it is <strong>language dependent</strong> and <strong>context dependent</strong>. </p>
+
+<div><pre class="line-numbers"><code class="language-none">import nltk
+
+word_data = &quot;It originated from an idea&quot;
+nltk_tokens = nltk.word_tokenize(word_data)
+print(nltk_tokens) #[It,originated,from,an,idea]</code></pre></div>
+
+<h3 id="toc_8">Semantic meaning (not a preprocessing technique)</h3>
+
+<p><strong>Tasty</strong> and <strong>delicious</strong> are synonyms.<br>
 We can make use of <strong>Word2Vec</strong> to achieve this synonyms.</p>
 
 <p><strong>BoW</strong> doesn&#39;t take the semantic meaning into the consideration.</p>
 
-<h3 id="toc_6">uni-gram, bi-gram, n-grams.</h3>
+<h3 id="toc_9">Spell check</h3>
+
+<ol>
+<li>Pasta is tasteeee</li>
+<li>Pasta is tasty</li>
+</ol>
+
+<p><a href="https://towardsdatascience.com/language-models-spellchecking-and-autocorrection-dd10f739443c">https://towardsdatascience.com/language-models-spellchecking-and-autocorrection-dd10f739443c</a> <br>
+We need to take care of spell checks.</p>
+
+<h2 id="toc_10">uni-gram, bi-gram, n-grams.</h2>
 
 <p>\(r_1\) : This pasta is very tasty and affordable<br>
 \(r_2\) : This pasta is not tasty and is affordable</p>
@@ -621,7 +661,43 @@ unigrams --&gt; horse, of, course, a, is, it, accept --&gt; #7<br>
 bigrams --&gt; horse is, is a , a horse, horse of, of course, course of, course accept, accept it --&gt; #8<br>
 trigrams --&gt; horse is a, is a horse, a horse of, horse of course, of course of, course of course, of course accept, course accept it --&gt; #8</p>
 
-<h2 id="toc_7">tf-idf (term frequency- inverse document frequency) BoW</h2>
+<p>As <strong>n-gram increases</strong>, the <strong>dimensionality d increases</strong>.</p>
+
+<p>Ref : <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">from sklearn.feature_extraction.text import CountVectorizer
+corpus = [&#39;The pasta taste good&#39;, &#39;This pasta doesnot taste good&#39;]
+cv = CountVectorizer(corpus, stop_words=[&#39;this&#39;, &#39;is&#39;, &#39;the&#39;])
+cv.fit(corpus)
+print(cv.get_feature_names())
+print(cv.transform(corpus).toarray())
+print(cv.vocabulary_)
+print(cv.token_pattern)
+
+[&#39;good&#39;, &#39;not&#39;, &#39;pasta&#39;, &#39;tastes&#39;]
+[[1 0 1 1]
+ [1 1 1 1]]
+{&#39;pasta&#39;: 2, &#39;tastes&#39;: 3, &#39;good&#39;: 0, &#39;not&#39;: 1}
+(?u)\b\w\w+\b</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-none">from sklearn.feature_extraction.text import CountVectorizer
+corpus = [&#39;This pasta tastes good&#39;, &#39;This pasta tastes not good&#39;]
+cv = CountVectorizer(corpus, stop_words=[&#39;this&#39;], ngram_range=(2,2))
+cv.fit(corpus)
+print(cv.get_feature_names())
+print(cv.transform(corpus).toarray())
+print(cv.vocabulary_)
+print(cv.token_pattern)
+
+[&#39;not good&#39;, &#39;pasta tastes&#39;, &#39;tastes good&#39;, &#39;tastes not&#39;]
+[[0 1 1 0]
+ [1 1 0 1]]
+{&#39;pasta tastes&#39;: 1, &#39;tastes good&#39;: 2, &#39;tastes not&#39;: 3, &#39;not good&#39;: 0}
+(?u)\b\w\w+\b</code></pre></div>
+
+<h2 id="toc_11">tf-idf (term frequency- inverse document frequency) BoW</h2>
+
+<p>It belongs to <strong>information retrieval</strong> sub area of NLP.</p>
 
 <p>This method doesn&#39;t take the semantic meaning into the consideration.</p>
 
@@ -642,7 +718,7 @@ trigrams --&gt; horse is a, is a horse, a horse of, horse of course, of course o
 
 <p><strong>IDF</strong> : If a word occurs in many documents, then IDF is low. If a word is a rare or low frequency, then IDF is high.</p>
 
-<p>\(IDF(W_i, D_c)\) = \(log(\frac{N}{n_i})\) where \(n_i\) is the no of documents which has the word \(W_i\)</p>
+<p>\(IDF(W_i, D_c)\) = \(log(\frac{N}{n_i})\) where \(n_i\) is the no of documents which has the word \(W_i\) and \(N\) is the no of total documents.</p>
 
 <p>\(n_i\ \leq\ N\ \Longrightarrow\ \frac{N}{n_i}\geq1\ \Longrightarrow\ IDF=log(\frac{N}{n_i})\geq0\)<br>
 As \(n_i\) increases, \(\frac{N}{n_i}\) and \(log(\frac{N}{n_i})\) both decreases.</p>
@@ -657,16 +733,35 @@ But now, we&#39;ll fill <strong>index</strong> corresponding to the word \(W_i\)
 
 <p>It still doesn&#39;t take into account the semmantic meaning of the word.</p>
 
-<h3 id="toc_8">Why use log in IDF?</h3>
+<p>Ref : <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">from sklearn.feature_extraction.text import TfidfVectorizer
+corpus = [&#39;This pasta tastes good&#39;, &#39;This pasta tastes not good&#39;]
+tfidf = TfidfVectorizer(corpus, ngram_range=(2,2), stop_words=[&#39;this&#39;])
+tfidf.fit(corpus)
+print(tfidf.get_feature_names())
+print(tfidf.idf_)
+print(&quot;------------&quot;*4)
+print(tfidf.transform(corpus).toarray())
+print(tfidf.vocabulary_)
+
+[&#39;not good&#39;, &#39;pasta tastes&#39;, &#39;tastes good&#39;, &#39;tastes not&#39;]
+[1.40546511 1.         1.40546511 1.40546511]
+------------------------------------------------
+[[0.         0.57973867 0.81480247 0.        ]
+ [0.6316672  0.44943642 0.         0.6316672 ]]
+{&#39;pasta tastes&#39;: 1, &#39;tastes good&#39;: 2, &#39;tastes not&#39;: 3, &#39;not good&#39;: 0}</code></pre></div>
+
+<h3 id="toc_12">Why use log in IDF?</h3>
 
 <p>As per Zipf&#39;s law, the common words in english will occur much more and rarer words will be less. It follows <strong>power-law</strong> distribution.<br>
 <img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.06.23%20AM.png" alt=""><br>
 <img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.07.53%20AM.png" alt=""><br>
 Instead of giving weightage 1000 to the word <strong>civilization</strong>, we are just giving \(6.9\) .</p>
 
-<p><code>Both BoW and tf-idf convert a full text/document into a sparse vector.</code></p>
+<p><strong><u>Both BoW and tf-idf convert a full text/document into a sparse vector.</u></strong></p>
 
-<h2 id="toc_9">Word2Vec</h2>
+<h2 id="toc_13">Word2Vec</h2>
 
 <p>Takes the <strong>semantics into the consideration</strong>. It is the state of the art technique. It learns relationships automatically from raw text.</p>
 
@@ -688,24 +783,97 @@ Instead of giving weightage 1000 to the word <strong>civilization</strong>, we a
 <p>Intuitively, it works like if the neighborhood of the word \(W_i\) is similar to the word \(W_j\), then \(v_i\) is similar to \(v_j\)<br>
 (i.e) \(N(W_i)\approx N(W_j)\)  \(\Longrightarrow\) \(v_i\approx v_j\)</p>
 
-<h3 id="toc_10">Using sentences, how to convert using word2vec?</h3>
+<p>Ref : <a href="https://www.kaggle.com/pierremegret/gensim-word2vec-tutorial">https://www.kaggle.com/pierremegret/gensim-word2vec-tutorial</a>, <a href="http://kavita-ganesan.com/gensim-word2vec-tutorial-starter-code/#.YQ4eEVMzZQJ">http://kavita-ganesan.com/gensim-word2vec-tutorial-starter-code/#.YQ4eEVMzZQJ</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">import gensim
+from gensim.models import Word2Vec
+from gensim.models import KeyedVectors
+w2v = KeyedVectors.load_word2vec_format(&#39;GoogleNews-vectors-negative300.bin.gz&#39;, binary=True)
+word = &#39;McLaren&#39;
+if word in w2v.vocab.keys():
+  print(w2v.similar_by_word(word, topn=5))
+  w2v_vec = w2v.get_vector(word)
+  print(np.array(w2v_vec).shape)
+  
+[(&#39;McLaren_Mercedes&#39;, 0.7571395635604858), 
+(&#39;Brawn&#39;, 0.7284218668937683), 
+(&#39;Mclaren&#39;, 0.6954721808433533), 
+(&#39;BAR_Honda&#39;, 0.688281774520874), 
+(&#39;Ferrari&#39;, 0.6736721992492676)]
+
+(300,)</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-none">#Own w2v model
+lines = []
+for line in data[&#39;essay&#39;].values:
+  lines.append(line.split())
+w2v = Word2Vec(sentences=lines,min_count=5 ,size=50, workers=4)
+
+print(w2v.wv.most_similar(&#39;great&#39;, topn=2))
+#[(&#39;excellent&#39;, 0.7378597855567932), (&#39;wonderful&#39;, 0.7312985062599182)
+
+print(w2v.wv.vocab) #full vocab
+
+print(w2v.wv[&#39;great&#39;])
+#prints the vector
+
+w2v.wv.similarity(&#39;great&#39;, &#39;worst&#39;) #0.07923318
+w2v.wv.similarity(&#39;great&#39;, &#39;excellent&#39;) #0.73785985
+</code></pre></div>
+
+<h3 id="toc_14">Using sentences, how to convert using word2vec?</h3>
 
 <p>Using Avg-Word2Vec, tf-idf weighted Word2Vec weighing strategies.</p>
 
-<p><strong><u>Avg-Word2Vec</u></strong><br>
-\(r_1\) : \(W_1\) \(W_2\) \(W_1\) \(W_3\) \(W_4\) \(W_5\) </p>
+<h4 id="toc_15">Avg-Word2Vec</h4>
+
+<p>\(r_1\) : \(W_1\) \(W_2\) \(W_1\) \(W_3\) \(W_4\) \(W_5\) </p>
 
 <p>Then \(r_1\rightarrow v_1\) is \(\frac{W2V(W_1)+W2V(W_2)+W2V(W_1)...W2V(W_5)}{n_1}\)</p>
 
 <p>This is averaging all the vectors. It is not perfect. It is well enough.</p>
 
-<p><strong><u>tf-idf weighted Word2Vec</u></strong></p>
+<div><pre class="line-numbers"><code class="language-none">line = &quot;The pasta tastes good&quot;
+count = 0
+vec = np.zeros(w2v.wv.vector_size)
+for word in line.split():
+  if word in w2v.wv.vocab:
+    vec += w2v.wv[word]
+    print(word)
+    count += 1
+if count &gt; 0:
+  vec /= count
+print(vec) #prints 1xn vector if the dimension is n</code></pre></div>
+
+<h4 id="toc_16">tf-idf weighted Word2Vec</h4>
 
 <p>Compute the <strong>tf_idf</strong> for \(r_1\), then multiply each corresponding value with the \(W2V(W_i)\)</p>
 
 <p><img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2012.12.55%20PM.png" alt=""></p>
 
 <p>\(tfidf_w2v(r_1)=\frac{\sum_{i:words}t_i*w2v(W_i)}{\sum_{i:words}t_i}\)</p>
+
+<div><pre class="line-numbers"><code class="language-none">line = &quot;The pasta tastes good&quot;
+tfidf = TfidfVectorizer()
+tfidf.fit(lines)
+
+idf_dict = dict(zip(tfidf.get_feature_names(), tfidf.idf_))
+w2v_vocab = w2v.wv.vocab
+tf_c = 0
+vec = np.zeros(w2v.wv.vector_size)
+
+words = line.split()
+for word in words:
+  if word in w2v_vocab and word in idf_dict:
+    tf = words.count(word)/len(words)
+    tfidf_val = tf * idf_dict[word]
+    vec += tfidf_val * w2v.wv[word]
+    tf_c += tfidf_val
+
+if tf_c &gt; 0:
+  vec /= tf_c
+
+print(vec)</code></pre></div>
 
 
 

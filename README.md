@@ -45,3 +45,10 @@ Other helpful links:
 2. [Diagnosing Learning Curves](https://machinelearningmastery.com/learning-curves-for-diagnosing-machine-learning-model-performance/)  
 3. [How to use Naive Bayes effectively](https://towardsdatascience.com/naive-bayes-classifier-how-to-successfully-use-it-in-python-ecf76a995069)
 4. [Andrew NG Stanford notes](http://cs229.stanford.edu/notes2020spring/) !!! MUST READ
+
+
+Sklearn Important Links:
+
+1. [Model Evaluation](https://scikit-learn.org/stable/modules/model_evaluation.html)
+2. [Sklearn overview](https://scikit-learn.org/stable/user_guide.html)
+3. [Sklearn Algo cheatsheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)
