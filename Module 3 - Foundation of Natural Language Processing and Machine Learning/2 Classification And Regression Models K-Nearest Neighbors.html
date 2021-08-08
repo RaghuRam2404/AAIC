@@ -552,21 +552,26 @@ Consider the case, where I was given <em><u>weight</u></em>, <u><em>age</em></u>
 1. Find <strong>k-nearest</strong> points (in terms of distance) to \(x_q\) in \(D\).<br>
 2. Let&#39;s say <strong>k=3</strong>, so we&#39;ll have 3 \(y\) points \(\{y_1,y_2,y_3\}\). We&#39;ll use majority vote. If the majority vote is \(+ve\), then \(y_q\) is \(+ve\). So better to take <strong>k</strong> as <strong>odd</strong> number to take majority vote.</p>
 
+<h3 id="toc_2">Failure cases</h3>
+
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%203.01.40%20PM.png" alt=""></p>
 
-<p><strong>Failure cases</strong><br>
-1. Fails when \(x_q\) is <strong>far away</strong> from the rest of the points. We are not sure of it&#39;s class label. In that case, it is better to say <strong>don&#39;t know about the class</strong>.<br>
-2. When the data is not at all grouped (i.e) randomnly spread, then we can&#39;t make use of this algo.</p>
+<ol>
+<li>Fails when \(x_q\) is <strong>far away</strong> from the rest of the points. We are not sure of it&#39;s class label. In that case, it is better to say <strong>don&#39;t know about the class</strong>.</li>
+<li>When the data is not at all grouped (i.e) randomnly spread, then we can&#39;t make use of this algo.</li>
+</ol>
 
-<h3 id="toc_2">Distance measures: Euclidean(L2) , Manhattan(L1), Minkowski, Hamming, Cosine</h3>
+<h3 id="toc_3">Distance measures: Euclidean(L2) , Manhattan(L1), Minkowski, Hamming, Cosine</h3>
 
 <p>Let \(x_1\) = (\(x_{11},x_{12}\)) and \(x_2\) = (\(x_{21},x_{22}\))</p>
 
+<p><strong>Distances</strong> are between 2 points and <strong>norms</strong> are for 2 vectors.</p>
+
 <p><u><strong>Euclidean distance :</strong></u></p>
 
-<p>\(\sqrt{(x_{21}-x_{11})^2 + (x_{22}-x_{12})^2}\) = \(||x_1-<br>
-x_2||_2\) , where underscore 2 is \(L_2\) norm<br>
-In n-dimensions, where \(x_1\epsilon \ R^d\) and \(x_2\epsilon \ R^d\), euclidean distance is \(\sqrt{\sum_{i=1}^d(x_{1i}-x_{2i})^2}\)</p>
+<p>\(\sqrt{(x_{21}-x_{11})^2 + (x_{22}-x_{12})^2}\) = \(||x_2-<br>
+x_1||_2\) , where underscore 2 is \(L_2\) norm<br>
+In n-dimensions, where \(x_1\epsilon \ R^d\) and \(x_2\epsilon \ R^d\), euclidean distance is \(||x_1-x_2||_2=\sqrt{\sum_{i=1}^d(x_{1i}-x_{2i})^2}\)</p>
 
 <p><strong><u>Manhattan distance:</u></strong></p>
 
@@ -612,7 +617,15 @@ Where to use it? For categorical variable (but not for continuouscontinuous vari
 
 <p>If the angle between two vectors is zero, then they are <strong>similar</strong>. It is based on that concept.</p>
 
-<h3 id="toc_3">How good KNN is?</h3>
+<p>\((eucl\_dist)^2=2*(1-cos\_sim)\) <br>
+\((eucl\_dist)^2=(cos\_dist)\) <br>
+derived from the expansion of the eclidean distance (<strong>if both are unit vectors</strong>)</p>
+
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-08-08%20at%202.36.23%20PM.png" alt=""></p>
+
+<hr>
+
+<h3 id="toc_4">How good KNN is?</h3>
 
 <p>Let&#39;s use the Amazonn food review example. \(x_q\) is the query and find \(y_q\) as polarity.</p>
 
@@ -630,7 +643,7 @@ accuracy = \(\frac{count}{n_2}\)</p>
 
 <p><u>Conclusion :</u> K-NN on amazon find food reviews using \(D_{train}\) gives accuracy of \(x\) percentage</p>
 
-<h3 id="toc_4">Space and time complexity</h3>
+<h3 id="toc_5">Space and time complexity</h3>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%204.28.47%20PM.png" alt=""></p>
 
@@ -640,7 +653,7 @@ accuracy = \(\frac{count}{n_2}\)</p>
 
 <p>This complexity is a lot. It is a <strong>big limitation</strong> of KNN. That&#39;s why KNN is <strong>not used extensively</strong>. We&#39;ll use <strong>kd-tree</strong>, <strong>LSH</strong>.</p>
 
-<h3 id="toc_5">Decision surface for K-NN as K changes</h3>
+<h3 id="toc_6">Decision surface for K-NN as K changes</h3>
 
 <p>\(k\) is the hyper parameter.</p>
 
@@ -658,7 +671,7 @@ What is k=n? We&#39;ll <strong>always</strong> get the class of the group which 
 \(k=5\) \(\rightarrow\) <strong>correct hyper param</strong><br>
 \(k=n\) \(\rightarrow\) <strong>underfitting</strong> (under working to find the proper hyperplane/surface)</p>
 
-<h3 id="toc_6">Need for Cross validation</h3>
+<h3 id="toc_7">Need for Cross validation</h3>
 
 <table>
 <thead>
@@ -698,9 +711,9 @@ What is k=n? We&#39;ll <strong>always</strong> get the class of the group which 
 
 <p>Usually we&#39;ll have \(D_{train}\) with 60% data, \(D_{cv}\) with 20% data and \(D_{test}\) with 20% data. Not a hard rule for this.</p>
 
-<p>Now, we can say that using \(D_{train}\) as training data, we find <strong>6-NN</strong> to have a <strong>generalization accuracy</strong> of 93% on future unseen data.</p>
+<p>Now, we can say that using \(D_{train}\) as training data, we find <strong>6-NN</strong> to have a <strong><u>generalization accuracy</u></strong> of 93% on future unseen data.</p>
 
-<h3 id="toc_7">K-fold cross validation</h3>
+<h3 id="toc_8">K-fold cross validation</h3>
 
 <p>In the above data split, we used only 60% to find <strong>NN</strong>. But is there a way to use 80% data (20% data remain unseen) to find <strong>NN</strong>. Because more data is better for learning. We can use <strong>k-fold cross validationn</strong>, this <strong>k</strong> is not same as in <strong>k-nn</strong>.</p>
 
@@ -777,15 +790,15 @@ What is k=n? We&#39;ll <strong>always</strong> get the class of the group which 
 
 <p>How to find the proper <strong>k-fold</strong> number? Typically, we&#39;ll apply <strong>10-fold cross validation</strong> (no scientific reason).</p>
 
-<h3 id="toc_8">Visualizing train, validation and test datasets</h3>
+<h3 id="toc_9">Visualizing train, validation and test datasets</h3>
 
 <ul>
-<li>\(D_{train}\) and \(D_{cv}\) points do not overlap perfectly</li>
+<li>\(D_{train}\) and \(D_{cv}\) points do not overlap perfectly (when the data is randomnly sampled)</li>
 <li>If there are <strong>many points</strong> in the \(+ve\)/\(-ve\) points from \(D_{train}\) in a region, then it is very likely to find <strong>many points</strong> from \(D_{cv}\) from that region.</li>
 <li>Similarly, if there are <strong>less points</strong> in the \(+ve\)/\(-ve\) points from \(D_{train}\) in a region, then it is very likely to find <strong>less points</strong> from \(D_{cv}\) from that region. These are points are basically noise/outliers.</li>
 </ul>
 
-<h3 id="toc_9">How to determine overfitting and underfitting?</h3>
+<h3 id="toc_10">How to determine overfitting and underfitting?</h3>
 
 <p>Using <strong>k-fold cv</strong> or <strong>cv</strong>, we can find hyperparameter <strong>k</strong> which will be neither overfit or underfit. But how can we be really sure that we are not underfitting or overfitting?</p>
 
@@ -807,7 +820,7 @@ What is k=n? We&#39;ll <strong>always</strong> get the class of the group which 
 <p>Train error <strong>high</strong> and CV error <strong>high</strong> \(\longrightarrow\) <strong>underfit</strong><br>
 Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\longrightarrow\) <strong>overfit</strong></p>
 
-<h3 id="toc_10">Time based splitting</h3>
+<h3 id="toc_11">Time based splitting</h3>
 
 <p>Better than random splitting for amazon food reviews problem.</p>
 
@@ -820,16 +833,7 @@ Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\lon
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%208.04.42%20PM.png" alt=""></p>
 
-<h2 id="toc_11">K - Nearest neighbours for Regression</h2>
-
-<ol>
-<li>Given \(x_q\), find k-nearest neighbours (\(x_1\),\(y_1\)), (\(x_2\),\(y_2\)) ... (\(x_k\),\(y_k\))</li>
-<li>Instead of taking majority vote, we&#39;ll take the \(mean(y_i)_{i=1}^k\) or \(median(y_i)_{i=1}^k\)</li>
-</ol>
-
-<p>For some of the classification algorithms, we can extend the algo to regression.</p>
-
-<h2 id="toc_12">weighted k-nn</h2>
+<h3 id="toc_12">weighted k-nn (for classification)</h3>
 
 <p>For query point \(x_q\) in <strong>5-nn</strong></p>
 
@@ -883,7 +887,16 @@ Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\lon
 
 <p>Then, \((10+5)&gt;(1+0.2+0.5)\), so \(y_q\) is \(-ve\) opposite of majority vote</p>
 
-<h2 id="toc_13">Voronoi diagram</h2>
+<h2 id="toc_13">K - Nearest neighbours for Regression</h2>
+
+<ol>
+<li>Given \(x_q\), find k-nearest neighbours (\(x_1\),\(y_1\)), (\(x_2\),\(y_2\)) ... (\(x_k\),\(y_k\))</li>
+<li>Instead of taking majority vote, we&#39;ll take the \(mean(y_i)_{i=1}^k\) or \(median(y_i)_{i=1}^k\)</li>
+</ol>
+
+<p>For some of the classification algorithms, we can extend the algo to regression.</p>
+
+<h2 id="toc_14">Voronoi diagram</h2>
 
 <p>Diagram with k-nn concept (k=1)</p>
 
@@ -891,7 +904,7 @@ Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\lon
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%208.31.31%20PM.png" alt=""></p>
 
-<h2 id="toc_14">kd-tree</h2>
+<h2 id="toc_15">kd-tree</h2>
 
 <p>KNN takes \(O(n)\) when k,d are small. We can use *<em>kd-tree</em> for optimization (based on binary search tree)</p>
 
@@ -921,7 +934,7 @@ Worst case scenario for # of comparisons : \(O(k*n)\)</p>
 
 <p>Space complexity is still \(O(n)\) considering dimensions \(d\) is small.</p>
 
-<h3 id="toc_15">Limitations</h3>
+<h3 id="toc_16">Limitations</h3>
 
 <p>1 &gt; When \(d\) is not small, then if a hypersphere cuts all the lines, then we have to check for \(2^d\) adjoining cells. Even when \(d=10\), we have to check for \(1024\) adjoining cells.</p>
 
@@ -931,7 +944,7 @@ Worst case scenario for # of comparisons : \(O(k*n)\)</p>
 
 <p>It is recommended for computer graphics.</p>
 
-<h2 id="toc_16">Hashing vs Locality Sensitive Hashing (LSH)</h2>
+<h2 id="toc_17">Hashing vs Locality Sensitive Hashing (LSH)</h2>
 
 <p>LSH \(\longrightarrow\) We want to find a hash function \(h(x)\) such that the neighbours of \(x\) will go to the same bucket of the hash of \(x\). It is a <strong>randomized algorithm</strong> (not always give the correct answer, answer with high probability ).</p>
 
@@ -939,7 +952,7 @@ Worst case scenario for # of comparisons : \(O(k*n)\)</p>
 
 <p>It works even when <strong>d is large</strong></p>
 
-<h3 id="toc_17">LSH for cosine similarity</h3>
+<h3 id="toc_18">LSH for cosine similarity</h3>
 
 <p>If 2 points (\(x_1\), \(x_2\)) are very close (\(\theta\) between them is very small), then they are very similar to the points (say \(x_3\), \(x_4\)) which are very close. The close points \(x_1\), \(x_2\) will go to the same bucket.</p>
 
@@ -978,7 +991,7 @@ We could miss nearest points on both sides of the hyperplane.</p>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.20.23%20PM.png" alt=""></p>
 
-<h3 id="toc_18">LSH for euclidean distance</h3>
+<h3 id="toc_19">LSH for euclidean distance</h3>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.43.51%20PM.png" alt=""></p>
 
@@ -991,7 +1004,7 @@ We could miss nearest points on both sides of the hyperplane.</p>
 <p>Edge cases:<br>
 <img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.46.34%20PM.png" alt=""></p>
 
-<h2 id="toc_19">Probabilistic class label</h2>
+<h2 id="toc_20">Probabilistic class label</h2>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.51.17%20PM.png" alt=""></p>
 
@@ -1001,7 +1014,7 @@ We could miss nearest points on both sides of the hyperplane.</p>
 \(P(y_q=-ve) = \frac{4}{7}\)<br>
 \(P(y_q&#39;=-ve) = \frac{7}{7}\)</p>
 
-<h2 id="toc_20">Interview questions</h2>
+<h2 id="toc_21">Interview questions</h2>
 
 <p>In k-means or kNN, we use euclidean distance to calculate the distance between nearest neighbours. Why not manhattan distance ?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/</a>)</p>
 

@@ -35,9 +35,10 @@ Steps:
 1. Find **k-nearest** points (in terms of distance) to $x_q$ in $D$.
 2. Let's say **k=3**, so we'll have 3 $y$ points $\{y_1,y_2,y_3\}$. We'll use majority vote. If the majority vote is $+ve$, then $y_q$ is $+ve$. So better to take **k** as **odd** number to take majority vote.
 
+###Failure cases
+
 ![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-06-09 at 3.01.40 PM.png)
 
-**Failure cases**
 1. Fails when $x_q$ is **far away** from the rest of the points. We are not sure of it's class label. In that case, it is better to say **don't know about the class**.
 2. When the data is not at all grouped (i.e) randomnly spread, then we can't make use of this algo.
 
@@ -45,11 +46,13 @@ Steps:
 
 Let $x_1$ = ($x_{11},x_{12}$) and $x_2$ = ($x_{21},x_{22}$)
 
+**Distances** are between 2 points and **norms** are for 2 vectors.
+
 _**Euclidean distance :**_
 
-$\sqrt{(x_{21}-x_{11})^2 + (x_{22}-x_{12})^2}$ = $||x_1-
-x_2||_2$ , where underscore 2 is $L_2$ norm
-In n-dimensions, where $x_1\epsilon \ R^d$ and $x_2\epsilon \ R^d$, euclidean distance is $\sqrt{\sum_{i=1}^d(x_{1i}-x_{2i})^2}$
+$\sqrt{(x_{21}-x_{11})^2 + (x_{22}-x_{12})^2}$ = $||x_2-
+x_1||_2$ , where underscore 2 is $L_2$ norm
+In n-dimensions, where $x_1\epsilon \ R^d$ and $x_2\epsilon \ R^d$, euclidean distance is $||x_1-x_2||_2=\sqrt{\sum_{i=1}^d(x_{1i}-x_{2i})^2}$
 
 **_Manhattan distance:_**
 
@@ -94,6 +97,14 @@ $cos\_sim(x_1,x_2)=cos(\theta)=\frac{x_1.x_2}{||x_1||_2||x_2||_2}$ where $\theta
 if $x_1$ and $x_2$ are very similar, then $cos\_sim(x_1,x_2)=+1$ and when they are dissimilar, it is $-1$.
 
 If the angle between two vectors is zero, then they are **similar**. It is based on that concept.
+
+$(eucl\_dist)^2=2*(1-cos\_sim)$ 
+$(eucl\_dist)^2=(cos\_dist)$ 
+derived from the expansion of the eclidean distance (**if both are unit vectors**)
+
+![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-08-08 at 2.36.23 PM.png)
+
+---
 
 ### How good KNN is?
 Let's use the Amazonn food review example. $x_q$ is the query and find $y_q$ as polarity.
@@ -156,7 +167,7 @@ Note : **_Use cross validation set to find the hyperparameters of the model and 
 
 Usually we'll have $D_{train}$ with 60% data, $D_{cv}$ with 20% data and $D_{test}$ with 20% data. Not a hard rule for this.
 
-Now, we can say that using $D_{train}$ as training data, we find **6-NN** to have a **generalization accuracy** of 93% on future unseen data.
+Now, we can say that using $D_{train}$ as training data, we find **6-NN** to have a **_generalization accuracy_** of 93% on future unseen data.
 
 
 ### K-fold cross validation
@@ -186,7 +197,7 @@ How to find the proper **k-fold** number? Typically, we'll apply **10-fold cross
 
 ###Visualizing train, validation and test datasets
 
-* $D_{train}$ and $D_{cv}$ points do not overlap perfectly
+* $D_{train}$ and $D_{cv}$ points do not overlap perfectly (when the data is randomnly sampled)
 * If there are **many points** in the $+ve$/$-ve$ points from $D_{train}$ in a region, then it is very likely to find **many points** from $D_{cv}$ from that region.
 * Similarly, if there are **less points** in the $+ve$/$-ve$ points from $D_{train}$ in a region, then it is very likely to find **less points** from $D_{cv}$ from that region. These are points are basically noise/outliers.
 
@@ -222,14 +233,8 @@ With time goes on, the products and reviews change. If I can give accuracy based
 
 ![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-06-09 at 8.04.42 PM.png)
 
-## K - Nearest neighbours for Regression
 
-1. Given $x_q$, find k-nearest neighbours ($x_1$,$y_1$), ($x_2$,$y_2$) ... ($x_k$,$y_k$)
-2. Instead of taking majority vote, we'll take the $mean(y_i)_{i=1}^k$ or $median(y_i)_{i=1}^k$
-
-For some of the classification algorithms, we can extend the algo to regression.
-
-## weighted k-nn
+### weighted k-nn (for classification)
 
 For query point $x_q$ in **5-nn**
 
@@ -247,6 +252,14 @@ One way to find is $w_i$ = $\frac{1}{d_i}$
 
 Then, $(10+5)>(1+0.2+0.5)$, so $y_q$ is $-ve$ opposite of majority vote
 
+
+
+## K - Nearest neighbours for Regression
+
+1. Given $x_q$, find k-nearest neighbours ($x_1$,$y_1$), ($x_2$,$y_2$) ... ($x_k$,$y_k$)
+2. Instead of taking majority vote, we'll take the $mean(y_i)_{i=1}^k$ or $median(y_i)_{i=1}^k$
+
+For some of the classification algorithms, we can extend the algo to regression.
 ##Voronoi diagram
 
 Diagram with k-nn concept (k=1)
