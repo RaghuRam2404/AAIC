@@ -4,9 +4,11 @@
 <script src="../toc.js" ></script>
 <div id='toc'></div>
 
-In training phase, the algorithm learns and it'll be applied over the test/validation data set. Then check the accuracy.
+In training phase, the algorithm learns and it'll be applied over the cross validation data set. Then check the accuracy. Based on that, choose the hyperparameters
 
 Each matrix row is the transpose of the $x_i$ (which is a column vector representing the features of that particular data). So $i^{th}$ row is $x_i^T$
+
+![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-08-08 at 1.06.02 PM.png)
 
 _*How Classification works?*_
 In Amazon fine food reviews case, given a new review, determine/predict if the review is positive or not. It is **binary classification** or **2-class classification**.

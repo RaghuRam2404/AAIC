@@ -1,9 +1,13 @@
 # Other helpful libraries used
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script src="../../toc.js" ></script>
+<div id='toc'></div>
+
 |Package|Function|
 |---|----|
 |BeautifulSoup||
-|ScikitLearn|CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train\_test\_split, cross\_val\_score, accuracy_score |
+|ScikitLearn|Normalize,CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train\_test\_split, cross\_val\_score, accuracy_score |
 |NLTK|PorterStemmer, stopwords, WordNetLemmatizer,FreqDist |
 |gensim| Word2Vec |
 |Re|compile,sub|
@@ -18,9 +22,18 @@ BeautifulSoup(sentence, "lxml").get_text()
 ```
 
 ##ScikitLearn
+
+###Normalize
+Refer [https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html)
+
+```
+from sklearn.preprocessing import normalize
+normalize(X)
+```
+
 ###CountVectorizer
 
-Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi)
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi), [https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
 
 ```
 from sklearn.feature_extraction.text import CountVectorizer
@@ -36,7 +49,7 @@ for (index, count) in zip(cx.indices, cx.data):
   print("word {}".format("{"+all_words[index]+"}"), " with count : ", count)
 ```
 
-Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=kNMGnU-fF4Z3)
+Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=kNMGnU-fF4Z3), [https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
 
 ```
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -72,12 +85,14 @@ Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/
 ```
 import nltk
 ```
+###PorterStemmer
 
 ```
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 return ps.stem(word)
 ```
+###Stop Words
 
 ```
 from nltk.corpus import stopwords
@@ -85,11 +100,14 @@ nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 ```
 
+###WordNetLemmatizer
+
 ```
 from nltk.stem.wordnet import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
 print(lemmatizer.lemmatize("bats")) #prints bat
 ```
+###FreqDist
 
 ```
 apw = nltk.FreqDist(all_positive_words)
@@ -129,3 +147,5 @@ model = KNeighborsClassifier(n_neighbors=k_val)
 model.fit(x,y)
 plot_decision_regions(x, y.astype(int), clf=model, legend=2, ax=ax)
 ```
+
+##
