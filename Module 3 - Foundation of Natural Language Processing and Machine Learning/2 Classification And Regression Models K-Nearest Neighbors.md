@@ -276,6 +276,12 @@ KNN takes $O(n)$ when k,d are small. We can use **kd-tree* for optimization (bas
 
 It is breaking up the space into axis parallel lines/planes/hyperplanes. We'll build the tree iterating each dimension once and repeating again, till we reach leaf nodes.
 
+In **2D**, we'll **axis parallel lines** to split and we'll get **rectangles**.
+In **3D**, we'll **axis parallel planes** to split and we'll get **cuboids**.
+In **nD**, we'll **axis parallel hyperplanes** to split and we'll get **hypercuboids**.
+
+Read : [https://www.wikiwand.com/en/K-d_tree](https://www.wikiwand.com/en/K-d_tree)
+
 ![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-06-09 at 9.07.59 PM.png)
 
 1. Take the query point $q:(x_q,y_q)$, we'll apply the kd-tree.
@@ -286,31 +292,46 @@ It is breaking up the space into axis parallel lines/planes/hyperplanes. We'll b
 6. $d'<d$, so we'll ignore $c$ and draw **new hypersphere** using $q$ and $e$.
 7. It intersects $y\leq y_1$ node and since we have already done the backtracking for this, we need not do it again. We'll conclude that **e is now 1-NN**.
 
-_Time Complexity for 1-NN:_
+
+![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-08-10 at 8.01.19 AM.png)
+
+**_Time Complexity for 1-NN:_**
 Best case scenario for # of comparisons : $O(lg(n))$
 Worst case scenario for # of comparisons : $O(n)$
 
-_Time Complexity for k-NN:_
+**_Time Complexity for k-NN:_**
 Best case scenario for # of comparisons : $O(k * lg(n))$
 Worst case scenario for # of comparisons : $O(k*n)$
+
+_TODO :_ Need to use max heap for finding k neighbours. Check it afterwards for learning purpose on how to do this. Ref: [https://stackoverflow.com/questions/34688977/how-do-i-traverse-a-kdtree-to-find-k-nearest-neighbors](https://stackoverflow.com/questions/34688977/how-do-i-traverse-a-kdtree-to-find-k-nearest-neighbors)
 
 Space complexity is still $O(n)$ considering dimensions $d$ is small.
 
 ### Limitations
 
-1 > When $d$ is not small, then if a hypersphere cuts all the lines, then we have to check for $2^d$ adjoining cells. Even when $d=10$, we have to check for $1024$ adjoining cells.
+![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-08-10 at 8.44.27 AM.png)
 
-Time complexity for 1-nn : $O(2^d*lg(n))$ it is worse than $O(n*log(n))$
+1. When $d$ is not small, then if a hypersphere cuts all the lines, then we have to check for $2^d$ adjoining cells. Even when $d=10$, we have to check for $1024$ adjoining cells.
 
-2 > $O(log(n))$ holds good only when the data is uniformly distributed.
+	Time complexity for 1-nn : $O(2^d*lg(n))$ it is worse than $O(n*log(n))$
 
-
-It is recommended for computer graphics.
-
-##Hashing vs Locality Sensitive Hashing (LSH)
+2. $O(log(n))$ holds good only when the data is uniformly distributed.
 
 
-LSH $\longrightarrow$ We want to find a hash function $h(x)$ such that the neighbours of $x$ will go to the same bucket of the hash of $x$. It is a **randomized algorithm** (not always give the correct answer, answer with high probability ).
+It is recommended for computer graphics. We want to find the nearest points as it is only 2D.
+
+### Variations of KD-Tree
+
+1. Implicit k-d tree
+2. min/max k-d tree
+3. Ball tree
+4. Relaxed k-d tree
+
+##Locality Sensitive Hashing (LSH)
+
+Works good when $d$ is large.
+
+LSH $\longrightarrow$ We want to find a hash function $h(x)$ such that the neighbours of $x$ will go to the same bucket of the hash of $x$. It is a **randomized algorithm** (**not always give the correct answer, answer with high probability** ).
 
 ![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-06-12 at 1.28.05 PM.png)
 
@@ -338,9 +359,9 @@ Space is atleast $O(n)$
 
 Given a query point $x_q$, construct $h(x_q)$. Use this as key in the hashtable/dict to get the value. They **could be** the nearest point and find the cosine similarity of those points and get **k** nearest neighbours.
 
-Time complexity for querying : $O(mdn')$ where $n'$ elements in the bucket (assuming $n' < n$)
+Time complexity for querying : $O(md+n'd)$ where $n'$ elements in the bucket (assuming $n' < n$). If we assume, $n'=d$, then it is $O(md)$
 
-So, typically we'll set $m=log(n)$
+So, typically we'll set $m=log(n)$. Time complexity becomes $O(d*log(n))$.
 
 **_Limitations_**:
 We could miss nearest points on both sides of the hyperplane.
@@ -368,7 +389,7 @@ We'll divide the $\pi$ into segments.
 
 The two points which are in same group will be projected in the same segment/region.
 
-Edge cases:
+####Edge cases:
 ![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-06-12 at 3.46.34 PM.png)
 
 ## Probabilistic class label

@@ -912,6 +912,12 @@ Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\lon
 
 <p>It is breaking up the space into axis parallel lines/planes/hyperplanes. We&#39;ll build the tree iterating each dimension once and repeating again, till we reach leaf nodes.</p>
 
+<p>In <strong>2D</strong>, we&#39;ll <strong>axis parallel lines</strong> to split and we&#39;ll get <strong>rectangles</strong>.<br>
+In <strong>3D</strong>, we&#39;ll <strong>axis parallel planes</strong> to split and we&#39;ll get <strong>cuboids</strong>.<br>
+In <strong>nD</strong>, we&#39;ll <strong>axis parallel hyperplanes</strong> to split and we&#39;ll get <strong>hypercuboids</strong>.</p>
+
+<p>Read : <a href="https://www.wikiwand.com/en/K-d_tree">https://www.wikiwand.com/en/K-d_tree</a></p>
+
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-09%20at%209.07.59%20PM.png" alt=""></p>
 
 <ol>
@@ -924,27 +930,45 @@ Train error <strong>low</strong> and CV error <strong>high</strong> &nbsp;\(\lon
 <li>It intersects \(y\leq y_1\) node and since we have already done the backtracking for this, we need not do it again. We&#39;ll conclude that <strong>e is now 1-NN</strong>.</li>
 </ol>
 
-<p><u>Time Complexity for 1-NN:</u><br>
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-08-10%20at%208.01.19%20AM.png" alt=""></p>
+
+<p><strong><u>Time Complexity for 1-NN:</u></strong><br>
 Best case scenario for # of comparisons : \(O(lg(n))\)<br>
 Worst case scenario for # of comparisons : \(O(n)\)</p>
 
-<p><u>Time Complexity for k-NN:</u><br>
+<p><strong><u>Time Complexity for k-NN:</u></strong><br>
 Best case scenario for # of comparisons : \(O(k * lg(n))\)<br>
 Worst case scenario for # of comparisons : \(O(k*n)\)</p>
+
+<p><u>TODO :</u> Need to use max heap for finding k neighbours. Check it afterwards for learning purpose on how to do this. Ref: <a href="https://stackoverflow.com/questions/34688977/how-do-i-traverse-a-kdtree-to-find-k-nearest-neighbors">https://stackoverflow.com/questions/34688977/how-do-i-traverse-a-kdtree-to-find-k-nearest-neighbors</a></p>
 
 <p>Space complexity is still \(O(n)\) considering dimensions \(d\) is small.</p>
 
 <h3 id="toc_16">Limitations</h3>
 
-<p>1 &gt; When \(d\) is not small, then if a hypersphere cuts all the lines, then we have to check for \(2^d\) adjoining cells. Even when \(d=10\), we have to check for \(1024\) adjoining cells.</p>
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-08-10%20at%208.44.27%20AM.png" alt=""></p>
 
-<p>Time complexity for 1-nn : \(O(2^d*lg(n))\) it is worse than \(O(n*log(n))\)</p>
+<ol>
+<li><p>When \(d\) is not small, then if a hypersphere cuts all the lines, then we have to check for \(2^d\) adjoining cells. Even when \(d=10\), we have to check for \(1024\) adjoining cells.</p>
 
-<p>2 &gt; \(O(log(n))\) holds good only when the data is uniformly distributed.</p>
+<p>Time complexity for 1-nn : \(O(2^d*lg(n))\) it is worse than \(O(n*log(n))\)</p></li>
+<li><p>\(O(log(n))\) holds good only when the data is uniformly distributed.</p></li>
+</ol>
 
-<p>It is recommended for computer graphics.</p>
+<p>It is recommended for computer graphics. We want to find the nearest points as it is only 2D.</p>
 
-<h2 id="toc_17">Hashing vs Locality Sensitive Hashing (LSH)</h2>
+<h3 id="toc_17">Variations of KD-Tree</h3>
+
+<ol>
+<li>Implicit k-d tree</li>
+<li>min/max k-d tree</li>
+<li>Ball tree</li>
+<li>Relaxed k-d tree</li>
+</ol>
+
+<h2 id="toc_18">Locality Sensitive Hashing (LSH)</h2>
+
+<p>Works good when \(d\) is large.</p>
 
 <p>LSH \(\longrightarrow\) We want to find a hash function \(h(x)\) such that the neighbours of \(x\) will go to the same bucket of the hash of \(x\). It is a <strong>randomized algorithm</strong> (not always give the correct answer, answer with high probability ).</p>
 
@@ -952,7 +976,7 @@ Worst case scenario for # of comparisons : \(O(k*n)\)</p>
 
 <p>It works even when <strong>d is large</strong></p>
 
-<h3 id="toc_18">LSH for cosine similarity</h3>
+<h3 id="toc_19">LSH for cosine similarity</h3>
 
 <p>If 2 points (\(x_1\), \(x_2\)) are very close (\(\theta\) between them is very small), then they are very similar to the points (say \(x_3\), \(x_4\)) which are very close. The close points \(x_1\), \(x_2\) will go to the same bucket.</p>
 
@@ -973,9 +997,9 @@ Space is atleast \(O(n)\)</p>
 
 <p>Given a query point \(x_q\), construct \(h(x_q)\). Use this as key in the hashtable/dict to get the value. They <strong>could be</strong> the nearest point and find the cosine similarity of those points and get <strong>k</strong> nearest neighbours.</p>
 
-<p>Time complexity for querying : \(O(mdn&#39;)\) where \(n&#39;\) elements in the bucket (assuming \(n&#39; &lt; n\))</p>
+<p>Time complexity for querying : \(O(md+n&#39;d)\) where \(n&#39;\) elements in the bucket (assuming \(n&#39; &lt; n\)). If we assume, \(n&#39;=d\), then it is \(O(md)\)</p>
 
-<p>So, typically we&#39;ll set \(m=log(n)\)</p>
+<p>So, typically we&#39;ll set \(m=log(n)\). Time complexity becomes \(O(d*log(n))\).</p>
 
 <p><strong><u>Limitations</u></strong>:<br>
 We could miss nearest points on both sides of the hyperplane.</p>
@@ -991,7 +1015,7 @@ We could miss nearest points on both sides of the hyperplane.</p>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.20.23%20PM.png" alt=""></p>
 
-<h3 id="toc_19">LSH for euclidean distance</h3>
+<h3 id="toc_20">LSH for euclidean distance</h3>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.43.51%20PM.png" alt=""></p>
 
@@ -1001,10 +1025,11 @@ We could miss nearest points on both sides of the hyperplane.</p>
 
 <p>The two points which are in same group will be projected in the same segment/region.</p>
 
-<p>Edge cases:<br>
-<img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.46.34%20PM.png" alt=""></p>
+<h4 id="toc_21">Edge cases:</h4>
 
-<h2 id="toc_20">Probabilistic class label</h2>
+<p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.46.34%20PM.png" alt=""></p>
+
+<h2 id="toc_22">Probabilistic class label</h2>
 
 <p><img src="./2%20Classification%20And%20Regression%20Models%20K-Nearest%20Neighbors/Screen%20Shot%202021-06-12%20at%203.51.17%20PM.png" alt=""></p>
 
@@ -1014,7 +1039,7 @@ We could miss nearest points on both sides of the hyperplane.</p>
 \(P(y_q=-ve) = \frac{4}{7}\)<br>
 \(P(y_q&#39;=-ve) = \frac{7}{7}\)</p>
 
-<h2 id="toc_21">Interview questions</h2>
+<h2 id="toc_23">Interview questions</h2>
 
 <p>In k-means or kNN, we use euclidean distance to calculate the distance between nearest neighbours. Why not manhattan distance ?(<a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/</a>)</p>
 
