@@ -6,12 +6,43 @@
 
 |Package|Function|
 |---|----|
+|matplotlib|colors.ListedColormap,pyplot.pcolormesh|
 |BeautifulSoup||
-|ScikitLearn|Normalize,CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train\_test\_split, cross\_val\_score, accuracy_score |
+|ScikitLearn|Normalize,CountVectorizer, TfidfVectorizer, [KNeighborsClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier), [LocalOutlierFactor](http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html), train\_test\_split, cross\_val\_score, accuracy_score |
 |NLTK|PorterStemmer, stopwords, WordNetLemmatizer,FreqDist |
 |gensim| Word2Vec |
 |Re|compile,sub|
 |mlxtend| plot\_decision\_regions |
+
+
+
+##matplotlib
+
+### ListedColormap
+
+```
+from matplotlib.colors import ListedColormap
+scatter_cmap = ListedColormap(["#fcba03", "#1803fc"])
+plt.scatter(X[:,0], X[:,1], c=Y, cmap= scatter_cmap)
+plt.show()
+```
+
+### pyplot.pcolormesh
+
+```
+import matplotlib.pyplot as plt
+h = 0.02
+xmin, xmax = X[:,0].min()-1, X[:,0].max()+1
+ymin, ymax = X[:,1].min()-1, X[:,1].max()+1
+xx, yy = np.meshgrid(np.arange(xmin,xmax,h), np.arange(ymin,ymax,h))
+knn = KNeighborsClassifier(n_neighbors=k)
+knn.fit(X,Y)
+m_ = knn.predict(np.vstack((xx.ravel(), yy.ravel())).T)
+m_ = m_.reshape(xx.shape)
+
+mesh_cmap = ListedColormap(["#f5e7c4", "#dad7f7"])
+plt.pcolormesh(xx, yy, m_, cmap=mesh_cmap)
+```
 
 ## Beautiful Soup
 Remove html tags from the text. Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=R4eEj7-ZG6bV)
@@ -48,6 +79,7 @@ cx = fdata_bow[0]
 for (index, count) in zip(cx.indices, cx.data):
   print("word {}".format("{"+all_words[index]+"}"), " with count : ", count)
 ```
+###TfidfVectorizer
 
 Refer [3.1-Amazon Fine Food Reviews Analysis](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=kNMGnU-fF4Z3), [https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
 
@@ -62,16 +94,39 @@ print(count_vec.idf_) #idf values
 
 Refer [3.3 KNN](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=pnY19qYH98cu)
 
+###KNeighborsClassifier
+
 ```
 from sklearn.neighbors import KNeighborsClassifier
 X_1, X_test, Y_1, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
 model = KNeighborsClassifier(n_neighbors=k_val)
 model.fit(X_1,Y_1)
 y_pred = model.predict(X_test)
-acc = accuracy_score(Y_test, y_pred, normalize=True) * float(100)
-acc_scores = cross_val_score(model, X_1, Y_1, cv=10, scoring="accuracy")
+model.predict_proba(X_test)
 ```
 Refer [3.3 KNN](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=azqnn2NI9bOO)
+
+###cross\_val\_score and accuracy\_score
+
+```
+accuracy_scores = []
+
+for k in k_range:
+  scores = cross_val_score(KNeighborsClassifier(n_neighbors=k), X_train, Y_train, scoring='accuracy', cv=10)
+  accuracy_scores.append(np.mean(scores))
+
+best_k_index = np.argmax(accuracy_scores)
+best_k = k_range[best_k_index]
+print(best_k)
+
+#Generalization accuracy
+model = KNeighborsClassifier(n_neighbors=best_k)
+model.fit(X_train, Y_train)
+y_pred = model.predict(X_test)
+print("Generalization accuracy :",accuracy_score(Y_test, y_pred)*100.0,"%")
+```
+
+###LocalOutlierFactor
 
 ```
 lof = LocalOutlierFactor(n_neighbors=3)
@@ -147,5 +202,3 @@ model = KNeighborsClassifier(n_neighbors=k_val)
 model.fit(x,y)
 plot_decision_regions(x, y.astype(int), clf=model, legend=2, ax=ax)
 ```
-
-##

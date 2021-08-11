@@ -34,7 +34,7 @@ Support vector machines (SVM), Decision Trees and Ensemble models.
 2.3 [MNIST Dataset & Visualization](https://colab.research.google.com/drive/1VlaTW1Egz5vXNrK-aOwkcDpPxO-OcT3D?authuser=1)  
 3.1 [Amazon Food Reviews - NLTK](https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1)  
 3.2 [BoW implementation](https://colab.research.google.com/drive/1Rd5Mx6eeBiIemInxY1y2hZvMkA3oZoaP?authuser=1#scrollTo=JQDj94EcflkN)  
-3.3 [KNN & k-fold](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1)  
+3.3 [KNN & k-fold](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1), [KNN - Try2](https://colab.research.google.com/drive/1MzlS_y0oj3U9AJu_itFIHa4VDuBz0cMM?authuser=1#scrollTo=8AXnkBbi7nda)   
 3.4.1 [GridSearchCV](https://colab.research.google.com/drive/1JUhuYOFuxsEcbu8xtX0rg8E0okHOHJQE?authuser=1)  
 3.5 [Logistic Regression](https://colab.research.google.com/drive/1iJ83HA6fm0WdluUFuoe0N9NeI8yw6rLo?authuser=1#scrollTo=cV9kCTaAXbW_)  
 3.6 [Linear Regression](https://colab.research.google.com/drive/1lfxvvbNNMqaQPd7rq5FR-_wtOovS23dZ?authuser=1#scrollTo=NSy97yF35SML)  

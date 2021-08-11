@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Others</title>
+<title>3.2 KNN</title>
 
 
 <style type="text/css">
@@ -514,214 +514,132 @@ pre.line-numbers > code {
 
 <body>
 
-<h1 id="toc_0">Other helpful libraries used</h1>
+<h1 id="toc_0">KNN Interview Questions</h1>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<h2 id="toc_1">Take test</h2>
 
-<script src="../../toc.js" ></script>
+<p><a href="https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/">https://www.analyticsvidhya.com/blog/2017/09/30-questions-test-k-nearest-neighbors-algorithm/</a></p>
 
-<div id='toc'></div>
+<h2 id="toc_2">Revise</h2>
 
-<table>
-<thead>
-<tr>
-<th>Package</th>
-<th>Function</th>
-</tr>
-</thead>
+<p><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2927/k-nearest-neighbours-geometric-intuition-with-a-toy-example/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain about K-Nearest Neighbors?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2928/failure-cases-of-knn/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Failure cases of KNN?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2929/distance-measures-euclideanl2-manhattanl1-minkowski-hamming/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Define Distance measures: Euclidean(L2) , Manhattan(L1), Minkowski,  Hamming</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2930/cosine-distance-cosine-similarity/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Cosine Distance &amp; Cosine Similarity?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2931/how-to-measure-the-effectiveness-of-k-nn/3/module-3-foundations-of-natural-language-processing-and-machine-learning">How to measure the effectiveness of k-NN?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2933/knn-limitations/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Limitations of KNN?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2935/overfitting-and-underfitting/3/module-3-foundations-of-natural-language-processing-and-machine-learning">How to handle Overfitting and Underfitting in KNN?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2936/need-for-cross-validation/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Need for Cross validation?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2937/k-fold-cross-validation/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is K-fold cross validation?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2940/time-based-splitting/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Time based splitting?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2941/k-nn-for-regression/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain k-NN for regression?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2942/weighted-k-nn/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Weighted k-NN ?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2945/how-to-build-a-kd-tree/3/module-3-foundations-of-natural-language-processing-and-machine-learning">How to build a kd-tree.?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2946/find-nearest-neighbours-using-kd-tree/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Find nearest neighbors using kd-tree</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2949/hashing-vs-lsh/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Locality sensitive Hashing (LSH)?(Hashing vs LSH?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2950/lsh-for-cosine-similarity/3/module-3-foundations-of-natural-language-processing-and-machine-learning">LSH for cosine similarity?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2951/lsh-for-euclidean-distance/3/module-3-foundations-of-natural-language-processing-and-machine-learning">LSH for euclidean distance?</a></p>
 
-<tbody>
-<tr>
-<td>matplotlib</td>
-<td>colors.ListedColormap,pyplot.pcolormesh</td>
-</tr>
-<tr>
-<td>BeautifulSoup</td>
-<td></td>
-</tr>
-<tr>
-<td>ScikitLearn</td>
-<td>Normalize,CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train_test_split, cross_val_score, accuracy_score</td>
-</tr>
-<tr>
-<td>NLTK</td>
-<td>PorterStemmer, stopwords, WordNetLemmatizer,FreqDist</td>
-</tr>
-<tr>
-<td>gensim</td>
-<td>Word2Vec</td>
-</tr>
-<tr>
-<td>Re</td>
-<td>compile,sub</td>
-</tr>
-<tr>
-<td>mlxtend</td>
-<td>plot_decision_regions</td>
-</tr>
-</tbody>
-</table>
+<h2 id="toc_3">Questions</h2>
 
-<h2 id="toc_1">matplotlib</h2>
+<p><strong>Why is KNN a non-parametric Algorithm?</strong><br>
+The term “non-parametric” refers to not making any assumptions on the underlying data distribution. These methods do not have any fixed numbers of parameters in the model.</p>
 
-<h3 id="toc_2">ListedColormap</h3>
+<p>Similarly in KNN, the model parameters grow with the training data by considering each training case as a parameter of the model. So, KNN is a non-parametric algorithm.</p>
 
-<div><pre class="line-numbers"><code class="language-none">from matplotlib.colors import ListedColormap
-scatter_cmap = ListedColormap([&quot;#fcba03&quot;, &quot;#1803fc&quot;])
-plt.scatter(X[:,0], X[:,1], c=Y, cmap= scatter_cmap)
-plt.show()</code></pre></div>
+<hr>
 
-<h3 id="toc_3">pyplot.pcolormesh</h3>
+<p><strong>Is Feature Scaling required for the KNN Algorithm? Explain with proper justification.</strong><br>
+Yes, feature scaling is required to get the better performance of the KNN algorithm.</p>
 
-<div><pre class="line-numbers"><code class="language-none">import matplotlib.pyplot as plt
-h = 0.02
-xmin, xmax = X[:,0].min()-1, X[:,0].max()+1
-ymin, ymax = X[:,1].min()-1, X[:,1].max()+1
-xx, yy = np.meshgrid(np.arange(xmin,xmax,h), np.arange(ymin,ymax,h))
-knn = KNeighborsClassifier(n_neighbors=k)
-knn.fit(X,Y)
-m_ = knn.predict(np.vstack((xx.ravel(), yy.ravel())).T)
-m_ = m_.reshape(xx.shape)
+<p>For Example, Imagine a dataset having n number of instances and N number of features. There is one feature having values ranging between 0 and 1. Meanwhile, there is also a feature that varies from -999 to 999. When these values are substituted in the formula of Euclidean Distance, this will affect the performance by giving higher weightage to variables having a higher magnitude.</p>
 
-mesh_cmap = ListedColormap([&quot;#f5e7c4&quot;, &quot;#dad7f7&quot;])
-plt.pcolormesh(xx, yy, m_, cmap=mesh_cmap)</code></pre></div>
+<hr>
 
-<h2 id="toc_4">Beautiful Soup</h2>
+<p><strong>Why is the KNN Algorithm known as Lazy Learner?</strong></p>
 
-<p>Remove html tags from the text. Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=R4eEj7-ZG6bV">3.1-Amazon Fine Food Reviews Analysis</a></p>
+<p>When the KNN algorithm gets the training data, it does not learn and make a model, it just stores the data. Instead of finding any discriminative function with the help of the training data, it follows instance-based learning and also uses the training data when it actually needs to do some prediction on the unseen datasets.</p>
 
-<div><pre class="line-numbers"><code class="language-none">from bs4 import BeautifulSoup 
-BeautifulSoup(sentence, &quot;lxml&quot;).get_text() </code></pre></div>
+<p>As a result, KNN does not immediately learn a model rather delays the learning thereby being referred to as Lazy Learner.</p>
 
-<h2 id="toc_5">ScikitLearn</h2>
+<hr>
 
-<h3 id="toc_6">Normalize</h3>
+<p><strong>Why is it recommended not to use the KNN Algorithm for large datasets?</strong><br>
+<u>The Problem in processing the data:</u></p>
 
-<p>Refer <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html">https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html</a></p>
+<p>KNN works well with smaller datasets because it is a lazy learner. It needs to store all the data and then make a decision only at run time. It includes the computation of distances for a given point with all other points. So if the dataset is large, there will be a lot of processing which may adversely impact the performance of the algorithm.</p>
 
-<div><pre class="line-numbers"><code class="language-none">from sklearn.preprocessing import normalize
-normalize(X)</code></pre></div>
+<p><u>Sensitive to noise:</u></p>
 
-<h3 id="toc_7">CountVectorizer</h3>
+<p>Another thing in the context of large datasets is that there is more likely a chance of noise in the dataset which adversely affects the performance of the KNN algorithm since the KNN algorithm is sensitive to the noise present in the dataset.</p>
 
-<p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi">3.1-Amazon Fine Food Reviews Analysis</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html</a></p>
+<hr>
 
-<div><pre class="line-numbers"><code class="language-none">from sklearn.feature_extraction.text import CountVectorizer
+<p><strong>How to handle categorical variables in the KNN Algorithm?</strong></p>
 
-count_vec = CountVectorizer()
-count_vec.fit(fdata[&#39;Text&#39;])
-fdata_bow = count_vec.transform(fdata[&#39;Text&#39;])
+<p>One hot encoding</p>
 
-all_words = count_vec.get_feature_names()
-cx = fdata_bow[0]
+<hr>
 
-for (index, count) in zip(cx.indices, cx.data):
-  print(&quot;word {}&quot;.format(&quot;{&quot;+all_words[index]+&quot;}&quot;), &quot; with count : &quot;, count)</code></pre></div>
+<p><strong>Which algorithm can be used for value imputation in both categorical and continuous categories of data?</strong></p>
 
-<h3 id="toc_8">TfidfVectorizer</h3>
+<p>KNN is the only algorithm that can be used for the imputation of both categorical and continuous variables. It can be used as one of many techniques when it comes to <strong>handling missing values</strong>.</p>
 
-<p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=kNMGnU-fF4Z3">3.1-Amazon Fine Food Reviews Analysis</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html</a></p>
+<p>To impute a new sample, we determine the samples in the training set “nearest” to the new sample and averages the nearby points to impute. A Scikit learn library of Python provides a quick and convenient way to use this technique.</p>
 
-<div><pre class="line-numbers"><code class="language-none">from sklearn.feature_extraction.text import TfidfVectorizer
+<p>Note: NaNs are omitted while distances are calculated. Hence we replace the missing values with the average value of the neighbours. The missing values will then be replaced by the average value of their “neighbours”.</p>
 
-count_vec = TfidfVectorizer(ngram_range=(1,2))
-count_vec.fit(fdata[&#39;Processed Text&#39;])
-fdata_tfidf = count_vec.transform(fdata[&#39;Processed Text&#39;])
-print(count_vec.idf_) #idf values</code></pre></div>
+<hr>
 
-<p>Refer <a href="https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=pnY19qYH98cu">3.3 KNN</a></p>
+<p><strong>Explain the statement- “The KNN algorithm does more computation on test time rather than train time”.</strong></p>
 
-<h3 id="toc_9">KNeighborsClassifier</h3>
+<p>Damn True</p>
 
-<div><pre class="line-numbers"><code class="language-none">from sklearn.neighbors import KNeighborsClassifier
-X_1, X_test, Y_1, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
-model = KNeighborsClassifier(n_neighbors=k_val)
-model.fit(X_1,Y_1)
-y_pred = model.predict(X_test)
-model.predict_proba(X_test)</code></pre></div>
+<hr>
 
-<p>Refer <a href="https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1#scrollTo=azqnn2NI9bOO">3.3 KNN</a></p>
+<p><strong>What are the things which should be kept in our mind while choosing the value of k in the KNN Algorithm?</strong></p>
 
-<h3 id="toc_10">cross_val_score and accuracy_score</h3>
+<p>Bias Variance tradeoff</p>
 
-<div><pre class="line-numbers"><code class="language-none">accuracy_scores = []
+<hr>
 
-for k in k_range:
-  scores = cross_val_score(KNeighborsClassifier(n_neighbors=k), X_train, Y_train, scoring=&#39;accuracy&#39;, cv=10)
-  accuracy_scores.append(np.mean(scores))
+<p><strong>What are the disadvantages of the KNN Algorithm?</strong></p>
 
-best_k_index = np.argmax(accuracy_scores)
-best_k = k_range[best_k_index]
-print(best_k)
+<ol>
+<li><p><strong>Does not work well with large datasets:</strong> In large datasets, the cost of calculating the distance between the new point and each existing point is huge which decreases the performance of the algorithm.</p></li>
+<li><p><strong>Does not work well with high dimensions:</strong> KNN algorithms generally do not work well with high dimensional data since, with the increasing number of dimensions, it becomes difficult to calculate the distance for each dimension.</p></li>
+<li><p><strong>Need feature scaling:</strong> We need to do feature scaling (standardization and normalization) on the dataset before feeding it to the KNN algorithm otherwise it may generate wrong predictions.</p></li>
+<li><p><strong>Sensitive to Noise and Outliers:</strong> KNN is highly sensitive to the noise present in the dataset and requires manual imputation of the missing values along with outliers removal.</p></li>
+</ol>
 
-#Generalization accuracy
-model = KNeighborsClassifier(n_neighbors=best_k)
-model.fit(X_train, Y_train)
-y_pred = model.predict(X_test)
-print(&quot;Generalization accuracy :&quot;,accuracy_score(Y_test, y_pred)*100.0,&quot;%&quot;)</code></pre></div>
+<hr>
 
-<h3 id="toc_11">LocalOutlierFactor</h3>
+<p><strong>Is it possible to use the KNN algorithm for Image processing?</strong></p>
 
-<div><pre class="line-numbers"><code class="language-none">lof = LocalOutlierFactor(n_neighbors=3)
-fp = lof.fit_predict(data[:,0:2])
-filtered_data = data[np.where(fp == 1)]</code></pre></div>
+<p>Yes, KNN can be used for image processing by converting a 3-dimensional image into a single-dimensional vector and then using it as the input to the KNN algorithm.</p>
 
-<h2 id="toc_12">NLTK</h2>
+<hr>
 
-<p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi">3.1-Amazon Fine Food Reviews Analysis</a></p>
+<p><strong>What are the real-life applications of KNN Algorithms?</strong></p>
 
-<div><pre class="line-numbers"><code class="language-none">import nltk</code></pre></div>
+<ol>
+<li><p>KNN allows the calculation of the credit rating. By collecting the financial characteristics vs. comparing people having similar financial features to a database we can calculate the same. Moreover, the very nature of a credit rating where people who have similar financial details would be given similar credit ratings also plays an important role. Hence the existing database can then be used to predict a new customer’s credit rating, without having to perform all the calculations.</p></li>
+<li><p>In political science: KNN can also be used to predict whether a potential voter “will vote” or “will not vote”, or to “vote Democrat” or “vote Republican” in an election.</p></li>
+</ol>
 
-<h3 id="toc_13">PorterStemmer</h3>
+<p>Apart from the above-mentioned use cases, KNN algorithms are also used for handwriting detection (like OCR), Image recognition, and video recognition.</p>
 
-<div><pre class="line-numbers"><code class="language-none">from nltk.stem import PorterStemmer
-ps = PorterStemmer()
-return ps.stem(word)</code></pre></div>
+<hr>
 
-<h3 id="toc_14">Stop Words</h3>
+<p><strong>Curse of dimensionality in KNN</strong></p>
 
-<div><pre class="line-numbers"><code class="language-none">from nltk.corpus import stopwords
-nltk.download(&#39;stopwords&#39;)
-stop_words = set(stopwords.words(&#39;english&#39;))</code></pre></div>
+<ol>
+<li>When we use KD-Tree, we may have to iterate \(2^d\) dimension that may have data near to the current point</li>
+<li>When there is too much of dimensions, we will face sparsity in the data storage.</li>
+</ol>
 
-<h3 id="toc_15">WordNetLemmatizer</h3>
-
-<div><pre class="line-numbers"><code class="language-none">from nltk.stem.wordnet import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
-print(lemmatizer.lemmatize(&quot;bats&quot;)) #prints bat</code></pre></div>
-
-<h3 id="toc_16">FreqDist</h3>
-
-<div><pre class="line-numbers"><code class="language-none">apw = nltk.FreqDist(all_positive_words)
-print(apw.most_common(20))</code></pre></div>
-
-<h2 id="toc_17">gensim</h2>
-
-<p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=FCtdXsiIJE13">3.1-Amazon Fine Food Reviews Analysis</a></p>
-
-<div><pre class="line-numbers"><code class="language-none">from gensim.models import Word2Vec
-w2v_model = Word2Vec(tqdm(list_of_sentences), min_count=5, size=100, workers=4)
-w2v_model.wv.most_similar(&#39;flavor&#39;)
-w2v_model.wv.similarity(&quot;flavor&quot;, &quot;taste&quot;)
-w2v_model.wv[&#39;taste&#39;]</code></pre></div>
-
-<h2 id="toc_18">re</h2>
-
-<p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=R4eEj7-ZG6bV">3.1-Amazon Fine Food Reviews Analysis</a>, <a href="https://pymotw.com/3/re/">https://pymotw.com/3/re/</a></p>
-
-<div><pre class="line-numbers"><code class="language-none">import re
-
-re.sub(r&#39;(http://\S+)|(https://\S+)&#39;, &#39;&#39;, sentence)
-#removes the http and https urls</code></pre></div>
-
-<h2 id="toc_19">mlxtend</h2>
-
-<div><pre class="line-numbers"><code class="language-none">from mlxtend.plotting import plot_decision_regions
-x = data[:,0:2]
-y = data[:, 2]
-model = KNeighborsClassifier(n_neighbors=k_val)
-model.fit(x,y)
-plot_decision_regions(x, y.astype(int), clf=model, legend=2, ax=ax)</code></pre></div>
+<p>References:<br>
+1. <a href="https://www.analyticsvidhya.com/blog/2021/05/20-questions-to-test-your-skills-on-k-nearest-neighbour/">https://www.analyticsvidhya.com/blog/2021/05/20-questions-to-test-your-skills-on-k-nearest-neighbour/</a></p>
 
 
 
