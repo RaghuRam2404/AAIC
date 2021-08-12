@@ -562,7 +562,9 @@ And so on. It goes upto \(c\) classes with <strong>c-binary classifiers</strong>
 
 <h2 id="toc_5">Train and test set differences</h2>
 
-<p>In Amazon find food reviews, we did <strong>time based splitting</strong> for train<u>test</u>split, because the products may improve over time and new categories will be added, old categories will be removed. So it is essential to have train and test dataset from same kind of distribution for our model to work.</p>
+<p>In Amazon find food reviews, we did <strong>time based splitting</strong> for train<u>test</u>split, because the products may improve over time and new categories will be added, old categories will be removed. So <strong>it is essential to have train and test dataset from same kind of distribution for our model to work</strong>.</p>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-08-12%20at%208.01.37%20AM.png" alt=""></p>
 
 <p>To check this, we&#39;ll create 2 datasets.<br>
 1. With \(D_{train}\) and \(y_i=1\) and \(x_i=(x_iy_i)\)<br>
@@ -591,6 +593,8 @@ And so on. It goes upto \(c\) classes with <strong>c-binary classifiers</strong>
 <p><strong><u>Simple solution :</u></strong> Mean distance to knnn<br>
 <img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%204.35.10%20PM.png" alt=""></p>
 
+<p>First process \(+ve\) points and then process \(-ve\) points.</p>
+
 <p>\(x_1\) and \(x_2\) are outliers and distant from the clusers \(c_1\) and \(c_2\). The avg distance of <strong>5-NN</strong> for \(c_1\) cluster points is \(d_1\), for \(c_2\) cluster points is \(d_3\), point \(x_1\) is \(d_2\) and point \(x_2\) is \(d_4\).</p>
 
 <p>Steps :<br>
@@ -602,28 +606,43 @@ And so on. It goes upto \(c\) classes with <strong>c-binary classifiers</strong>
 
 <hr>
 
-<h3 id="toc_8">some terms</h3>
+<h3 id="toc_8">some terms for LOF</h3>
 
-<p><strong>kth distance</strong>, \(k\_distance(x_i)\) = distance to the \(k_{th}\) nearest neighbour (obtained from KNN) of \(x_i\) from \(x_i\). It&#39;ll be the element which is further way in the k neighbours.</p>
+<h4 id="toc_9">kth distance</h4>
 
-<p><strong>Neighbourhood</strong>, \(N_{k=5}(x_i)\) = Neighbourhood of \(x_i\) = {\(x_1\), \(x_2\), \(x_3\), \(x_4\), \(x_5\)}</p>
+<p>\(k\_distance(x_i)\) = distance to the \(k_{th}\) nearest neighbour (obtained from KNN) of \(x_i\) from \(x_i\). It&#39;ll be the element which is further way in the k neighbours.</p>
 
-<p><strong>Reachability-Distance(A,B)</strong>, \(reachability\_distance(x_i,x_j)=max(k\_distance(x_j), dist(x_i,x_j))\)<br>
-If \(x_j\) belongs to the neigbourhood of \(x_i\), then we&#39;ll have the reachability distance as \(k\_distance(x_j)\), otherwise we&#39;ll have value as \(dist(x_i, x_j)\). At the end, we&#39;ll have a max value.<br>
+<h4 id="toc_10">Neighbourhood</h4>
+
+<p>\(N_{k=5}(x_i)\) = Neighbourhood of \(x_i\) = {\(x_1\), \(x_2\), \(x_3\), \(x_4\), \(x_5\)}</p>
+
+<p>But sometimes, Neighbourhood of \(x_i\) = {\(x_1\), \(x_2\), \(x_3\), \(x_4\), \(x_5\), \(x_6\)} with \(k=5\), provided say \(x_1\) and \(x_2\) are of same distance</p>
+
+<h4 id="toc_11">Reachability-Distance(A,B)</h4>
+
+<p>\(reachability\_distance(x_i,x_j)=max(k\_distance(x_j), dist(x_i,x_j))\)<br>
+If \(x_j\) belongs to the neigbourhood of \(x_i\), then we&#39;ll have the reachability distance as \(k\_distance(x_j)\) (max of \(k\) point&#39;s distance in the \(KNN\)), otherwise we&#39;ll have value as \(dist(x_i, x_j)\). At the end, we&#39;ll have a max value.<br>
 <img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%205.00.31%20PM.png" alt=""></p>
 
-<p><strong>LRD (i.e) Local reachability-density(A)</strong><br>
-\(lrd(x_i)=(\sum_{x_j\epsilon\ N(x_i)}\{\frac{reach\_dist(x_i, x_j)}{|N(x_i)|}\})^{-1}\) where \(|N(x_i)|\) represents the no of neighbour elements for \(x_i\) and it need not always be \(k\) because we can have 2 elements at same distance from the point. The denominator terms is almost like average reachability distance of \(x_i\) from it&#39;s neighbours.</p>
+<h4 id="toc_12">LRD (i.e) Local reachability-density(A)</h4>
+
+<p>\(lrd(x_i)=(\sum_{x_j\epsilon\ N(x_i)}\{\frac{reach\_dist(x_i, x_j)}{|N(x_i)|}\})^{-1}\) where \(|N(x_i)|\) represents the no of neighbour elements for \(x_i\) and it need not always be \(k\) because we can have 2 elements at same distance from the point. The denominator terms is almost like average reachability distance of \(x_i\) from it&#39;s neighbours.</p>
+
+<p>\(lrd(x_i)=\frac{|N(x_i)|}{\sum_{x_j\epsilon\ N(x_i)}reach\_dist(x_i,x_j)}\)</p>
 
 <p>So <strong>LRD</strong> is <strong>inverse of average reachability distance of</strong> \(x_i\) <strong>from it&#39;s neighbours</strong>.</p>
 
 <p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%205.07.33%20PM.png" alt=""></p>
 
-<p><strong>Local outlier factor(</strong>\(x_i\)<strong>)</strong> = \(\frac{\sum_{x_j\ in\ N(x_i)}lrd(x_j)}{|N(x_i)|}\)*\(\frac{1}{lrd(x_i)}\)<br>
-LOF is large if \(lrd(x_i)\) is small or first term multiplier is large (i.e.)  (lrd) density is small for the point \(x_i\) compared to it neighbours.<br>
-So, if LOF is large, it is <strong>outlier</strong> otherwise it is <strong>inlier</strong>.</p>
+<h4 id="toc_13">Local outlier factor</h4>
 
-<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%206.07.39%20PM.png" alt=""></p>
+<p>LOF (\(x_i\)) = \(\frac{\sum_{x_j\ in\ N(x_i)}lrd(x_j)}{|N(x_i)|}\)*\(\frac{1}{lrd(x_i)}\)<br>
+LOF is large if \(lrd(x_i)\) is small or first term multiplier is large (i.e.)  (lrd) density is small for the point \(x_i\) compared to it neighbours.</p>
+
+<p>So, if LOF is large, it is <strong>outlier</strong> otherwise it is <strong>inlier</strong>. (i.e.) If the \(lrd\) around \(x_i\) is small and \(lrd\) around \(N(x_i)\) is large, it means that our point \(x_i\) is away from the neighbours, pointing it as an <strong>outlier</strong></p>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-08-12%20at%209.23.07%20AM.png" alt=""><br>
+<img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%206.07.39%20PM.png" alt=""></p>
 
 <p><strong><u>Steps</u></strong><br>
 1) Find LOF of all points<br>
@@ -667,14 +686,23 @@ plt.show()</code></pre></div>
 
 <p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-06-13%20at%206.25.20%20PM.png" alt=""></p>
 
-<h2 id="toc_9">Impact of Scale &amp; Column standardization</h2>
+<h2 id="toc_14">Impact of Scale &amp; Column standardization</h2>
 
 <p>Scale difference : 2 features in a data is in different range (like one feature in range 0-100 and another one in 0-1). It affects many parameters like euclidean distance.</p>
 
 <p>Column standardization :<br>
 Say for a row &#39;\(x_{i}\)&#39; and it&#39;s feature \(a\) , \(a&#39;=\frac{a-\mu_a}{\sigma_a}\)</p>
 
-<h2 id="toc_10">Interpretability</h2>
+<p>Read this for to choose Standardization or Normalization <a href="https://www.analyticsvidhya.com/blog/2020/04/feature-scaling-machine-learning-normalization-standardization/">https://www.analyticsvidhya.com/blog/2020/04/feature-scaling-machine-learning-normalization-standardization/</a></p>
+
+<ul>
+<li>Normalization is good to use when you know that the distribution of your data does not follow a Gaussian distribution. This can be useful in algorithms that do not assume any distribution of the data like K-Nearest Neighbors and Neural Networks.</li>
+<li>Standardization, on the other hand, can be helpful in cases where the data follows a Gaussian distribution. However, this does not have to be necessarily true. Also, unlike normalization, standardization does not have a bounding range. So, even if you have outliers in your data, they will not be affected by standardization.</li>
+</ul>
+
+<h2 id="toc_15">Interpretability</h2>
+
+<p><img src="./3%20Classification%20algorithms%20in%20various%20situations/Screen%20Shot%202021-08-12%20at%204.48.12%20PM.png" alt=""></p>
 
 <p>Training : \(D\) \(\longrightarrow\) \(f\)<br>
 Black box model Prediction : \(x_q\) \(\rightarrow\) \(f\) \(\rightarrow\) \(y_q\) (class label)</p>
@@ -687,7 +715,7 @@ Black box model Prediction : \(x_q\) \(\rightarrow\) \(f\) \(\rightarrow\) \(y_q
 
 <p><strong>Interpretability is important for all classification techniques.</strong></p>
 
-<h2 id="toc_11">Feature Importance and Forward Feature selection</h2>
+<h2 id="toc_16">Feature Importance and Forward Feature selection</h2>
 
 <p>10 features \(f_1\) to \(f_{10}\) with \(n\) points</p>
 
@@ -724,7 +752,7 @@ Then use only \(f_d\) &amp; \(f_{10}\) to build model and get the <strong>test a
 
 <p>It is <u><strong><em>very time consuming</em></strong></u>.</p>
 
-<h2 id="toc_12">Handling categorical and numerical features</h2>
+<h2 id="toc_17">Handling categorical and numerical features</h2>
 
 <p>features = {weight, hair color, country, age}<br>
 predict = {height}</p>
@@ -743,17 +771,25 @@ So we&#39;ll use <strong>one hot encoding</strong>. We&#39;ll create 5 binary fe
 Categorical feature. We may have 200 values in this. We&#39;ll create 200 features. This increases the dimension. In this case, <strong>One hot encoding</strong> will create <strong>sparse and large vector</strong>.<br>
 <strong>Instead we can replace this feature with the <u>average value of height</u> or <u>distance from India</u>, of that particular country in that row.</strong> But this depends on each use case and domain knowledge.</p>
 
-<h2 id="toc_13">Handling missing values by imputation</h2>
+<h2 id="toc_18">Handling missing values by imputation</h2>
 
 <p>It is very common in all the cases.</p>
 
-<p>1) <strong>Imputation</strong> : Replace value with something else (mean, median, mode). Mode is the most frequent values. Do it based on the class label (i.e) take mean/median for that particular class and populate it.</p>
+<h3 id="toc_19">Imputation</h3>
 
-<p>2) <strong>New missing value feature:</strong> For the features with missing values, <strong>fill it with imputation</strong> method. And for that feature, <strong>create new boolean feature with value 0/1</strong>. If a particular row doesn&#39;t have that feature, we&#39;ll fill it up with 1 else 0.</p>
+<p>Replace value with something else (mean, median, mode). Mode is the most frequent values. Do it based on the <strong>class label</strong> (i.e) <strong>take mean/median for that particular class and populate it</strong>.</p>
 
-<p>3) <strong>Model based imputation</strong> : Ignore \(y\), use regression/classification model to find the missing values of that particular feature by having training set as non empty rows and test set as missing rows. <strong>KNN</strong> is best used for this.</p>
+<div><pre class="line-numbers"><code class="language-none">from sklearn.preprocessing import imputer</code></pre></div>
 
-<h2 id="toc_14">curse of dimensionality</h2>
+<h3 id="toc_20">New missing value feature</h3>
+
+<p>For the features with missing values, <strong>fill it with imputation</strong> method. And for that feature, <strong>create new boolean feature with value 0/1</strong>. If a particular row doesn&#39;t have that feature, we&#39;ll fill it up with <strong>1</strong> else <strong>0</strong>.</p>
+
+<h3 id="toc_21">Model based imputation</h3>
+
+<p>Ignore \(y\), use regression/classification model to find the missing values of that particular feature by having training set as non empty rows and test set as missing rows. <strong>KNN</strong> is best used for this, as it takes the neighbourhood property for a missing data.</p>
+
+<h2 id="toc_22">curse of dimensionality</h2>
 
 <p>When \(d\) (dimensionality) is high</p>
 
@@ -772,19 +808,19 @@ Especially euclidean distance. Intuition of euclidean distance in 3D is not vali
 <p>\(dist\_min(x_i) = min_{x_j \neq x_i} \{euclidean\_dist(x_i,x_j)\}\)<br>
 \(dist\_max(x_i) = max_{x_j \neq x_i} \{euclidean\_dist(x_i,x_j)\}\)</p>
 
-<p>\(\frac{dist\_max(x_i)-dist\_minn(x_i)}{dist\_min(x_i)}&gt;0\) in 1D, 2D, 3D</p>
+<p>\(\frac{dist\_max(x_i)-dist\_min(x_i)}{dist\_min(x_i)}&gt;0\) in 1D, 2D, 3D</p>
 
-<p>as \(d\) increases, by calculus, <strong>above value tends to zero</strong>. It is because those points in higher dimension are <strong>equally distant from each other</strong>. KNN doesn&#39;t work so good in higher dimension. Instead we can use <strong>cosine similarity</strong> (as it is less affected in higher dimension compared to the euclidean distance).</p>
+<p>as \(d\) increases, by calculus (for uniform and random distribution of data), <strong>above value tends to zero</strong>. It is because those points in higher dimension are <strong>equally distant from each other</strong>. KNN doesn&#39;t work so good in higher dimension. Instead we can use <strong>cosine similarity</strong> (as it is less affected in higher dimension compared to the euclidean distance).</p>
 
-<p>In case of <strong>sparse data</strong>, higher dimension won&#39;t affect that much as the dense data.</p>
+<p>In case of <strong>sparse data</strong>, higher dimension won&#39;t affect that much as the <strong>dense data</strong> because we have only few non-zero values.</p>
 
 <p>3) <strong><u>Overfitting &amp; Underfitting:</u></strong></p>
 
 <p>As dimensionality \(\uparrow\), overfitting \(\uparrow\) in KNN.</p>
 
-<p>Pick most useful features using <strong>forward feature selection</strong> or use <strong>PCA</strong> or <strong>t-sne</strong>.</p>
+<p>Pick most useful features using <strong>forward feature selection</strong> (which can be used only for classification based models) or use <strong>PCA</strong> or <strong>t-sne</strong> (both can be used for regression and classification based models).</p>
 
-<h2 id="toc_15">Bias-Variance tradeoff</h2>
+<h2 id="toc_23">Bias-Variance tradeoff</h2>
 
 <p>In KNN, \(k=1\) it is overfitting.<br>
 In KNN, \(k=n\) it is underfitting.</p>
@@ -798,20 +834,20 @@ In KNN, \(k=n\) it is underfitting.</p>
 
 <p>We need to find the right balance by <strong>bias variance trade off</strong>.</p>
 
-<h3 id="toc_16">Intuitive understanding</h3>
+<h3 id="toc_24">Intuitive understanding</h3>
 
 <p>train error \(\uparrow\) , it has more Bias (underfit) \(\uparrow\)<br>
 train error \(\downarrow\) &amp; test error \(\uparrow\), it has more variance (overfit) \(\uparrow\). Or training data changes lightly, model changes leading to overfit problem.</p>
 
-<h2 id="toc_17">best and worst case of algorithm</h2>
+<h2 id="toc_25">best and worst case of algorithm</h2>
 
 <p><strong>KNN is Good</strong> when<br>
-1. dim \(d\) is small. Runtime is low when d is low<br>
+1. dim \(d\) is small. Runtime is low when d is low. Because when \(d\) increases, we face with curse of dimensionality and model interpretability problems.<br>
 2. When we know what distance measure works good for the type of the data we have. For genome data, we can use hamming distance.<br>
 3. If someone gives us similarity/distance matrix, we can use it.</p>
 
 <p><strong>KNN is bad</strong> when<br>
-1. we need Low latency system (i.e.) we can predict fast.</p>
+1. we need Low latency system (i.e.) we can predict fast. If needed, use \(LSH\) method of KNN</p>
 
 
 

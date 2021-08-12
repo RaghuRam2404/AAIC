@@ -295,6 +295,8 @@ Read : [https://www.wikiwand.com/en/K-d_tree](https://www.wikiwand.com/en/K-d_tr
 
 ![](./2 Classification And Regression Models K-Nearest Neighbors/Screen Shot 2021-08-10 at 8.01.19 AM.png)
 
+Read this [https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/](https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/)
+
 **_Time Complexity for 1-NN:_**
 Best case scenario for # of comparisons : $O(lg(n))$
 Worst case scenario for # of comparisons : $O(n)$
