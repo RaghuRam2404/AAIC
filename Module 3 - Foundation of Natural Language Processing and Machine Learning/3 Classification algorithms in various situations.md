@@ -126,6 +126,8 @@ So, if LOF is large, it is **outlier** otherwise it is **inlier**. (i.e.) If the
 
 Since there is no range for LOF values, so there is **no interpretability or hard to interpret**.
 
+Ref : [http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html](http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html) , [Google Collab Tryout](https://colab.research.google.com/drive/1jRJ1itHUTZNPODiTRczf_xbGgPuPyCek?authuser=1#scrollTo=njGC-wh9TVFL)
+
 ```
 x_pve = np.linspace(1,10,10)
 y_pve = [x%4 for x in x_pve]
@@ -255,15 +257,60 @@ It is very common in all the cases.
 ###Imputation 
 Replace value with something else (mean, median, mode). Mode is the most frequent values. Do it based on the **class label** (i.e) **take mean/median for that particular class and populate it**.
 
+Ref : [https://colab.research.google.com/drive/1jRJ1itHUTZNPODiTRczf_xbGgPuPyCek?authuser=1#scrollTo=IMoX-oyJSi9q](https://colab.research.google.com/drive/1jRJ1itHUTZNPODiTRczf_xbGgPuPyCek?authuser=1#scrollTo=IMoX-oyJSi9q) , [https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer](https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer)
+
 ```
-from sklearn.preprocessing import imputer
+from sklearn.impute import SimpleImputer
+data = np.array([1,2,3,4,5, np.nan, np.nan, 3, 10, 11, 2, 4]).reshape(-1,1)
+print(data.reshape(1,-1))
+si = SimpleImputer(strategy='mean', missing_values = np.nan)
+tdata = si.fit_transform(data)
+print(tdata.reshape(1,-1))
+
+[[ 1.  2.  3.  4.  5. nan nan  3. 10. 11.  2.  4.]]
+[[ 1.   2.   3.   4.   5.   4.5  4.5  3.  10.  11.   2.   4. ]]
 ```
 
 ###New missing value feature 
 For the features with missing values, **fill it with imputation** method. And for that feature, **create new boolean feature with value 0/1**. If a particular row doesn't have that feature, we'll fill it up with **1** else **0**.
 
+```
+from sklearn.impute import KNNImputer
+data = np.array([1,2,3,4,5, np.nan, np.nan]).reshape(-1,1)
+print(data.reshape(1,-1))
+knni = KNNImputer(n_neighbors=5, missing_values=np.nan, add_indicator=True)
+tdata = knni.fit_transform(data)
+print(tdata)
+
+[[ 1.  2.  3.  4.  5. nan nan]]
+[[1. 0.]
+ [2. 0.]
+ [3. 0.]
+ [4. 0.]
+ [5. 0.]
+ [3. 1.]
+ [3. 1.]]
+```
+
+
 ###Model based imputation 
 Ignore $y$, use regression/classification model to find the missing values of that particular feature by having training set as non empty rows and test set as missing rows. **KNN** is best used for this, as it takes the neighbourhood property for a missing data.
+
+Ref: [https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer](https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer)
+
+```
+from sklearn.impute import KNNImputer
+data = np.array([1,2,3,4,5, np.nan, np.nan, 3, 3, 1, 2, 1, 2, 4]).reshape(-1,1)
+print(data.reshape(1,-1))
+knni = KNNImputer(n_neighbors=3, missing_values=np.nan)
+tdata = knni.fit_transform(data)
+print(tdata.reshape(1,-1))
+
+[[ 1.  2.  3.  4.  5. nan nan  3.  3.  1.  2.  1.  2.  4.]]
+[[1.         2.         3.         4.         5.         2.58333333
+  2.58333333 3.         3.         1.         2.         1.
+  2.         4.        ]]
+```
 
 ## curse of dimensionality
 

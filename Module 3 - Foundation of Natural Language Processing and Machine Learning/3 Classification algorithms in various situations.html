@@ -650,6 +650,8 @@ LOF is large if \(lrd(x_i)\) is small or first term multiplier is large (i.e.)  
 
 <p>Since there is no range for LOF values, so there is <strong>no interpretability or hard to interpret</strong>.</p>
 
+<p>Ref : <a href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html">http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html</a> , <a href="https://colab.research.google.com/drive/1jRJ1itHUTZNPODiTRczf_xbGgPuPyCek?authuser=1#scrollTo=njGC-wh9TVFL">Google Collab Tryout</a></p>
+
 <div><pre class="line-numbers"><code class="language-none">x_pve = np.linspace(1,10,10)
 y_pve = [x%4 for x in x_pve]
 x_nve = np.linspace(11,20,10)
@@ -779,15 +781,55 @@ Categorical feature. We may have 200 values in this. We&#39;ll create 200 featur
 
 <p>Replace value with something else (mean, median, mode). Mode is the most frequent values. Do it based on the <strong>class label</strong> (i.e) <strong>take mean/median for that particular class and populate it</strong>.</p>
 
-<div><pre class="line-numbers"><code class="language-none">from sklearn.preprocessing import imputer</code></pre></div>
+<p>Ref : <a href="https://colab.research.google.com/drive/1jRJ1itHUTZNPODiTRczf_xbGgPuPyCek?authuser=1#scrollTo=IMoX-oyJSi9q">https://colab.research.google.com/drive/1jRJ1itHUTZNPODiTRczf_xbGgPuPyCek?authuser=1#scrollTo=IMoX-oyJSi9q</a> , <a href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer">https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">from sklearn.impute import SimpleImputer
+data = np.array([1,2,3,4,5, np.nan, np.nan, 3, 10, 11, 2, 4]).reshape(-1,1)
+print(data.reshape(1,-1))
+si = SimpleImputer(strategy=&#39;mean&#39;, missing_values = np.nan)
+tdata = si.fit_transform(data)
+print(tdata.reshape(1,-1))
+
+[[ 1.  2.  3.  4.  5. nan nan  3. 10. 11.  2.  4.]]
+[[ 1.   2.   3.   4.   5.   4.5  4.5  3.  10.  11.   2.   4. ]]</code></pre></div>
 
 <h3 id="toc_20">New missing value feature</h3>
 
 <p>For the features with missing values, <strong>fill it with imputation</strong> method. And for that feature, <strong>create new boolean feature with value 0/1</strong>. If a particular row doesn&#39;t have that feature, we&#39;ll fill it up with <strong>1</strong> else <strong>0</strong>.</p>
 
+<div><pre class="line-numbers"><code class="language-none">from sklearn.impute import KNNImputer
+data = np.array([1,2,3,4,5, np.nan, np.nan]).reshape(-1,1)
+print(data.reshape(1,-1))
+knni = KNNImputer(n_neighbors=5, missing_values=np.nan, add_indicator=True)
+tdata = knni.fit_transform(data)
+print(tdata)
+
+[[ 1.  2.  3.  4.  5. nan nan]]
+[[1. 0.]
+ [2. 0.]
+ [3. 0.]
+ [4. 0.]
+ [5. 0.]
+ [3. 1.]
+ [3. 1.]]</code></pre></div>
+
 <h3 id="toc_21">Model based imputation</h3>
 
 <p>Ignore \(y\), use regression/classification model to find the missing values of that particular feature by having training set as non empty rows and test set as missing rows. <strong>KNN</strong> is best used for this, as it takes the neighbourhood property for a missing data.</p>
+
+<p>Ref: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer">https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">from sklearn.impute import KNNImputer
+data = np.array([1,2,3,4,5, np.nan, np.nan, 3, 3, 1, 2, 1, 2, 4]).reshape(-1,1)
+print(data.reshape(1,-1))
+knni = KNNImputer(n_neighbors=3, missing_values=np.nan)
+tdata = knni.fit_transform(data)
+print(tdata.reshape(1,-1))
+
+[[ 1.  2.  3.  4.  5. nan nan  3.  3.  1.  2.  1.  2.  4.]]
+[[1.         2.         3.         4.         5.         2.58333333
+  2.58333333 3.         3.         1.         2.         1.
+  2.         4.        ]]</code></pre></div>
 
 <h2 id="toc_22">curse of dimensionality</h2>
 
