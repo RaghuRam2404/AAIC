@@ -52,3 +52,9 @@ Sklearn Important Links:
 1. [Model Evaluation](https://scikit-learn.org/stable/modules/model_evaluation.html)
 2. [Sklearn overview](https://scikit-learn.org/stable/user_guide.html)
 3. [Sklearn Algo cheatsheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)
+
+
+Some Good Learning Resources :
+
+1. [https://peltarion.com/knowledge-center/documentation](https://peltarion.com/knowledge-center/documentation)
+2. [Google ML](https://developers.google.com/machine-learning/crash-course)

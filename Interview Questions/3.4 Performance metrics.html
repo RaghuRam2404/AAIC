@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>4 Performance measurement of models</title>
+<title>3.4 Performance metrics</title>
 
 
 <style type="text/css">
@@ -514,490 +514,121 @@ pre.line-numbers > code {
 
 <body>
 
-<h1 id="toc_0">Performance measurement of models</h1>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-
-<script src="../toc.js" ></script>
-
-<div id='toc'></div>
-
-<h1 id="toc_1">For Classification</h1>
-
-<h2 id="toc_2">Accuracy</h2>
-
-<p>Accuracy = \(\frac{\#\ correctly\ classified\ points}{Total\ \#\ points}\)</p>
-
-<p>\(0\leq value\leq1\), with \(0\) being bad and \(1\) being good. It is taken as percentages.</p>
-
-<p><strong><u>Problems with accuracy:</u></strong><br>
-1) With <strong>imbalanced dataset</strong> and not well trained model (which gives output of the large population), we&#39;ll get high accuracy, but it is not the case.</p>
-
-<p>2) If 2 models returns the probability score (like below), they have both the same \(\hat{y}\) and we knnow that \(m_1\) is better than \(m_2\). But the accuracy measure can&#39;t say this conclusion. So, it can&#39;t process <strong>probability scores</strong>.</p>
-
-<table>
-<thead>
-<tr>
-<th>x</th>
-<th>y</th>
-<th>\(m_1\)</th>
-<th>\(m_2\)</th>
-<th>\(\hat{y_1}\)</th>
-<th>\(\hat{y_2}\)</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>\(x_1\)</td>
-<td>1</td>
-<td>0.9</td>
-<td>0.6</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>\(x_2\)</td>
-<td>1</td>
-<td>0.8</td>
-<td>0.65</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>\(x_3\)</td>
-<td>0</td>
-<td>0.1</td>
-<td>0.45</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>\(x_4\)</td>
-<td>0</td>
-<td>0.15</td>
-<td>0.48</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_3">Confusion matrix</h2>
-
-<p>Can&#39;t process <strong>probability scores</strong>.</p>
-
-<table>
-<thead>
-<tr>
-<th><strong>pred</strong> \(\downarrow\) \ <strong>actual</strong>\(\rightarrow\)</th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>0</td>
-<td>a (TN)</td>
-<td>b (FN)</td>
-</tr>
-<tr>
-<td>1</td>
-<td>c (FP)</td>
-<td>d (TP)</td>
-</tr>
-</tbody>
-</table>
-
-<p>\(a\) is the no of predictions we got for the actual class &#39;0&#39; how of the data we <strong>correctly</strong> classified as &#39;0&#39; (<strong>True Negatives (TN)</strong>)<br>
-\(b\) is the no of predictions we got for the actual class &#39;1&#39; how of the data we <strong>incorrectly</strong> classified as &#39;0&#39; (<strong>False Negatives (FN)</strong>) (ie) wrongly predicted as <strong>negatives</strong><br>
-\(c\) is the no of predictions we got for the actual class &#39;0&#39; how of the data we <strong>incorrectly</strong> classified as &#39;1&#39; (<strong>False Positives (FP)</strong>)<br>
-\(d\) is the no of predictions we got for the actual class &#39;1&#39; how of the data we <strong>correctly</strong> classified as &#39;1&#39; (<strong>True Positives (TP)</strong>)</p>
-
-<p>It can be extended to <strong>c-classes</strong></p>
-
-<p>All the <strong>principle diagonal elements must have high values</strong> and others (<strong>off diagonal elts</strong>) to be small values for a <strong>model to be a good one</strong>.</p>
-
-<p>Total no of positives <strong>P</strong> = <strong>TP</strong> + <strong>FN</strong><br>
-Total no of negatives <strong>N</strong> = <strong>TN</strong> + <strong>FP</strong></p>
-
-<p>True positive Rate (TPR)/<strong>Sensitivity</strong> = \(\frac{TP}{P}\) \(\longrightarrow\) probability that an actual positive will test positive<br>
-True Negative Rate (TNR)/<strong>Specificity</strong> = \(\frac{TN}{N}\) \(\longrightarrow\) probability that an actual negative will test negative<br>
-False Positive Rate (FPR) = \(\frac{FP}{N}\)  \(\longrightarrow\) probability that a true negative will be missed by the test<br>
-False Negative Rate (FNR) = \(\frac{FN}{P}\) \(\longrightarrow\) probability that a true positive will be missed by the test</p>
-
-<p>Why they are important?</p>
-
-<p>Let&#39;s take dataset with 900 \(-ve\) and 100 \(+ve\) points.</p>
-
-<table>
-<thead>
-<tr>
-<th><strong>pred</strong> \(\downarrow\) \ <strong>actual</strong>\(\rightarrow\)</th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>0</td>
-<td>850 (TN)</td>
-<td>6 (FN)</td>
-</tr>
-<tr>
-<td>1</td>
-<td>50 (FP)</td>
-<td>94 (TP)</td>
-</tr>
-</tbody>
-</table>
-
-<p>P = 100<br>
-N = 900</p>
-
-<p>TPR = 94% \(\uparrow\)<br>
-TNR = 94.44% \(\uparrow\)<br>
-FPR = 5.55% \(\downarrow\)<br>
-FNR = 6/100 = 6% \(\downarrow\)<br>
-So, with TPR &amp; TNR \(\uparrow\) and FNR &amp; FPR \(\downarrow\), the <strong>model is good</strong>.</p>
-
-<h3 id="toc_4">With dumb model</h3>
-
-<table>
-<thead>
-<tr>
-<th><strong>pred</strong> \(\downarrow\) \ <strong>actual</strong>\(\rightarrow\)</th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>0</td>
-<td>900 (TN)</td>
-<td>100 (FN)</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0 (FP)</td>
-<td>0 (TP)</td>
-</tr>
-</tbody>
-</table>
-
-<p>TPR  = 0%<br>
-TNR = 100%<br>
-FPR = 0%<br>
-FNR = 100%</p>
-
-<p>TPR is very small and so model is dumb.<br>
-We can use this for <strong>imbalanced dataset</strong>.</p>
-
-<h3 id="toc_5">Precision, Recall &amp; F1-score</h3>
-
-<p>For Information retrieval. Eg. In the search result, we need <strong>precision</strong> of the matching result. We can only about the <strong>positive class</strong></p>
-
-<p>Precision, \(Pr=\frac{TP}{TP+FP}\), \(0\leq Pr \leq 1\)<br>
-It states that <strong>Of all the points the model predicted to be positive, what percentage of data are originally posistive?</strong> It cares only about the positive class.</p>
-
-<p>Recall (or TPR or Sensitivity), Re = \(\frac{TP}{P}\), \(0\leq Re \leq 1\)<br>
-It states that <strong>Of all the actual positive points, how many of those points are correctly predicted by the model?</strong> It cares only about the positive class.</p>
-
-<p>We want <strong>precision</strong> and <strong>recall</strong> to be high. <strong>F1-score</strong> is based on both of them.</p>
-
-<p><strong>F1-score</strong> = \(\frac{2}{(\frac{1}{pr}+\frac{1}{re})}\)= \(2*\frac{pr*re}{pr+re}\)</p>
-
-<p>It is the harmonic mean.</p>
-
-<p>F1-score is \(\uparrow\) if precision is \(\uparrow\) and recall is \(\uparrow\). Good way to measure the performance. We can&#39;t interpret this value but high value is good.</p>
-
-<h2 id="toc_6">Receiver Operating Characteristic Curve (ROC) and AUC - for binary classification</h2>
-
-<table>
-<thead>
-<tr>
-<th>\(x\)</th>
-<th>\(y\)</th>
-<th>\(\hat{y}\)</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>\(x_1\)</td>
-<td>1</td>
-<td>0.95</td>
-</tr>
-<tr>
-<td>\(x_2\)</td>
-<td>1</td>
-<td>0.92</td>
-</tr>
-<tr>
-<td>\(x_3\)</td>
-<td>0</td>
-<td>0.80</td>
-</tr>
-<tr>
-<td>\(x_4\)</td>
-<td>1</td>
-<td>0.76</td>
-</tr>
-<tr>
-<td>\(x_5\)</td>
-<td>1</td>
-<td>0.71</td>
-</tr>
-</tbody>
-</table>
-
-<p>After sorting the \(\hat{y}\), we&#39;ll apply thresholding (\(\tau_1\))</p>
-
-<p>Above that threshold, assign all the \(\tilde{y}_{\tau_1}\) as \(1\) (\(+ve\))</p>
-
-<table>
-<thead>
-<tr>
-<th>\(x\)</th>
-<th>\(y\)</th>
-<th>\(\hat{y}\)</th>
-<th>\(\tilde{y}_{\tau_1}\)</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>\(x_1\)</td>
-<td>1</td>
-<td>0.95</td>
-<td>1</td>
-</tr>
-<tr>
-<td>\(x_2\)</td>
-<td>1</td>
-<td>0.92</td>
-<td>0</td>
-</tr>
-<tr>
-<td>\(x_3\)</td>
-<td>0</td>
-<td>0.80</td>
-<td>0</td>
-</tr>
-<tr>
-<td>\(x_4\)</td>
-<td>1</td>
-<td>0.76</td>
-<td>0</td>
-</tr>
-<tr>
-<td>\(x_5\)</td>
-<td>1</td>
-<td>0.71</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-<p>calculate \(TPR_1\) &amp; \(FPR_1\) for this \(\tau_1\). Repeat the same for the next \(\hat{y}\) value 0.92 .</p>
-
-<table>
-<thead>
-<tr>
-<th>\(x\)</th>
-<th>\(y\)</th>
-<th>\(\hat{y}\)</th>
-<th>\(\tilde{y}_{\tau_1}\)</th>
-<th>\(\tilde{y}_{\tau_2}\)</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>\(x_1\)</td>
-<td>1</td>
-<td>0.95</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>\(x_2\)</td>
-<td>1</td>
-<td>0.92</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>\(x_3\)</td>
-<td>0</td>
-<td>0.80</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>\(x_4\)</td>
-<td>1</td>
-<td>0.76</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>\(x_5\)</td>
-<td>1</td>
-<td>0.71</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-<p>calculate \(TPR_2\) &amp; \(FPR_2\) for this \(\tau_2\)</p>
-
-<p>Repeat this for all points.</p>
-
-<p>Plot the graph with \(FPR\) in \(x-axis\) and \(TPR\) in \(y-axis\).</p>
-
-<p><img src="./4%20Performance%20measurement%20of%20models/Screen%20Shot%202021-06-14%20at%208.00.05%20PM.png" alt=""></p>
-
-<p><strong>Disadvantages:</strong><br>
-1. Area under AUC doesn&#39;t work well for imbalanced data<br>
-2. AUC is not dependent \(\hat{y}\) score instead they rely on the sorted values. So two models may result in the same order of the data.<br>
-3. For a random binary model (i.e random class for a x), then ROC of the model is diagonal with AUC as 0.5<br>
-4. AUC below 0.5 means, it is very worst model. Now, we can swap/switch the values of \(\hat{y}\) which will result in AUC greater than 0.5</p>
-
-<p>Read this <a href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc">https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc</a></p>
-
-<p>Hear this : <a href="https://soundcloud.com/applied-ai-course/why-auc">https://soundcloud.com/applied-ai-course/why-auc</a></p>
-
-<p><u><strong>Pros on:</strong></u><br>
-1. AUC is <strong>scale-invariant</strong>. It measures how well predictions are ranked, rather than their absolute values.<br>
-2. AUC is <strong>classification-threshold-invariant</strong>. It measures the <strong>quality of the model&#39;s predictions</strong> irrespective of what classification threshold is chosen.</p>
-
-<p><strong><u>Cons on:</u></strong><br>
-1. Scale invariance is <strong>not always desirable</strong>. For example, sometimes we really do need well calibrated probability outputs, and AUC won’t tell us about that.<br>
-2. <strong>Classification-threshold invariance is not always desirable</strong>. In cases where there are wide disparities in the cost of false negatives vs. false positives, it may be critical to minimize one type of classification error. For example, when doing email spam detection, you likely want to prioritize minimizing false positives (even if that results in a significant increase of false negatives). AUC isn&#39;t a useful metric for this type of optimization.</p>
-
-<h2 id="toc_7">Log-loss</h2>
-
-<p>It uses the <strong>probability scores</strong>.</p>
-
-<p>For Binary classification :</p>
-
-<table>
-<thead>
-<tr>
-<th>\(x\)</th>
-<th>\(y\)</th>
-<th>\(\hat{y}=p\)</th>
-<th>- log loss term</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>\(x_1\)</td>
-<td>1</td>
-<td>0.9</td>
-<td>0.0457</td>
-</tr>
-<tr>
-<td>\(x_2\)</td>
-<td>1</td>
-<td>0.6</td>
-<td>0.22</td>
-</tr>
-<tr>
-<td>\(x_3\)</td>
-<td>0</td>
-<td>0.1</td>
-<td>0.0457</td>
-</tr>
-<tr>
-<td>\(x_4\)</td>
-<td>0</td>
-<td>0.4</td>
-<td>0.22</td>
-</tr>
-</tbody>
-</table>
-
-<p>Given a test set of n points,</p>
-
-<p>\(log\_loss=\frac{-1}{n}\sum_{i=1}^n(log(p_i)*y_i + log(1-p_i)*(1-y_i))\) with values ranges from \(0\ to\ \infty\)</p>
-
-<p>If \(p_i\) close to 1, log loss term of that input is very low and vice versa. It penalizes for the small deviations in the probabilities. </p>
-
-<p>We want <strong>log loss to be small &amp; close to zero</strong> and we <strong>can&#39;t interpret</strong> the value of log loss. It is because of the below graph</p>
-
-<p><img src="./4%20Performance%20measurement%20of%20models/Screen%20Shot%202021-06-14%20at%208.19.08%20PM.png" alt=""></p>
-
-<h3 id="toc_8">For multiclass</h3>
-
-<p>\(log\_loss=\frac{-1}{n}\sum_{i=1}^n\sum_{j=1}^clog(p_{ij})*y_{ij}\) where \(y_{ij} = 1\) if \(x_i\) is the class label \(c_j\) otherwise 0</p>
+<h1 id="toc_0">Performance metrics interview questions</h1>
+
+<h2 id="toc_1">Revision</h2>
+
+<p><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2978/accuracy/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Accuracy?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2979/confusion-matrix-tpr-fpr-fnr-tnr/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain about Confusion matrix, TPR, FPR, FNR, TNR?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2980/precision-and-recall-f1-score/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What do you understand  about Precision &amp; recall, F1-score? How would you use it?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2981/receiver-operating-characteristic-curve-roc-curve-and-auc/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is the ROC Curve and what is AUC (a.k.a. AUROC)?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2982/log-loss/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Log-loss and how it helps to improve performance?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2983/r-squaredcoefficient-of-determination/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain about R-Squared/ Coefficient of determination</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2984/median-absolute-deviation-mad/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain about Median absolute deviation (MAD) ?Importance of MAD?</a><br>
+<a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2985/distribution-of-errors/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Define Distribution of errors?</a></p>
+
+<h2 id="toc_2">Interview Questions</h2>
+
+<p>How do we understand which  measure to use, say F1 score or accuracy or log loss etc? </p>
+
+<div><pre class="line-numbers"><code class="language-none">Are you predicting probabilities?
+    Do you need class labels?
+        Is the positive class more important?
+            Use Precision-Recall AUC
+        Are both classes important?
+            Use ROC AUC
+    Do you need probabilities?
+        Use Brier Score and Brier Skill Score
+Are you predicting class labels?
+    Is the positive class more important?
+        Are False Negatives and False Positives Equally Important?
+            Use F1-Measure
+        Are False Negatives More Important?
+            Use F2-Measure
+        Are False Positives More Important?
+            Use F0.5-Measure
+    Are both classes important?
+        Do you have &lt; 80%-90% Examples for the Majority Class? 
+            Use Accuracy
+        Do you have &gt; 80%-90% Examples for the Majority Class? 
+            Use G-Mean</code></pre></div>
 
 <hr>
 
-<h1 id="toc_9">For Regression</h1>
+<p>Macro and Micro F1?</p>
 
-<p>Here \(y\ \epsilon\ R^d\)</p>
+<p>Macro F1 is just an average of F1&#39;s across sets of data.</p>
 
-<h2 id="toc_10">R<sup>2</sup> or co-eff of determination</h2>
+<p>Micro F1 is based on Micro Precision (\(\frac{\sum{TP}}{\sum{TP}+\sum{FP}}\)) and Micro Recall (\(\frac{\sum{TP}}{\sum{TP}+\sum{FN}}\)) </p>
 
-<p>Error, \(e_i=y_i-\hat{y_i}\)<br>
-\(|e_i|\)=0 (i.e) it is good. Greater the value of \(e_i\), it is bad.</p>
+<p>Macro-average method can be used when you want to know how the system performs overall across the sets of data. You should not come up with any specific decision with this average.</p>
 
-<p>having error as \(e_i\) is not meaningful as we did in binary classification.</p>
+<p>On the other hand, micro-average can be a useful measure when your dataset varies in size.</p>
 
-<p>Mean Squared error (MSE) = \(\frac{1}{n}\sum_{i=1}^ne_i^2\)</p>
+<p>Refer these docs <a href="http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html">http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html</a>, <a href="https://towardsdatascience.com/multi-class-metrics-made-simple-part-ii-the-f1-score-ebe8b2c2ca1">https://towardsdatascience.com/multi-class-metrics-made-simple-part-ii-the-f1-score-ebe8b2c2ca1</a>, <a href="https://androidkt.com/micro-macro-averages-for-imbalance-multiclass-classification/">https://androidkt.com/micro-macro-averages-for-imbalance-multiclass-classification/</a></p>
 
-<p>Sum of squares, \(SS_{total}=\sum_{i=1}^n(y_i-\bar{y})^2\) where \(\bar{y}\) is the mean of \(y\)</p>
+<hr>
 
-<p>Residue error, \(SS_{res}=\sum_{i=1}^n(y_i-\hat{y_i})^2\)</p>
+<p>Adjusted \(R^2\) metric</p>
 
-<p>\(R^2=1-\frac{SS_{res}}{SS_{total}}\)</p>
+<p>\(Adj\ R^2\) = \(1-\frac{(1-R^2)(n-1)}{n-k-1}\) where \(n\) is the count of data points and \(k\) is the independent variables.</p>
 
-<p><u>Case 1 :</u> When \(SS_{res}=0\), \(R^2=1\) .. Very good model<br>
-<u>Case 2 :</u> When \(SS_{res}&lt;SS_{total}\), \(0 \leq R^2\leq 1\) .. Closer to 1, model is better. closer to 0, model is bad.<br>
-<u>Case 3 :</u> When \(SS_{res}=SS_{total}\), \(R^2=0\) Model is same as <strong>simple mean model</strong>. In the simple mean model, we&#39;ll predict for all values of \(x_i\) as \(y_i\) and return \(\bar{y}\) when queried for \(x_i\)<br>
-<u>Case 4 :</u> When \(SS_{res}&gt;SS_{total}\), \(R^2 &lt; 0\). It means that the model is worse than the simple mean model.</p>
+<p>It is better to use Adjusted R-squared when there are multiple variables in the regression model. This would allow us to compare models with differing numbers of independent variables.</p>
 
-<p>Problem here is that, <strong>if we have outliers, it&#39;ll affect the \(SS_{res}\). It is not robust to outliers</strong>. So we can use MAD</p>
+<p>So, if R-squared does not increase significantly on the addition of a new independent variable, then the value of Adjusted R-squared will actually decrease.</p>
 
-<h2 id="toc_11">Mean Absolute Percentage Error (MAPE)</h2>
+<p>On the other hand, if on adding the new independent variable we see a significant increase in R-squared value, then the Adjusted R-squared value will also increase.</p>
 
-<p>MAPE = \(\frac{1}{n} \sum_{i=1}^n|\frac{e_i}{y_i}|\)</p>
+<p>If our R-squared value remains the same. Thus, giving us a false indication that this variable might be helpful in predicting the output. However, the Adjusted R-squared value decreased which indicated that this new variable is actually not capturing the trend in the target variable.</p>
 
-<p>What happens when \(y_i=0\), we can replace \(y_i\) with \(\bar{y}\)<br>
-Modified MAPE = \(\frac{1}{n} \sum_{i=1}^n|\frac{e_i}{\bar{y}}|\) = \(\frac{\sum_{i=1}^n|e_i|}{\sum_{i=1}^ny_i}\) (after simplifying)</p>
+<p>It is better to use Adjusted R-squared when there are multiple variables in the regression model. This would allow us to compare models with differing numbers of independent variables.</p>
 
-<h2 id="toc_12">Median absolute deviation (MAD)</h2>
+<p>Ref : <a href="https://www.analyticsvidhya.com/blog/2020/07/difference-between-r-squared-and-adjusted-r-squared/">https://www.analyticsvidhya.com/blog/2020/07/difference-between-r-squared-and-adjusted-r-squared/</a></p>
 
-<p>For an \(x_i\), we have \(y_i\), \(\hat{y_i}\), \(e_i\).</p>
+<hr>
 
-<p>Consider the random variable \(e_i\)<br>
-Median(\(e_i\)) = central value of all errors<br>
-MAD(\(e_i\)) = \(median(|e_i-median(e_i)|)\)</p>
+<p>real meaning of sensitivity and specificity?</p>
 
-<p><strong>MAD is small, means error is low</strong></p>
+<p>Sensitivity measure is used to determine the proportion of actual positive cases, which got predicted correctly, Specificity measure is used to determine the proportion of actual negative cases, which got predicted correctly</p>
 
-<h2 id="toc_13">Distribution of errors</h2>
+<hr>
 
-<p>For each \(x_i\), we have \(y_i\), \(\hat{y_i}\), \(e_i\).</p>
+<p>Which is more important to you– model accuracy, or model performance?</p>
 
-<p>We can use PDF &amp; CDF of \(e_i\)&#39;s to see how the errors are distributed.</p>
+<blockquote>
+<p>model performance</p>
+</blockquote>
 
-<p><img src="./4%20Performance%20measurement%20of%20models/Screen%20Shot%202021-06-14%20at%208.46.55%20PM.png" alt=""></p>
+<p>Can you cite some examples where a false positive is important than a false negative?</p>
 
-<p>Few errors are large values, most of the errors are of small values (closer to 0) \(\implies\) model is good</p>
+<blockquote>
+<p>Decision based on revenue prediction of a company, where if we predicted revenue is going to increase (FP) in near future however in actual it is not the decision company might have taken on prediction basis can impact company reputation<br>
+Places where we accept or think it is positive when infact it is not the case.</p>
+</blockquote>
 
-<p>From CDF, 99% of all errors are less than 0.1.</p>
+<p>Can you cite some examples where a false negative important than a false positive?</p>
 
-<p><img src="./4%20Performance%20measurement%20of%20models/Screen%20Shot%202021-08-14%20at%209.24.22%20AM.png" alt=""></p>
+<blockquote>
+<p>Generally medical test of any serious disease where ensuring no patient is wrongly classified if they are suffering with serious disease.</p>
 
-<p>Model \(M_1\) is better than the model \(M_2\) as most of the error are of low value (as evident from <strong>CDF</strong>)</p>
+<blockquote>
+<p>Places where we reject or think it is negative when infact it is not the case.</p>
+</blockquote>
+</blockquote>
+
+<p>Can you cite some examples where both false positive and false negatives are equally important?</p>
+
+<blockquote>
+<p>when we&#39;re classifying flowers into, say, two classes - Versicolor and Virginica, so here whether Versicolor is wrongly classified as Virginica or vice-versa both are equally bad, hence equal importance is given to FP and FN.</p>
+</blockquote>
+
+<p>What is the most frequent metric to assess model accuracy for classification problems?</p>
+
+<blockquote>
+<p>ROC in case of binary classification else confusion matrix. If we have probabilities, we can make use of log loss</p>
+</blockquote>
+
+<p>Why is Area Under ROC Curve (AUROC) better than raw accuracy as an out-of- sample evaluation metric?</p>
 
 
 

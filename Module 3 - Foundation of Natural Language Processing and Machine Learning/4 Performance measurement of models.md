@@ -4,7 +4,7 @@
 <script src="../toc.js" ></script>
 <div id='toc'></div>
 
-## For Classification
+# For Classification
 ## Accuracy
 
 Accuracy = $\frac{\#\ correctly\ classified\ points}{Total\ \#\ points}$
@@ -39,13 +39,13 @@ $d$ is the no of predictions we got for the actual class '1' how of the data we 
 
 It can be extended to **c-classes**
 
-All the **diagonal elements must have high values** and others to be small values for a **model to be a good one**.
+All the **principle diagonal elements must have high values** and others (**off diagonal elts**) to be small values for a **model to be a good one**.
 
 Total no of positives **P** = **TP** + **FN**
 Total no of negatives **N** = **TN** + **FP**
 
-True positive Rate (TPR) = $\frac{TP}{P}$ $\longrightarrow$ probability that an actual positive will test positive
-True Negative Rate (TNR) = $\frac{TN}{N}$ $\longrightarrow$ probability that an actual negative will test negative
+True positive Rate (TPR)/**Sensitivity** = $\frac{TP}{P}$ $\longrightarrow$ probability that an actual positive will test positive
+True Negative Rate (TNR)/**Specificity** = $\frac{TN}{N}$ $\longrightarrow$ probability that an actual negative will test negative
 False Positive Rate (FPR) = $\frac{FP}{N}$  $\longrightarrow$ probability that a true negative will be missed by the test
 False Negative Rate (FNR) = $\frac{FN}{P}$ $\longrightarrow$ probability that a true positive will be missed by the test
 
@@ -84,10 +84,12 @@ We can use this for **imbalanced dataset**.
 
 ### Precision, Recall & F1-score
 
-Precision, $Pr=\frac{TP}{TP+FP}$
+For Information retrieval. Eg. In the search result, we need **precision** of the matching result. We can only about the **positive class**
+
+Precision, $Pr=\frac{TP}{TP+FP}$, $0\leq Pr \leq 1$
 It states that **Of all the points the model predicted to be positive, what percentage of data are originally posistive?** It cares only about the positive class.
 
-Recall, Re = $\frac{TP}{P}$
+Recall (or TPR or Sensitivity), Re = $\frac{TP}{P}$, $0\leq Re \leq 1$
 It states that **Of all the actual positive points, how many of those points are correctly predicted by the model?** It cares only about the positive class.
 
 We want **precision** and **recall** to be high. **F1-score** is based on both of them.
@@ -96,9 +98,9 @@ We want **precision** and **recall** to be high. **F1-score** is based on both o
 
 It is the harmonic mean.
 
-F1-score is $\uparrow$ if precision is $\uparrow$ and recall is $\uparrow$. Good way to measure the performance.
+F1-score is $\uparrow$ if precision is $\uparrow$ and recall is $\uparrow$. Good way to measure the performance. We can't interpret this value but high value is good.
 
-##Receiver Operating Characteristic Curve (ROC) curve and AUC - for binary classification
+##Receiver Operating Characteristic Curve (ROC) and AUC - for binary classification
 
 |$x$|$y$|$\hat{y}$|
 |---|---|---|
@@ -146,13 +148,27 @@ Plot the graph with $FPR$ in $x-axis$ and $TPR$ in $y-axis$.
 3. For a random binary model (i.e random class for a x), then ROC of the model is diagonal with AUC as 0.5
 4. AUC below 0.5 means, it is very worst model. Now, we can swap/switch the values of $\hat{y}$ which will result in AUC greater than 0.5
 
+Read this [https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)
+
+Hear this : [https://soundcloud.com/applied-ai-course/why-auc](https://soundcloud.com/applied-ai-course/why-auc)
+
+_**Pros on:**_
+1. AUC is **scale-invariant**. It measures how well predictions are ranked, rather than their absolute values.
+2. AUC is **classification-threshold-invariant**. It measures the **quality of the model's predictions** irrespective of what classification threshold is chosen.
+
+**_Cons on:_**
+1. Scale invariance is **not always desirable**. For example, sometimes we really do need well calibrated probability outputs, and AUC won’t tell us about that.
+2. **Classification-threshold invariance is not always desirable**. In cases where there are wide disparities in the cost of false negatives vs. false positives, it may be critical to minimize one type of classification error. For example, when doing email spam detection, you likely want to prioritize minimizing false positives (even if that results in a significant increase of false negatives). AUC isn't a useful metric for this type of optimization.
+
+
+
 ##Log-loss
 
 It uses the **probability scores**.
 
 For Binary classification :
 
-|$x$|$y$|$\hat{y}=p$|log loss term|
+|$x$|$y$|$\hat{y}=p$|- log loss term|
 |---|---|---|---|
 |$x_1$|1|0.9|0.0457|
 |$x_2$|1|0.6|0.22|
@@ -163,9 +179,9 @@ Given a test set of n points,
 
 $log\_loss=\frac{-1}{n}\sum_{i=1}^n(log(p_i)*y_i + log(1-p_i)*(1-y_i))$ with values ranges from $0\ to\ \infty$
 
-If $p_i$ close to 1, log loss term of that input is very low and vice versa. It penalizes for the small deviations in the probabilities.
+If $p_i$ close to 1, log loss term of that input is very low and vice versa. It penalizes for the small deviations in the probabilities. 
 
-We want log loss to be small. It is because of the below graph
+We want **log loss to be small & close to zero** and we **can't interpret** the value of log loss. It is because of the below graph
 
 ![](./4 Performance measurement of models/Screen Shot 2021-06-14 at 8.19.08 PM.png)
 
@@ -173,13 +189,15 @@ We want log loss to be small. It is because of the below graph
 
 $log\_loss=\frac{-1}{n}\sum_{i=1}^n\sum_{j=1}^clog(p_{ij})*y_{ij}$ where $y_{ij} = 1$ if $x_i$ is the class label $c_j$ otherwise 0
 
-## For Regression
+-----
+
+# For Regression
 
 Here $y\ \epsilon\ R^d$
 
 ## R^2 or co-eff of determination
 
-$e_i=y_i-\hat{y_i}$
+Error, $e_i=y_i-\hat{y_i}$
 $|e_i|$=0 (i.e) it is good. Greater the value of $e_i$, it is bad.
 
 having error as $e_i$ is not meaningful as we did in binary classification.
@@ -188,12 +206,12 @@ Mean Squared error (MSE) = $\frac{1}{n}\sum_{i=1}^ne_i^2$
 
 Sum of squares, $SS_{total}=\sum_{i=1}^n(y_i-\bar{y})^2$ where $\bar{y}$ is the mean of $y$
 
-Residue error, $SS_{res}=\sum_{i=1}^n(\hat{y_i}-\bar{y})^2$
+Residue error, $SS_{res}=\sum_{i=1}^n(y_i-\hat{y_i})^2$
 
 $R^2=1-\frac{SS_{res}}{SS_{total}}$
 
 _Case 1 :_ When $SS_{res}=0$, $R^2=1$ .. Very good model
-_Case 2 :_ When $SS_{res}<SS_{total}$, $=\leq R^2\leq 1$ .. Closer to 1, model is better. closer to 0, model is bad.
+_Case 2 :_ When $SS_{res}<SS_{total}$, $0 \leq R^2\leq 1$ .. Closer to 1, model is better. closer to 0, model is bad.
 _Case 3 :_ When $SS_{res}=SS_{total}$, $R^2=0$ Model is same as **simple mean model**. In the simple mean model, we'll predict for all values of $x_i$ as $y_i$ and return $\bar{y}$ when queried for $x_i$
 _Case 4 :_ When $SS_{res}>SS_{total}$, $R^2 < 0$. It means that the model is worse than the simple mean model.
 
@@ -219,33 +237,16 @@ MAD($e_i$) = $median(|e_i-median(e_i)|)$
 
 ##Distribution of errors
 
-For an $x_i$, we have $y_i$, $\hat{y_i}$, $e_i$.
+For each $x_i$, we have $y_i$, $\hat{y_i}$, $e_i$.
 
 We can use PDF & CDF of $e_i$'s to see how the errors are distributed.
 
 ![](./4 Performance measurement of models/Screen Shot 2021-06-14 at 8.46.55 PM.png)
 
-Few errors are large values, most of the errors are of small values $\implies$ model is good
+Few errors are large values, most of the errors are of small values (closer to 0) $\implies$ model is good
 
 From CDF, 99% of all errors are less than 0.1.
 
-## Interview questions
-Which is more important to you– model accuracy, or model performance?
->model performance
+![](./4 Performance measurement of models/Screen Shot 2021-08-14 at 9.24.22 AM.png)
 
-Can you cite some examples where a false positive is important than a false negative?
-
->Decision based on revenue prediction of a company, where if we predicted revenue is going to increase (FP) in near future however in actual it is not the decision company might have taken on prediction basis can impact company reputation
-
-
-Can you cite some examples where a false negative important than a false positive?
->Generally medical test of any serious disease where ensuring no patient is wrongly classified if they are suffering with serious disease.
-
-
-Can you cite some examples where both false positive and false negatives are equally important?
->when we're classifying flowers into, say, two classes - Versicolor and Virginica, so here whether Versicolor is wrongly classified as Virginica or vice-versa both are equally bad, hence equal importance is given to FP and FN.
-
-What is the most frequent metric to assess model accuracy for classification problems?
->ROC in case of binary classification else confusion matrix. If we have probabilities, we can make use of log loss
-
-Why is Area Under ROC Curve (AUROC) better than raw accuracy as an out-of- sample evaluation metric?
+Model $M_1$ is better than the model $M_2$ as most of the error are of low value (as evident from **CDF**)
