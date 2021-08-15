@@ -8,7 +8,10 @@
 |---|----|
 |matplotlib|colors.ListedColormap,pyplot.pcolormesh|
 |BeautifulSoup||
-|ScikitLearn|Normalize,CountVectorizer, TfidfVectorizer, [KNeighborsClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier), [LocalOutlierFactor](http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html), train\_test\_split, cross\_val\_score, accuracy_score |
+|ScikitLearn|Normalize,CountVectorizer, TfidfVectorizer, [KNeighborsClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier), [LocalOutlierFactor](http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html), train\_test\_split|
+|sklearn.sklearn.model_selection|[RandomizedSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html)|
+|sklearn.metrics|cross\_val\_score, accuracy_score |
+|sklearn.naivebayes|[MultinomialNB](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html), [CategoricalNB](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB)|
 |NLTK|PorterStemmer, stopwords, WordNetLemmatizer,FreqDist |
 |gensim| Word2Vec |
 |Re|compile,sub|
@@ -132,6 +135,17 @@ print("Generalization accuracy :",accuracy_score(Y_test, y_pred)*100.0,"%")
 lof = LocalOutlierFactor(n_neighbors=3)
 fp = lof.fit_predict(data[:,0:2])
 filtered_data = data[np.where(fp == 1)]
+```
+
+###MultinomialNB
+
+```
+model = MultinomialNB(fit_prior=False)
+model.fit(X_train, Y_train)
+Y_pred = model.predict(X_test)
+metrics.accuracy_score(Y_test, Y_pred) #0.97
+Y_pred_proba = model.predict_proba(X_test)[:,1]
+metrics.roc_auc_score(Y_test, Y_pred_proba) #0.97217
 ```
 
 ##NLTK

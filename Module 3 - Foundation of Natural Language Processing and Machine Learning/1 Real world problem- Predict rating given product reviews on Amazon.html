@@ -643,7 +643,64 @@ We can make use of <strong>Word2Vec</strong> to achieve this synonyms.</p>
 <p><a href="https://towardsdatascience.com/language-models-spellchecking-and-autocorrection-dd10f739443c">https://towardsdatascience.com/language-models-spellchecking-and-autocorrection-dd10f739443c</a> <br>
 We need to take care of spell checks.</p>
 
-<h2 id="toc_10">uni-gram, bi-gram, n-grams.</h2>
+<h3 id="toc_10">Sample Code</h3>
+
+<p><a href="https://colab.research.google.com/drive/1xJYdhKwFAVuNR4ZLa7QScVb3EPoIg3HA?authuser=1#scrollTo=NA217LCLifB4">https://colab.research.google.com/drive/1xJYdhKwFAVuNR4ZLa7QScVb3EPoIg3HA?authuser=1#scrollTo=NA217LCLifB4</a></p>
+
+<div><pre class="line-numbers"><code class="language-none">import unicodedata
+import re
+from sklearn.feature_extraction import text
+import nltk
+from nltk.stem import SnowballStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.corpus import stopwords
+nltk.download(&#39;stopwords&#39;)
+nltk.download(&#39;wordnet&#39;)
+
+def preprocess(txt):
+
+  &quot;&quot;&quot;Preprocesses the given document by applying the following functionalities
+  lower: lowers all the characters for uniformity
+  expansion: expands words like i&#39;ll to i will for better text classification
+  remove special characters: using regex, removes all the punctuations etc
+  remove space: removes trailing spaces and extra spaces between words
+  remove accented characters: change accented characters to its normal equivalent
+  remove stop words: removes the stop words in the sentence
+  lemmatization: changes the words to their base form&quot;&quot;&quot;
+
+  #to lower case and other custom removal
+  txt = txt.lower().replace(&#39;numbertnumber&#39;,&#39;&#39;).replace(&#39;number&#39;, &#39;&#39;).replace(&#39;date&#39;,&#39;&#39;).replace(&#39;url&#39;,&#39;&#39;).strip()
+
+  #expansion: expands words like i&#39;ll to i will for better text classification
+  for key in contractions:
+    search_for = key.replace(&quot;&#39;&quot;,&#39; &#39;)
+    txt.replace(search_for, contractions.get(key))  
+
+  #remove special characters: using regex, removes all the punctuations etc
+  txt = re.sub(&quot;[^A-Z a-z 0-9-]+&quot;,&#39;&#39;,txt)
+
+  #remove space: removes trailing spaces and extra spaces between words
+  txt = &#39; &#39;.join(txt.split())
+
+  #remove accented characters: change accented characters to its normal equivalent
+  txt = unicodedata.normalize(&#39;NFKD&#39;, str(txt)).encode(&#39;ascii&#39;, &#39;ignore&#39;).decode(&#39;utf-8&#39;, &#39;ignore&#39;)
+
+  #remove stop words: removes the stop words in the sentence
+  ss = stopwords.words(&quot;english&quot;)
+  if &quot;no&quot; in ss:
+    ss.remove(&quot;no&quot;)
+  if &quot;not&quot; in ss:
+    ss.remove(&quot;not&quot;)
+  txt = &#39; &#39;.join([wrd if wrd not in ss else &quot;&quot; for wrd in txt.split()])
+
+  #lemmatization: changes the words to their base form
+  wnl = WordNetLemmatizer()
+  sbs = SnowballStemmer(language=&quot;english&quot;)
+  txt = &#39; &#39;.join([wnl.lemmatize(ss) for ss in txt.split()])
+
+  return txt  </code></pre></div>
+
+<h2 id="toc_11">uni-gram, bi-gram, n-grams.</h2>
 
 <p>\(r_1\) : This pasta is very tasty and affordable<br>
 \(r_2\) : This pasta is not tasty and is affordable</p>
@@ -695,7 +752,7 @@ print(cv.token_pattern)
 {&#39;pasta tastes&#39;: 1, &#39;tastes good&#39;: 2, &#39;tastes not&#39;: 3, &#39;not good&#39;: 0}
 (?u)\b\w\w+\b</code></pre></div>
 
-<h2 id="toc_11">tf-idf (term frequency- inverse document frequency) BoW</h2>
+<h2 id="toc_12">tf-idf (term frequency- inverse document frequency) BoW</h2>
 
 <p>It belongs to <strong>information retrieval</strong> sub area of NLP.</p>
 
@@ -752,7 +809,7 @@ print(tfidf.vocabulary_)
  [0.6316672  0.44943642 0.         0.6316672 ]]
 {&#39;pasta tastes&#39;: 1, &#39;tastes good&#39;: 2, &#39;tastes not&#39;: 3, &#39;not good&#39;: 0}</code></pre></div>
 
-<h3 id="toc_12">Why use log in IDF?</h3>
+<h3 id="toc_13">Why use log in IDF?</h3>
 
 <p>As per Zipf&#39;s law, the common words in english will occur much more and rarer words will be less. It follows <strong>power-law</strong> distribution.<br>
 <img src="./1%20Real%20world%20problem-%20Predict%20rating%20given%20product%20reviews%20on%20Amazon/Screen%20Shot%202021-06-07%20at%2011.06.23%20AM.png" alt=""><br>
@@ -761,7 +818,7 @@ Instead of giving weightage 1000 to the word <strong>civilization</strong>, we a
 
 <p><strong><u>Both BoW and tf-idf convert a full text/document into a sparse vector.</u></strong></p>
 
-<h2 id="toc_13">Word2Vec</h2>
+<h2 id="toc_14">Word2Vec</h2>
 
 <p>Takes the <strong>semantics into the consideration</strong>. It is the state of the art technique. It learns relationships automatically from raw text.</p>
 
@@ -821,11 +878,11 @@ w2v.wv.similarity(&#39;great&#39;, &#39;worst&#39;) #0.07923318
 w2v.wv.similarity(&#39;great&#39;, &#39;excellent&#39;) #0.73785985
 </code></pre></div>
 
-<h3 id="toc_14">Using sentences, how to convert using word2vec?</h3>
+<h3 id="toc_15">Using sentences, how to convert using word2vec?</h3>
 
 <p>Using Avg-Word2Vec, tf-idf weighted Word2Vec weighing strategies.</p>
 
-<h4 id="toc_15">Avg-Word2Vec</h4>
+<h4 id="toc_16">Avg-Word2Vec</h4>
 
 <p>\(r_1\) : \(W_1\) \(W_2\) \(W_1\) \(W_3\) \(W_4\) \(W_5\) </p>
 
@@ -845,7 +902,7 @@ if count &gt; 0:
   vec /= count
 print(vec) #prints 1xn vector if the dimension is n</code></pre></div>
 
-<h4 id="toc_16">tf-idf weighted Word2Vec</h4>
+<h4 id="toc_17">tf-idf weighted Word2Vec</h4>
 
 <p>Compute the <strong>tf_idf</strong> for \(r_1\), then multiply each corresponding value with the \(W2V(W_i)\)</p>
 

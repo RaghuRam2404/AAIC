@@ -107,6 +107,8 @@ Works well for **categorical features**.
 2. For testing, query for the conditional probability and multiple all of them
 3. Take argmax for the class
 
+Check this [http://shatterline.com/blog/2013/09/12/not-so-naive-classification-with-the-naive-bayes-classifier/](http://shatterline.com/blog/2013/09/12/not-so-naive-classification-with-the-naive-bayes-classifier/)
+
 ####Space & time complexity
 **_For training :_**
 Simple brute force implementation's **time complexity** is $O(ndc)$ where $n$ is no of points, $d$ is the dimension and $c$ classes.

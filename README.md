@@ -36,8 +36,9 @@ Support vector machines (SVM), Decision Trees and Ensemble models.
 3.2 [BoW implementation](https://colab.research.google.com/drive/1Rd5Mx6eeBiIemInxY1y2hZvMkA3oZoaP?authuser=1#scrollTo=JQDj94EcflkN)  
 3.3 [KNN & k-fold](https://colab.research.google.com/drive/1iqJtquXlfDVC6YoBSTAjtlZH2uAOg04u?authuser=1), [KNN - Try2](https://colab.research.google.com/drive/1MzlS_y0oj3U9AJu_itFIHa4VDuBz0cMM?authuser=1#scrollTo=8AXnkBbi7nda)   
 3.4.1 [GridSearchCV](https://colab.research.google.com/drive/1JUhuYOFuxsEcbu8xtX0rg8E0okHOHJQE?authuser=1)  
-3.5 [Logistic Regression](https://colab.research.google.com/drive/1iJ83HA6fm0WdluUFuoe0N9NeI8yw6rLo?authuser=1#scrollTo=cV9kCTaAXbW_)  
-3.6 [Linear Regression](https://colab.research.google.com/drive/1lfxvvbNNMqaQPd7rq5FR-_wtOovS23dZ?authuser=1#scrollTo=NSy97yF35SML)  
+3.5 [Naive Bayes with custom implementation and sklearn's MultinomialNB](https://colab.research.google.com/drive/1xJYdhKwFAVuNR4ZLa7QScVb3EPoIg3HA?authuser=1#scrollTo=jSLGw-wricFq)  
+3.6 [Logistic Regression](https://colab.research.google.com/drive/1iJ83HA6fm0WdluUFuoe0N9NeI8yw6rLo?authuser=1#scrollTo=cV9kCTaAXbW_)  
+3.7 [Linear Regression](https://colab.research.google.com/drive/1lfxvvbNNMqaQPd7rq5FR-_wtOovS23dZ?authuser=1#scrollTo=NSy97yF35SML)  
 
 Other helpful links:
 

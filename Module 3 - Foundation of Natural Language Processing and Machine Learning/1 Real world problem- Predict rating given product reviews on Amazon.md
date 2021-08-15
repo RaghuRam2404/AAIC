@@ -125,6 +125,66 @@ We can make use of **Word2Vec** to achieve this synonyms.
 [https://towardsdatascience.com/language-models-spellchecking-and-autocorrection-dd10f739443c](https://towardsdatascience.com/language-models-spellchecking-and-autocorrection-dd10f739443c) 
 We need to take care of spell checks.
 
+### Sample Code
+
+[https://colab.research.google.com/drive/1xJYdhKwFAVuNR4ZLa7QScVb3EPoIg3HA?authuser=1#scrollTo=NA217LCLifB4](https://colab.research.google.com/drive/1xJYdhKwFAVuNR4ZLa7QScVb3EPoIg3HA?authuser=1#scrollTo=NA217LCLifB4)
+
+```
+import unicodedata
+import re
+from sklearn.feature_extraction import text
+import nltk
+from nltk.stem import SnowballStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+def preprocess(txt):
+
+  """Preprocesses the given document by applying the following functionalities
+  lower: lowers all the characters for uniformity
+  expansion: expands words like i'll to i will for better text classification
+  remove special characters: using regex, removes all the punctuations etc
+  remove space: removes trailing spaces and extra spaces between words
+  remove accented characters: change accented characters to its normal equivalent
+  remove stop words: removes the stop words in the sentence
+  lemmatization: changes the words to their base form"""
+
+  #to lower case and other custom removal
+  txt = txt.lower().replace('numbertnumber','').replace('number', '').replace('date','').replace('url','').strip()
+
+  #expansion: expands words like i'll to i will for better text classification
+  for key in contractions:
+    search_for = key.replace("'",' ')
+    txt.replace(search_for, contractions.get(key))  
+
+  #remove special characters: using regex, removes all the punctuations etc
+  txt = re.sub("[^A-Z a-z 0-9-]+",'',txt)
+
+  #remove space: removes trailing spaces and extra spaces between words
+  txt = ' '.join(txt.split())
+
+  #remove accented characters: change accented characters to its normal equivalent
+  txt = unicodedata.normalize('NFKD', str(txt)).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+
+  #remove stop words: removes the stop words in the sentence
+  ss = stopwords.words("english")
+  if "no" in ss:
+    ss.remove("no")
+  if "not" in ss:
+    ss.remove("not")
+  txt = ' '.join([wrd if wrd not in ss else "" for wrd in txt.split()])
+
+  #lemmatization: changes the words to their base form
+  wnl = WordNetLemmatizer()
+  sbs = SnowballStemmer(language="english")
+  txt = ' '.join([wnl.lemmatize(ss) for ss in txt.split()])
+
+  return txt  
+```
+
+
 ## uni-gram, bi-gram, n-grams.
 
 $r_1$ : This pasta is very tasty and affordable

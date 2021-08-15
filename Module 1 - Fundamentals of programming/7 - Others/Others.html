@@ -541,7 +541,19 @@ pre.line-numbers > code {
 </tr>
 <tr>
 <td>ScikitLearn</td>
-<td>Normalize,CountVectorizer, TfidfVectorizer, KNeighborsClassifier, LocalOutlierFactor, train_test_split, cross_val_score, accuracy_score</td>
+<td>Normalize,CountVectorizer, TfidfVectorizer, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">KNeighborsClassifier</a>, <a href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html">LocalOutlierFactor</a>, train_test_split</td>
+</tr>
+<tr>
+<td>sklearn.sklearn.model_selection</td>
+<td><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html">RandomizedSearchCV</a></td>
+</tr>
+<tr>
+<td>sklearn.metrics</td>
+<td>cross_val_score, accuracy_score</td>
+</tr>
+<tr>
+<td>sklearn.naivebayes</td>
+<td><a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html">MultinomialNB</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB">CategoricalNB</a></td>
 </tr>
 <tr>
 <td>NLTK</td>
@@ -666,36 +678,45 @@ print(&quot;Generalization accuracy :&quot;,accuracy_score(Y_test, y_pred)*100.0
 fp = lof.fit_predict(data[:,0:2])
 filtered_data = data[np.where(fp == 1)]</code></pre></div>
 
-<h2 id="toc_12">NLTK</h2>
+<h3 id="toc_12">MultinomialNB</h3>
+
+<div><pre class="line-numbers"><code class="language-none">model = MultinomialNB(fit_prior=False)
+model.fit(X_train, Y_train)
+Y_pred = model.predict(X_test)
+metrics.accuracy_score(Y_test, Y_pred) #0.97
+Y_pred_proba = model.predict_proba(X_test)[:,1]
+metrics.roc_auc_score(Y_test, Y_pred_proba) #0.97217</code></pre></div>
+
+<h2 id="toc_13">NLTK</h2>
 
 <p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=STSHq40P-LQi">3.1-Amazon Fine Food Reviews Analysis</a></p>
 
 <div><pre class="line-numbers"><code class="language-none">import nltk</code></pre></div>
 
-<h3 id="toc_13">PorterStemmer</h3>
+<h3 id="toc_14">PorterStemmer</h3>
 
 <div><pre class="line-numbers"><code class="language-none">from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 return ps.stem(word)</code></pre></div>
 
-<h3 id="toc_14">Stop Words</h3>
+<h3 id="toc_15">Stop Words</h3>
 
 <div><pre class="line-numbers"><code class="language-none">from nltk.corpus import stopwords
 nltk.download(&#39;stopwords&#39;)
 stop_words = set(stopwords.words(&#39;english&#39;))</code></pre></div>
 
-<h3 id="toc_15">WordNetLemmatizer</h3>
+<h3 id="toc_16">WordNetLemmatizer</h3>
 
 <div><pre class="line-numbers"><code class="language-none">from nltk.stem.wordnet import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
 print(lemmatizer.lemmatize(&quot;bats&quot;)) #prints bat</code></pre></div>
 
-<h3 id="toc_16">FreqDist</h3>
+<h3 id="toc_17">FreqDist</h3>
 
 <div><pre class="line-numbers"><code class="language-none">apw = nltk.FreqDist(all_positive_words)
 print(apw.most_common(20))</code></pre></div>
 
-<h2 id="toc_17">gensim</h2>
+<h2 id="toc_18">gensim</h2>
 
 <p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=FCtdXsiIJE13">3.1-Amazon Fine Food Reviews Analysis</a></p>
 
@@ -705,7 +726,7 @@ w2v_model.wv.most_similar(&#39;flavor&#39;)
 w2v_model.wv.similarity(&quot;flavor&quot;, &quot;taste&quot;)
 w2v_model.wv[&#39;taste&#39;]</code></pre></div>
 
-<h2 id="toc_18">re</h2>
+<h2 id="toc_19">re</h2>
 
 <p>Refer <a href="https://colab.research.google.com/drive/1_GfKuT3_BtQlAxH7xmteQD0Sh9qqNOSu?authuser=1#scrollTo=R4eEj7-ZG6bV">3.1-Amazon Fine Food Reviews Analysis</a>, <a href="https://pymotw.com/3/re/">https://pymotw.com/3/re/</a></p>
 
@@ -714,7 +735,7 @@ w2v_model.wv[&#39;taste&#39;]</code></pre></div>
 re.sub(r&#39;(http://\S+)|(https://\S+)&#39;, &#39;&#39;, sentence)
 #removes the http and https urls</code></pre></div>
 
-<h2 id="toc_19">mlxtend</h2>
+<h2 id="toc_20">mlxtend</h2>
 
 <div><pre class="line-numbers"><code class="language-none">from mlxtend.plotting import plot_decision_regions
 x = data[:,0:2]
