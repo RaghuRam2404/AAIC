@@ -71,6 +71,8 @@ $P(A_2|B)+P(A_2|B)+P(A_3|B)=1\ \longrightarrow$ probability of an defective item
 
 ## Naive Bayes algorithm
 
+It is based on **probability**.
+
 $x=(x_1, x_2\ ...\ x_n)$ with $n$ features
 
 $P(C_k\ |\ x_1, x_2\ ...\ x_n)$ for each of $k$ possible outcomes or classes $C_k$
@@ -163,6 +165,10 @@ With laplace smoothing,
 
 As $\alpha\ \uparrow$, we are moving the likelihood probabilities to the uniform distribution. If numerator & denominator is small, we have less confidence in the ratio, so we are giving higher $\alpha$.
 
+Using $\alpha=1$ is called **add one smoothing**.
+
+Why name smoothing? we are moving/smoothing the likelihood probs to the uniform distr.
+
 ###Log-probabilities for numerical stability
 
 $0.2*0.1*0.2*0.1=0.0004$
@@ -251,7 +257,7 @@ What about during training phase? $w_8$ occurs **very very few** times.
 For,
 **Text data** (like amazon fine food reviews) : No case of missing data
 **Categorical data** (like a climate type value missing) : Consider **NaN** as a category and proceed.
-**Numerical data** : Take standard imputation methods.
+**Numerical data** : Take standard imputation methods or Gaussian NB.
 
 ##Handling Numerical features (Gaussian NB)
 

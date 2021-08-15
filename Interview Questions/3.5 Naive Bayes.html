@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>5 Naive Bayes</title>
+<title>3.5 Naive Bayes</title>
 
 
 <style type="text/css">
@@ -514,341 +514,65 @@ pre.line-numbers > code {
 
 <body>
 
-<h1 id="toc_0">Naive Bayes</h1>
+<h1 id="toc_0">3.5 Naive Bayes</h1>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<h2 id="toc_1">Revise</h2>
 
-<script src="../toc.js" ></script>
+<ul>
+<li><a href="https://youtu.be/LadMzl8MaXM">Bayes Theorem problem:</a></li>
+<li><a href="https://www.math.upenn.edu/%7Emmerling/math107%20docs/practice%20on%20Bayes%20solutions.pdf%20http://gtribello.github.io/mathNET/bayes-theorem-problems.html%20http://wwwf.imperial.ac.uk/%7Eayoung/m2s1/WorkedExamples1.pdf">More Bayes Theorem problems:</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2989/conditional-probability/3/module-3-foundations-of-natural-language-processing-and-machine-learnin">What is Conditional probability?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2990/independent-vs-mutually-exclusive-events/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Define Independent vs Mutually exclusive events?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2991/bayes-theorem-with-examples/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain Bayes Theorem with example?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2995/naive-bayes-on-text-data/3/module-3-foundations-of-natural-language-processing-and-machine-learning">How to apply Naive Bayes on Text data?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2996/laplaceadditive-smoothing/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Laplace/Additive Smoothing?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2997/log-probabilities-for-numerical-stability/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Explain Log-probabilities for numerical stability?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/2998/bias-and-variance-tradeoff/3/module-3-foundations-of-natural-language-processing-and-machine-learning">In Naive bayes how to handle  Bias and Variance tradeoff?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/3000/imbalanced-data/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What Imbalanced data?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/3001/outliers/3/module-3-foundations-of-natural-language-processing-and-machine-learning">What is Outliers and how to handle outliers?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/3002/missing-values/3/module-3-foundations-of-natural-language-processing-and-machine-learning">How to handle Missing values?</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/3003/handling-numerical-features-gaussian-nb/3/module-3-foundations-of-natural-language-processing-and-machine-learning">How to Handling Numerical features (Gaussian NB)</a></li>
+<li><a href="https://www.appliedaicourse.com/lecture/11/applied-machine-learning-online-course/3004/multiclass-classification/3/module-3-foundations-of-natural-language-processing-and-machine-learning">Define Multiclass classification.?</a></li>
+</ul>
 
-<div id='toc'></div>
-
-<h2 id="toc_1">Probability ideas</h2>
-
-<h3 id="toc_2">Conditional Probability</h3>
-
-<p>A, B are random variables.<br>
-\(P(A|B)\ =\ Pr(A=a|B=b)\) - what is the probability of A given B occurs?<br>
-\(P(A|B)=\frac{P(A\bigcap B)}{P(B)}\) only if \(P(B)!=0\)</p>
-
-<p>Throwing two dices \(D_1\) annd \(D_2\), we have 36 possible outcomes. \(P(D_1=2)=6/36=1/6\)</p>
-
-<p>What is \(P(D_1+D_2\leq 5)\)? It is \(10/36\)<br>
-Then what is \(P(D_1=2\ |\ D_1+D_2\leq 5)\), it is \(\frac{3/36}{10/36} = 3/10=0.3\)</p>
-
-<h2 id="toc_3">Independent vs Mutually exclusive events</h2>
-
-<h3 id="toc_4">Independent</h3>
-
-<p>2 events \(A\) &amp; \(B\) are said to be independent if <br>
-\(P(A|B)=P(A)\)<br>
-\(P(B|A)=P(B)\)</p>
-
-<p>\(A\) : Getting 6 in Dice 1<br>
-\(B\) : Getting 3 in Dice 2</p>
-
-<p>\(P(A=6|B=3)=P(A=6)\) because B won&#39;t influence the A&#39;s outcome<br>
-\(P(B=3|A=6)=P(B=3)\) because A won&#39;t influence the B&#39;s outcome</p>
-
-<h3 id="toc_5">Mutually Exclusive</h3>
-
-<p>A : Dice 1 getting value of 6<br>
-B : Dice 1 getting value of 3</p>
-
-<p>\(P(A|B)=P(B|A)=0\) because \(P(A\bigcap B)=0\) because we can&#39;t get 2 output in a single dice.</p>
-
-<h2 id="toc_6">Bayes Theorem</h2>
-
-<p>\(P(A|B) = \frac{P(B|A)P(A)}{P(B)}\) givenn \(P(B)\neq0\)</p>
-
-<p>\(P(A|B)\ \longrightarrow\) posterior probability<br>
-\(P(B|A)\ \longrightarrow\) likelihood probability<br>
-\(P(A)\ \longrightarrow\) prior<br>
-\(P(B)\ \longrightarrow\) evidence</p>
-
-<p><u>Ex:</u><br>
-20% of items are produced in Machine \(A_1\), 30% of items are produced in Machine \(A_2\) and 50% of item in \(A_3\) in a factory. Their corresponding defect rate is 5%, 3%, 1%. Picking a random item from the entire items and it is found to be defective, what is the probability that this item is from third machine?</p>
-
-<p><u>Ans:</u><br>
-\(P(A_1)=0.2\), \(P(A_2)=0.3\), \(P(A_3)=0.5\)</p>
-
-<p>B : Probability of item being defective<br>
-\(P(B|A_1)=0.05\), \(P(B|A_2)=0.03\), \(P(B|A_3)=0.01\)</p>
-
-<p>we need to find \(P(A_3|B)\) (i.e) Probability of getting an item from third machine given that it is defective.</p>
-
-<p>\(P(B)\) = \(\sum_{i=1}^3P(B\bigcap A_i)\) = \(\sum_{i=1}^{3}P(B|A_i)P(A_i)\) = (0.2*0.05) + (0.3*0.03) + (0.5*0.01) = 0.024</p>
-
-<p>2.4% is the probability of item being defective from 3 machines.</p>
-
-<p>Now, \(P(A_3|B) = \frac{P(B|A_3)P(A_3)}{P(B)}\) = \(\frac{0.5*0.01}{0.024}\) = \(0.2083\)</p>
-
-<p>For curiosity, let&#39;s find what is probability of an defective item from \(A_1\) and \(A_2\),<br>
-\(P(A_1|B) = \frac{P(B|A_1)P(A_1)}{P(B)}\) = \(0.4167\)<br>
-\(P(A_2|B) = \frac{P(B|A_2)P(A_2)}{P(B)}\) = \(0.375\)</p>
-
-<p>\(P(A_2|B)+P(A_2|B)+P(A_3|B)=1\ \longrightarrow\) probability of an defective item from all machines</p>
-
-<h2 id="toc_7">Naive Bayes algorithm</h2>
-
-<p>It is based on <strong>probability</strong>.</p>
-
-<p>\(x=(x_1, x_2\ ...\ x_n)\) with \(n\) features</p>
-
-<p>\(P(C_k\ |\ x_1, x_2\ ...\ x_n)\) for each of \(k\) possible outcomes or classes \(C_k\)</p>
-
-<p>\(P(C_k|x) = \frac{P(C_k)P(x|C_k)}{P(x)}= \frac{P(C_k,x)}{P(x)}\)<br>
-\(P(C_k,x)\) = \(P(C_k,x_1,x_2 ... x-n)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= \(P(x_1|x_2 ... x_n, C_k)P(x_2 ... x_n, C_k)\) (by chain rule)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= \(P(x_1|x_2 ... x_n, C_k)P(x_2 | x_3, x_4 ... x_n, C_k)P(x_3, x_4, .. x_n, C_k)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= ...<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= \(P(x_1|x_2 ... x_n, C_k)P(x_2 | x_3, x_4 ... x_n, C_k)\ ..... \ P(x_{n-1}| x_n, C_k)P(x_n|C_k)P(C_k)\)</p>
-
-<p>\(P(x_1|x_2 ... x_n, C_k)\) calculating this term is very difficult as we need to exact \(x\) &amp; \(C_k\) values in our data set.</p>
-
-<p>Independence : \(P(A|B) = P(A)\)<br>
-Conditional Independence : \(P(A|B,C) = P(A|C)\) A&amp;B are conditionally independent given C</p>
-
-<p>So we can say that \(x_i\) is <strong>conditionally independent</strong> of \(x_{i+1}, x_{i+2}\ ...\ x_n\) given \(C_k\) (i.e)<br>
-\(P(x_i\ |\ x_{i+1}, x_{i+2}\ ...\ x_n, C_k) = P(x_i|C_k)\)<br>
-<em><u>Naive part : the conditional independent of the variables given</u></em> \(C_k\)</p>
-
-<p>\(P(C_k,x)= P(x_1|x_2 ... x_n, C_k)P(x_2 | x_3, x_4 ... x_n, C_k)\ ..... \ P(x_{n-1}| x_n, C_k)P(x_n|C_k)P(C_k)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\propto P(x_1|C_k)\ P(x_2|C_k)\ P(x_3|C_k)\ ... P(x_{n-1}|C_k)P(x_n|C_k)P(C_k)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\propto P(C_k)\prod_{i=1}^nP(x_i|C_k)\)</p>
-
-<h3 id="toc_8">maximum of posteriori rule</h3>
-
-<p>\(\hat{y}=\underset{k\ \epsilon\ {1,2...k}}{argmax}\ p(c_k)\prod_{i=1}^n\ p(x_i,c_k)\)</p>
-
-<p>Works well for <strong>categorical features</strong>.</p>
-
-<h3 id="toc_9">Implementation for categorical features</h3>
+<h2 id="toc_2">Interview Question</h2>
 
 <ol>
-<li>Find the conditional probability of each \(d\) features \(P(x_i|C_k)\) in each class \(c\) for all \(nn\) points</li>
-<li>For testing, query for the conditional probability and multiple all of them</li>
-<li>Take argmax for the class</li>
+<li>Standardization / Normalization required before applying Naive Bayes?</li>
+<li>When should we use KNN as compared to Naive Bayes or viceversa?</li>
 </ol>
 
-<h4 id="toc_10">Space &amp; time complexity</h4>
+<p>we don&#39;t need standardization or normalization for NB because NB is not distance based algorithm. Unlike KNN which can be affected by scale of features, NB just calculates the likelihoods which are independent of other features.</p>
 
-<p><strong><u>For training :</u></strong><br>
-Simple brute force implementation&#39;s <strong>time complexity</strong> is \(O(ndc)\) where \(n\) is no of points, \(d\) is the dimension and \(c\) classes.<br>
-<strong>Space complexity</strong> after training is O(dc)<br>
-<strong><u>For testing:</u></strong><br>
-<strong>time complexity</strong> is \(O(dc)\)</p>
+<p>KNN can be used for lower dimensional dataset. NB and its variations are mainly used with text based classifications as dimensionlity is high. However, there isn&#39;t a thumb rules for any algo in ML. It is just hit and trial.</p>
 
-<h2 id="toc_11">Naive Bayes on Text data</h2>
+<hr>
 
-<p>Popular in text classification. Like <strong>Spam filter</strong>, <strong>polarity of the review</strong>.</p>
+<p>How will you regularise your naive bayes model?</p>
 
-<p>Say we have set of sentences/text and it&#39;s corresponding class. We&#39;ll do the removal of stop words, stemming, lemmatization first. We&#39;ll be end up with set of words. Binary BoW is good for <strong>spam filter</strong>.</p>
+<ol>
+<li>Using smoothing techniques like Laplace smoothing</li>
+<li>While creating the features, we can remove some features which rarely occur using some threshold so we may reduce some variance in the model.</li>
+</ol>
 
-<p>\(y\ \epsilon\ \{0,1\}\)<br>
-\(text\longrightarrow \{w_1, w_2, w_3 .... w_d\}\) </p>
+<hr>
 
-<p>\(P(y=1|text)\ =\ P(y=1|w_1,w_2,...w_d)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\( \propto P(y=1)P(w_1|y=1)P(w_2|y=1)...P(w_d|y=1)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(\propto P(y=1)\prod_{i=1}^dP(w_i|y=1)\)</p>
+<p>Resource which clearly explain bernoulli ,gasussian , Multinomial naive bayes</p>
 
-<p>We can calculate \(P(y=1)\) and \(P(y=0)\)<br>
-\(P(w_i|y=1) = \frac{no.\ of\ datapoints\ contain\ w_i\ with\ class\ label\ y=1}{no.\ of\ datapoints\ with\ class\ label\ y=1}\)</p>
+<p><a href="https://www.quora.com/What-is-the-difference-between-the-the-Gaussian-Bernoulli-Multinomial-and-the-regular-Naive-Bayes-algorithms">https://www.quora.com/What-is-the-difference-between-the-the-Gaussian-Bernoulli-Multinomial-and-the-regular-Naive-Bayes-algorithms</a></p>
 
-<p>This will act as <strong>benchmark</strong> for other classification problems.</p>
+<p><a href="https://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes">https://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes</a></p>
 
-<h3 id="toc_12">Laplace/Additive Smoothing</h3>
+<hr>
 
-<p>In test data, we have \(text_q=\{w_1, w_2, w_3, w&#39;\}\)<br>
-We have \(\{w_1, w_2, w_3\}\) in our training data and we have conditional probabilitis for those, but not \(w&#39;\).</p>
+<ol>
+<li>Why N.B work well with categorical features compared to numerical features?</li>
+<li><p>also what if we have mix types of features i.e categorical and numerical?which class will perform better Multinomial or Gaussian N.B ?</p></li>
+<li><p>It is due to the assumption that features follow Gaussian distribution (strong) in case of numerical features</p></li>
+<li><p>If we have mixed type of features,we can use Gaussian Naive Bayes,it will work better.</p></li>
+</ol>
 
-<p>\(P(y=1|text_q) = P(y=1|w_1,w_2,w_3,w&#39;)\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(=P(y=1)*P(w_1|y=1)*P(w_2|y=1)*P(w_3|y=1)*P(w&#39;|y=1)\)</p>
-
-<p>What is the value of \(P(w&#39;|y=1)\) and \(P(w&#39;|y=1)\)? We can&#39;t ignore \(w&#39;\) word&#39;s conditional probability.</p>
-
-<p>By definition, \(P(w&#39;|y=1)\) = \(\frac{P(w1,y=1)}{P(y=1)}\) = \(\frac{0}{n_1}\) = 0</p>
-
-<p>We can do <strong>laplace/additive smoothing</strong> now.</p>
-
-<p>\(P(w_i|y=1)= \frac{\#\ of\ occurences\ of\ w_i\ in\ corpus\ +\ \alpha}{n_1+\alpha k}\) <br>
-where \(n_1\) is the no of data points in the particular class of \(y\) and \(k\) is the no of distinct values which \(w_i&#39;\) can take. Here, \(k\)=2, because \(w&#39;\) may present or may not present in binary BoW. Typically \(\alpha\)=1</p>
-
-<p><strong>Case 1 :</strong> Let \(\alpha\)=1 with \(n_1=100\). Then \(P(w&#39;|y=1)=\frac{0+1}{100+2*1}=\frac{1}{102}\)<br>
-Now, \(P(w&#39;|y=1)\neq 0\). So, \(P(y=1|text_q)\neq 0\)<br>
-<strong>Case 2 :</strong> Let \(\alpha\)=1000 with \(n_1=100\). Then \(P(w&#39;|y=1)=10000/20100\sim 1/2\)<br>
-We are saying \(P(w&#39;|y=1)\) is same as \(P(w&#39;|y=0)\). Since we don&#39;t knnow the probability of that word in \(y=1/0\), we are assuming it to be half. Same behaviour is applied even for words which are there in the corpus.</p>
-
-<p>Let&#39;s say \(P(x_i|y=1)=\frac{2}{50}\) without laplace smoothing.<br>
-With laplace smoothing,</p>
-
-<table>
-<thead>
-<tr>
-<th>\(\alpha\)</th>
-<th>with laplace smoothing, cond. prob. is</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>1</td>
-<td>\(\frac{3}{54}=5.555\%\)</td>
-</tr>
-<tr>
-<td>10</td>
-<td>\(\frac{12}{70}=17.14\%\)</td>
-</tr>
-<tr>
-<td>100</td>
-<td>\(\frac{102}{250}=40.8\%\)</td>
-</tr>
-<tr>
-<td>1000</td>
-<td>\(\frac{1000}{2050}=48.78\%\)</td>
-</tr>
-</tbody>
-</table>
-
-<p>As \(\alpha\ \uparrow\), we are moving the likelihood probabilities to the uniform distribution. If numerator &amp; denominator is small, we have less confidence in the ratio, so we are giving higher \(\alpha\).</p>
-
-<p>Using \(\alpha=1\) is called <strong>add one smoothing</strong>.</p>
-
-<p>Why name smoothing? we are moving/smoothing the likelihood probs to the uniform distr.</p>
-
-<h3 id="toc_13">Log-probabilities for numerical stability</h3>
-
-<p>\(0.2*0.1*0.2*0.1=0.0004\)<br>
-Similarly consider having \(100\) such numbers to find the probability, we&#39;ll have many zeros. It&#39;ll lead to <strong>numerical underflow</strong> in python as it only has 16 significant digits in float variable. Python will start doing rounding which causes errors.</p>
-
-<p>Instead of using these probabilities, we can use the <strong>log of these probabilities</strong>.</p>
-
-<p>\(log(P(y=1|w_1,w_2,...w_d))=log(P(y=1)\prod_{i=1}^nP(x_i|y=1))\)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(=log(P(y=1))+\sum_{i=1}^mlog(P(x_i|y=1))\) <br>
-because \(log(ab)=log(a)+log(b)\)</p>
-
-<p>As \(x\) \(\uparrow\), \(log(x)\) \(\uparrow\). So, we can compare the log of \(P(y=1|x)\) and \(P(y=0|x)\).</p>
-
-<p>what is \(2.2^{3.6}\)? 17.089.. But how to find it. We need to use logs as<br>
-\(log(2.2^{3.6})\)<br>
-\(=3.6*log(2.2)\)<br>
-\(=3.6*0.342422\)<br>
-\(=1.232721\)</p>
-
-<p>Take antilog for \(0.2327\), we&#39;ll get \(1709\). Now, add \(.(dot)\) after the \(1+1\) digit ending up with \(17.09\)</p>
-
-<p>Another reason to use log is that, it converts <strong>multiplication</strong> into <strong>addition</strong>. And <strong>exponentitaion</strong> into <strong>multiplication</strong> making the computation much easier.</p>
-
-<h2 id="toc_14">Bias and Variance tradeoff</h2>
-
-<p>High bias \(\longrightarrow\) Underfitting<br>
-High Variance \(\longrightarrow\) Overfitting</p>
-
-<p>We have only one hyper parameter : \(\alpha\)</p>
-
-<p>Case 1 : \(\alpha = 0\)<br>
-Consider a case where we have very rare words (1 in 1000 ratio) and we still have probability for those. When we change the \(D_{train}\) and that didn&#39;t have those rare word, the probability becomes zero when we fit for the test data and this is a big change. It is <strong>overfitting or high variance</strong>.</p>
-
-<p>Case 2: \(\alpha=\)very large (like) \(\alpha=10000\)<br>
-\(P(w_i|y=1)=2/1000\) becomes \(P(w_i|y=1)=10002/21000 \sim 1/2\)<br>
-Same is the effect for any other words, We can&#39;t draw a good difference as all the probabilities \(P(x_i|y=0/1)\) are very near to 1/2. And we end up with decision which can be taken by \(P(y=1/0)\), if \(P(y=1) &gt; P(y=0)\), we&#39;ll always get the answer as <strong>+ve</strong> class<br>
-It is <strong>underfitting or high bias</strong>.</p>
-
-<p>How to find the right alpha \(\alpha\)?<br>
-We&#39;ll use it using <strong>cross-validation</strong> or <strong>k-fold validation</strong>.</p>
-
-<h2 id="toc_15">Feature importance and interpretability</h2>
-
-<p>For all words, find their conditional probabilities for each class and sort them. The word with the highest probability value is the most important feature/word.</p>
-
-<p>\(+ve\) class - Find words \(w_i\) with highest value of \(P(x_i|y=1)\)<br>
-\(-ve\) class - Find words \(w_i\) with highest value of \(P(x_i|y=0)\)</p>
-
-<p><strong><em>Interpretability:</em></strong></p>
-
-<p>Given \(x_q\) {\(w_1,w_2\ ...\ w_d\)} and we find \(y_q=1\). We can conclude that \(y_q=1\)  because it has words \(w_3, w_6, w_9\) with higher conditional probabilities.</p>
-
-<h2 id="toc_16">Imbalanced data</h2>
-
-<p>Consider \(n_1\) positive class samples annd \(n_2\) negative class samples. </p>
-
-<p>\(P(y=1|w_1,w_2, ... w_d)=P(y=1)\prod_{i=1}^dP(x_i|y=1)\)<br>
-\(P(y=0|w_1,w_2, ... w_d)=P(y=0)\prod_{i=1}^dP(x_i|y=0)\)<br>
-and \(n_1\gg n_2\) such that the <strong>prior</strong> \(P(y=1)=0.9\) and \(P(y=0)=0.1\).</p>
-
-<p>When we assume that <strong>likelihood is same for both P(y=0/1)</strong>, then the <strong>priors will take advantage in the output</strong>.</p>
-
-<p><strong>Solutions:</strong><br>
-1) Upsampling or downsampling<br>
-2) Or simply drop \(P(y=1) = P(y=0) = 1\)<br>
-3) Modified NB. </p>
-
-<p>Consider 900 +ve class datapoints and 100 -ve class datapoints. and we have alpha as 10. For some word, the likelihood is <br>
-\(P(w_i|y=1)=18/900=0.02\) (without laplace smoothening) and \(P(w_i|y=0)=2/100=0.02\)</p>
-
-<p>With laplace smoothening, it&#39;ll become \(P(w_i|y=1)=28/920=0.03\) and \(P(w_i|y=0)=12/120=0.1\). Here we can see that \(\alpha\) gave more worth to minority -ve class.</p>
-
-<p>We cann have a diff solution with \(\alpha_1\) for +ve class and \(\alpha_2\) for -ve class.</p>
-
-<h2 id="toc_17">Outliers</h2>
-
-<p>For text classification example, \(w&#39;\) not present during training. Laplace smoothing can take care of this. It is outlier in testing data.</p>
-
-<p>What about during training phase? \(w_8\) occurs <strong>very very few</strong> times.<br>
-<strong><u>Solution/hack</u></strong> : <br>
-1. If a word occurs very less or less than say 10, just <strong>remove that</strong>.<br>
-2. Use <strong>laplace smoothing</strong></p>
-
-<h2 id="toc_18">Missing values</h2>
-
-<p>For,<br>
-<strong>Text data</strong> (like amazon fine food reviews) : No case of missing data<br>
-<strong>Categorical data</strong> (like a climate type value missing) : Consider <strong>NaN</strong> as a category and proceed.<br>
-<strong>Numerical data</strong> : Take standard imputation methods or Gaussian NB.</p>
-
-<h2 id="toc_19">Handling Numerical features (Gaussian NB)</h2>
-
-<p>For real values features \(\{f_1,f_2, ... f_d\}\ \epsilon\ R^d\)<br>
-Let \(x_{ij}\) be the real value of the feature \(j\) in the \(i^{th}\) data.<br>
-What is \(P(x_{ij}|y=1)\)?</p>
-
-<p>We can plot the <strong>PDF</strong> for the feature \(f_j\) in the class \(y=1\) (\(D&#39;\) dataset with y=1). Get the probability from that curve. We <strong>assume</strong> that it is <strong>Guassian Distribution</strong> with N(\(\mu_j^1,\sigma_j^1\)) for the +ve class and N(\(\mu_j^0,\sigma_j^0\)) for the -ve class.</p>
-
-<p>Here we can put any distribution like powerlaw, bernoulli based on our data.</p>
-
-<h2 id="toc_20">Multiclass classification</h2>
-
-<p>Same as before,<br>
-we can find <br>
-\(P(y=C_1|w_1,w_2..w_d)\)<br>
-\(P(y=C_2|w_1,w_2..w_d)\)<br>
-....<br>
-\(P(y=C_k|w_1,w_2..w_d)\)</p>
-
-<p>Take argmax and find the class.</p>
-
-<h2 id="toc_21">Similarity or Distance matrix</h2>
-
-<p>Can NB work given the distance or similarity matrix?</p>
-
-<p><strong>NOPE</strong> since NB doesn&#39;t use the distance based method while it uses the probability of features.</p>
-
-<h2 id="toc_22">Large dimensionality</h2>
-
-<p>NB is used extensively in BoW which itself has many dimensions. And we must <strong>log probabilities</strong> to handle the <strong>number underflow</strong>.</p>
-
-<h2 id="toc_23">Best and worst cases</h2>
-
-<p>1) Conditional independence assumption is done. If it is true, NB does well. While it is becoming false, NB starts deteriorating. Even if some features are dependent, NB works reasonably well.</p>
-
-<p>2) For text classification problems (especially high dimensional data), NB works well and it&#39;ll act as benchmark.</p>
-
-<p>3) Used extensively for categorical features.</p>
-
-<p>4) NB is super interpretable and feature selection/importance. </p>
-
-<p>5) Timetaken for testing data is good for low-latency system.</p>
-
-<p>6) we can easily overfit (if we don&#39;t do laplace smoothing)</p>
+<hr>
 
 
 
