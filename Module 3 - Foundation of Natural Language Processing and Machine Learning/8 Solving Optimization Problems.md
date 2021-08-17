@@ -37,7 +37,7 @@ We have seen it till now for PCA, linear and logistic regression. We'll use the 
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 8.22.41 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 8.24.21 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 8.27.01 PM.png)
-Solving this is very hard
+Solving this is very hard. So we'll use **Gradient Descent** to solve it without solving for $\frac{d(f(x))}{dx}=0$.
 
 ##Gradient descent: geometric intuition
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 8.29.41 PM.png)
@@ -66,12 +66,14 @@ There is a problem with this in case of **large dataset**.
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 8.56.50 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 8.58.24 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.00.05 PM.png)
+Correction : $k << n$
 
 ##Constrained Optimization & PCA
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.02.44 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.03.56 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.07.14 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.30.56 PM.png)
+Correction : $S=Cov(X) =\frac{X_T*X}{n}$
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.32.22 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.33.07 PM.png)
 
@@ -84,5 +86,6 @@ There is a problem with this in case of **large dataset**.
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.44.03 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.46.06 PM.png)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.50.03 PM.png)
+The speed at which the $-r*(2*w_{ij})$ is small for $L2$ but constant $1$ for $L1$ (making sparsity for L1 reg)
 ![](./8 Solving Optimization Problems/Screen Shot 2021-07-07 at 9.51.14 PM.png)
 

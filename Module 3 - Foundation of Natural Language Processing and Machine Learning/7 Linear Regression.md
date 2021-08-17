@@ -47,6 +47,11 @@ This is because of the fact the all the real world input are not being sent as i
 * L1 (makes the weight vector sparse)
 * L2
 
+### Other names for Linear Regression
+
+1. Linear regression with L2 regularization is also referred to as "**Ridge Regression**"
+2. Linear regression with L1 regularization is also referred to as "**Lasso Regression**".
+3. Linear regression with l1+L2 regularization is also referred to as "**ElasticNet Regression**"
 
 ##Real world Cases
 
