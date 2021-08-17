@@ -12,7 +12,7 @@ Actual Regression technique. Given $x_i$ and $y_i\ \epsilon\ R^d$ for n-data poi
 
 ## Mathematical Formulation
 
-Linear regression : **Ordinary least squared**
+Linear regression : Often called as **Ordinary/Linear least squared**
 
 Similar to logisitic regression, here we are **changing our error term** to solve our usecase. Error term, which is the loss term, is the sum of the squared errors. This loss is **squared loss**.
 

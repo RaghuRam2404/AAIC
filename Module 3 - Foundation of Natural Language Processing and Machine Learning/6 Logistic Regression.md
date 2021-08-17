@@ -65,7 +65,7 @@ This functionn $f(x)$ will take care of squashing. We can use the **sigmoid func
 $f(x)= \sigma(x)=\frac{1}{1+e^{-x}}$
 $\sum_{i=1}^Ny_i*w^Tx_i$ $\rightarrow$  $\sum_{i=1}^Nf(y_i*w^Tx_i)$ $\rightarrow$  $\sum_{i=1}^N\sigma(y_i*w^Tx_i)$
 
-This sigmoid function has **good probabilitistic interpretation**.
+This sigmoid function has **good probabilitistic interpretation** and **easily differentiable** (which is necessary for the optimization problem).
 **Example:**
 1. If the point is on the hyperplane, then sigmoid value is 0.5. It means that the probability of that being on one side is 50%
 2. If that point is so much distance from the plane, it's probability is 99.999% bcoz $\sigma$ value gives 0.99999 value
@@ -100,7 +100,7 @@ _Interpretation:_
 2. If $w_i$ is -ve, $x_q$ $\uparrow$, then $w_i*x_q$ $\downarrow$,  then $\sigma(w_i*x_q)$ $\downarrow$, $P(y_q=+1)$ $\downarrow$ and $P(y_q=-1)$ $\uparrow$
 
 ##L2 Regularization: Overfitting and Underfitting
-Let $z_i$ = $y_i*w^Tx_i$
+Let $z_i$ = $\frac{y_i*w^Tx_i}{||w||}$
 $w^*$ = $\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-z_i))}$
 
 Always $exp(-z_i)$ > 0, so $log$ term is always > 0.
@@ -195,10 +195,10 @@ for the same reason as we have seen before.
 
 we have features : $[f_1,\ f_2\ ...\ f_d]$ with corresponding value of weight vector $[w_1,\ w_2,\ ...\ w_d]$
 
-Assuming all features are **independent**, we can find the **feature independence** using $w_i$'s.
+Assuming all features are **independent**, we can find the **feature independence** using $|w_i|$'s.
 
-**case 1 :** $|w_i|$ is **positive & large**, then it's contribution to $w^Tx$ is **large** because $P(y_q=+ve)$ is higher
-**case 2 :** $|w_i|$ is **negative & large**, then it's contribution to $w^Tx$ is **large** because $P(y_q=-ve)$ is higher
+**case 1 :** $w_i$ is **positive & large**, then it's contribution to $w^Tx$ is **large** because $P(y_q=+ve)$ is higher
+**case 2 :** $w_i$ is **negative & large**, then it's contribution to $w^Tx$ is **large** because $P(y_q=-ve)$ is higher
 
 
 So, we can find the importance using $|w_i|$ of the list of features.
@@ -232,6 +232,28 @@ If they **differ significantly**, then the features are **colinear** and we **ca
 
 Even we can make use of **forward feature selection**.
 
+###Variance Inflation factor (VIF)
+
+How to remove the unwanted multicolinear features? Using **VIF**
+
+Using a single feature as $y$ and others as $x$s, find the linear model. Find the performance metric $R^2$. Then find the corresponding,
+$VIF=\frac{1}{1-R^2}$
+
+Compare all the $VIF$ values. If the VIF is large, then we can remove it. Basically for a feature, it is followed that if $VIF>5$, we can **remove it**.
+
+```
+#Pseudocode
+for i,xi in enumerate(X):
+	newX = all_column_except_xi
+	newY = xi
+	model = LinearRegression(newX,newY)
+	y_pred = model.predict(newX)
+	r2 = metrics.r2(newY,y_pred)
+	vif[i] = (1/(1-(r2*r2)))
+	
+Remove features with vif > 5 (or check the higher VIF features)
+```
+
 
 ##Train & Run time space & time complexity
 
@@ -249,17 +271,22 @@ If $d$ is **very very large**, still it is good by using **L1 regularization** (
 ##Real world cases
 We have hyper plane separating the points linearly.
 
+### Imbalanced dataset
 In case of imbalanced data, we'll do under/over sampling.
 
-Outliers ;
+![](./6 Logistic Regression/Screen Shot 2021-08-16 at 6.55.12 PM.png)
+
+Here we can see that the model will try to find a hyperplane as distant as possible from the set of points to adjust with the data points of the majority class.
+
+###Outliers
 1. It can be handled using the **sigmoid** function.
 2. People will find the $w^Tx$ after finding $w$. Remove the points which are farther. Then train and get the new $\tilde{w}$
 
 
-Missing values :
+###Missing values
 We'll do the base techniques
 
-Multiclass :
+###Multiclass
 1. We'll do **one vs rest** methods.
 2. MaxEnt models (extension to LR)
 3. SoftMax classifier (deep learning)

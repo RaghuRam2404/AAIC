@@ -581,7 +581,7 @@ What if signed distance is <strong>large</strong>, then we&#39;ll change it to a
 <p>\(f(x)= \sigma(x)=\frac{1}{1+e^{-x}}\)<br>
 \(\sum_{i=1}^Ny_i*w^Tx_i\) \(\rightarrow\)  \(\sum_{i=1}^Nf(y_i*w^Tx_i)\) \(\rightarrow\)  \(\sum_{i=1}^N\sigma(y_i*w^Tx_i)\)</p>
 
-<p>This sigmoid function has <strong>good probabilitistic interpretation</strong>.<br>
+<p>This sigmoid function has <strong>good probabilitistic interpretation</strong> and <strong>easily differentiable</strong> (which is necessary for the optimization problem).<br>
 <strong>Example:</strong><br>
 1. If the point is on the hyperplane, then sigmoid value is 0.5. It means that the probability of that being on one side is 50%<br>
 2. If that point is so much distance from the plane, it&#39;s probability is 99.999% bcoz \(\sigma\) value gives 0.99999 value</p>
@@ -617,7 +617,7 @@ We&#39;ll apply \(\sigma(y*w^Tx_q)\) to find the <strong>probability</strong> of
 
 <h2 id="toc_3">L2 Regularization: Overfitting and Underfitting</h2>
 
-<p>Let \(z_i\) = \(y_i*w^Tx_i\)<br>
+<p>Let \(z_i\) = \(\frac{y_i*w^Tx_i}{||w||}\)<br>
 \(w^*\) = \(\underset{w}{argmin} \sum_{i=1}^Nlog({1+exp(-z_i))}\)</p>
 
 <p>Always \(exp(-z_i)\) &gt; 0, so \(log\) term is always &gt; 0.<br>
@@ -707,10 +707,10 @@ Underfitting : \(\lambda=\infty\)</p>
 
 <p>we have features : \([f_1,\ f_2\ ...\ f_d]\) with corresponding value of weight vector \([w_1,\ w_2,\ ...\ w_d]\)</p>
 
-<p>Assuming all features are <strong>independent</strong>, we can find the <strong>feature independence</strong> using \(w_i\)&#39;s.</p>
+<p>Assuming all features are <strong>independent</strong>, we can find the <strong>feature independence</strong> using \(|w_i|\)&#39;s.</p>
 
-<p><strong>case 1 :</strong> \(|w_i|\) is <strong>positive &amp; large</strong>, then it&#39;s contribution to \(w^Tx\) is <strong>large</strong> because \(P(y_q=+ve)\) is higher<br>
-<strong>case 2 :</strong> \(|w_i|\) is <strong>negative &amp; large</strong>, then it&#39;s contribution to \(w^Tx\) is <strong>large</strong> because \(P(y_q=-ve)\) is higher</p>
+<p><strong>case 1 :</strong> \(w_i\) is <strong>positive &amp; large</strong>, then it&#39;s contribution to \(w^Tx\) is <strong>large</strong> because \(P(y_q=+ve)\) is higher<br>
+<strong>case 2 :</strong> \(w_i\) is <strong>negative &amp; large</strong>, then it&#39;s contribution to \(w^Tx\) is <strong>large</strong> because \(P(y_q=-ve)\) is higher</p>
 
 <p>So, we can find the importance using \(|w_i|\) of the list of features.</p>
 
@@ -744,7 +744,27 @@ Then \(f_i\), \(f_j\), \(f_k\) are <strong>multicolinear</strong></p>
 
 <p>Even we can make use of <strong>forward feature selection</strong>.</p>
 
-<h2 id="toc_12">Train &amp; Run time space &amp; time complexity</h2>
+<h3 id="toc_12">Variance Inflation factor (VIF)</h3>
+
+<p>How to remove the unwanted multicolinear features? Using <strong>VIF</strong></p>
+
+<p>Using a single feature as \(y\) and others as \(x\)s, find the linear model. Find the performance metric \(R^2\). Then find the corresponding,<br>
+\(VIF=\frac{1}{1-R^2}\)</p>
+
+<p>Compare all the \(VIF\) values. If the VIF is large, then we can remove it. Basically for a feature, it is followed that if \(VIF&gt;5\), we can <strong>remove it</strong>.</p>
+
+<div><pre class="line-numbers"><code class="language-none">#Pseudocode
+for i,xi in enumerate(X):
+    newX = all_column_except_xi
+    newY = xi
+    model = LinearRegression(newX,newY)
+    y_pred = model.predict(newX)
+    r2 = metrics.r2(newY,y_pred)
+    vif[i] = (1/(1-(r2*r2)))
+    
+Remove features with vif &gt; 5 (or check the higher VIF features)</code></pre></div>
+
+<h2 id="toc_13">Train &amp; Run time space &amp; time complexity</h2>
 
 <p>Training LR (using Stochastic Gradient Descent) : \(O(nd)\) with \(n\) features and \(d\) dimensions</p>
 
@@ -756,29 +776,42 @@ Time : \(O(d)\) for finding the value</p>
 
 <p>If \(d\) is <strong>very very large</strong>, still it is good by using <strong>L1 regularization</strong> (as we will have removed unwanted features) for the proper \(\lambda\) (after the bias-variance trade off). It is importannt for <strong>low latency systems</strong></p>
 
-<h2 id="toc_13">Real world cases</h2>
+<h2 id="toc_14">Real world cases</h2>
 
 <p>We have hyper plane separating the points linearly.</p>
 
+<h3 id="toc_15">Imbalanced dataset</h3>
+
 <p>In case of imbalanced data, we&#39;ll do under/over sampling.</p>
 
-<p>Outliers ;<br>
-1. It can be handled using the <strong>sigmoid</strong> function.<br>
-2. People will find the \(w^Tx\) after finding \(w\). Remove the points which are farther. Then train and get the new \(\tilde{w}\)</p>
+<p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-08-16%20at%206.55.12%20PM.png" alt=""></p>
 
-<p>Missing values :<br>
-We&#39;ll do the base techniques</p>
+<p>Here we can see that the model will try to find a hyperplane as distant as possible from the set of points to adjust with the data points of the majority class.</p>
 
-<p>Multiclass :<br>
-1. We&#39;ll do <strong>one vs rest</strong> methods.<br>
-2. MaxEnt models (extension to LR)<br>
-3. SoftMax classifier (deep learning)<br>
-4. Multinomial LR</p>
+<h3 id="toc_16">Outliers</h3>
+
+<ol>
+<li>It can be handled using the <strong>sigmoid</strong> function.</li>
+<li>People will find the \(w^Tx\) after finding \(w\). Remove the points which are farther. Then train and get the new \(\tilde{w}\)</li>
+</ol>
+
+<h3 id="toc_17">Missing values</h3>
+
+<p>We&#39;ll do the base techniques</p>
+
+<h3 id="toc_18">Multiclass</h3>
+
+<ol>
+<li>We&#39;ll do <strong>one vs rest</strong> methods.</li>
+<li>MaxEnt models (extension to LR)</li>
+<li>SoftMax classifier (deep learning)</li>
+<li>Multinomial LR</li>
+</ol>
 
 <p>What if we have similarity matrix?<br>
 Actually it won&#39;t work. But we have a model named <strong>kernel LR</strong> and it can be used.</p>
 
-<h2 id="toc_14">Non-linearly separable data &amp; feature engineering</h2>
+<h2 id="toc_19">Non-linearly separable data &amp; feature engineering</h2>
 
 <p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.02.38%20PM.png" alt=""><br>
 <img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.05.36%20PM.png" alt=""><br>
@@ -792,7 +825,7 @@ We need to visualize and take decision.</p>
 <p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.11.14%20PM.png" alt=""><br>
 <img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.13.05%20PM.png" alt=""></p>
 
-<h3 id="toc_15">Typical transformations</h3>
+<h3 id="toc_20">Typical transformations</h3>
 
 <ol>
 <li>\(f_1*f_2\), \(f_1^2\), \(f_1^3\), \(f_1^2f_2\)</li>
@@ -801,7 +834,7 @@ We need to visualize and take decision.</p>
 <li>Other math functions : Log, exp, sigma etc.</li>
 </ol>
 
-<h3 id="toc_16">The most important in AI/ML is</h3>
+<h3 id="toc_21">The most important in AI/ML is</h3>
 
 <ol>
 <li>Feature Engineering</li>
@@ -809,7 +842,7 @@ We need to visualize and take decision.</p>
 <li>Data analysis and data visualization</li>
 </ol>
 
-<h2 id="toc_17">Extensions to Logistic Regression: Generalized linear models(GLM)</h2>
+<h2 id="toc_22">Extensions to Logistic Regression: Generalized linear models(GLM)</h2>
 
 <p><img src="./6%20Logistic%20Regression/Screen%20Shot%202021-07-06%20at%208.39.31%20PM.png" alt=""></p>
 
