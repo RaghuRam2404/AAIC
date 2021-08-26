@@ -46,6 +46,7 @@ Other helpful links:
 2. [Diagnosing Learning Curves](https://machinelearningmastery.com/learning-curves-for-diagnosing-machine-learning-model-performance/)  
 3. [How to use Naive Bayes effectively](https://towardsdatascience.com/naive-bayes-classifier-how-to-successfully-use-it-in-python-ecf76a995069)
 4. [Andrew NG Stanford notes](http://cs229.stanford.edu/notes2020spring/) !!! MUST READ
+5. [General Interview Ques](https://www.listendata.com/2017/03/predictive-modeling-interview-questions.html)
 
 
 Sklearn Important Links:

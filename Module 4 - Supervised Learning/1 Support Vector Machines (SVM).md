@@ -9,7 +9,7 @@
 2. [Alexandre KOWALCZYK Math Tutorial](https://www.svm-tutorial.com/2014/11/svm-understanding-math-part-2/)
 3. [SVR - Towards data Science](https://towardsdatascience.com/an-introduction-to-support-vector-regression-svr-a3ebc1672c2)
 
-Both **classification** and **regression**.
+Both **classification** (SVM-classification - **SVC**) and **regression** (SVM-Regression - **SVR**).
 
 ##Geometric Intution
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-08 at 5.17.50 PM.png)
@@ -101,7 +101,8 @@ It is nothing but $\zeta_j=max(0,1-z_j)$ as seen before.
 
 Both analysis (soft svm and hinge loss) are conceptually same
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 4.49.08 PM.png)
-[CORRECTION] : Our constraint is $(1-(y_i(w^x_i+b))\ \leq\ \zeta_i)$
+
+[CORRECTION] : Our constraint is $(1-(y_i(w^x_i+b))\ \leq\ \zeta_i)$ (derived from $y_i(w^x_i+b) \geq 1-\zeta_i$)
 
 This is the **Primal form**.
 
@@ -118,15 +119,21 @@ It is **linear SVM**.
 _Observations :_
 1. For every $x_i$, we have $\alpha_i$
 2. $x_i$ occur in the form of $x_i^Tx_j$. Refers to the **cosine similarity** if ||$x_i$||=1 and ||$x_y$||=1 (i.e) normalized data. We can use the **similarity matrix here** (by substituting the same in the formula). So $x_i^Tx_j$ will be replaced by $k(x_i,x_j)$
-3. Usually for any query point $x_q$, we'll find $w^x_q+b\ $ as $f(x_q)$ and take it's sign for the class. Here, we have $f(x_q)$ as $\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b$
+3. Usually for any query point $x_q$, we'll find $w^x_q+b\ $ as $f(x_q)$ and take it's sign for the class. Here, we have $f(x_q)$ as $\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b$. Same as 2nd point, we can use the **similarity value** or the **kernel value** as $\sum_{i=1}^n\alpha_iy_ik(x_i,x_q)+b$
 4. $\alpha_i>0$ for SVS (support vector points) and $\alpha_i=0$ for non-SVS (support vector points). This is because we don't care about the points in either side as we can use $f(x_q)$ and find the sign using the SVS points as ref.
 
+We did this in **dual form** because the $x_i,x_j$ occur in pairs and we can make use of it the **kernel trick**.
 
 ## Kernel trick (to use in dual form)
 
+If we keep it as $x_i^Tx_j$ in the optimization problem, it is called **linear SVM**
+If we keep it as $k(x_i,x_j)$, it is called **kernel SVM**.
+
 Linear SVM is similar to **logistic regression** as the results don't matter much. But Kernel trick is the most **important idea in SVM**.
 
-Kernel SVM if we replace $x_i^Tx_j$ with $k(x_i,x_j)$. We can classify the **non-linear separable data** with it (like Logistic regression + feature engineering).
+We can classify the **non-linear separable data** with the **kernel SVM** (like **logistic regression or linear SVM + feature engineering** we do for the  where we'll transform the inputs before we apply the model. So the inputs will now be in the transformed space).
+
+**kernel function** is like **similarity function**.
 
 ###Polynomial Kernel
 Generic, $k(x_1,x_2)=(c+x_1^Tx_2)^d$
@@ -140,19 +147,24 @@ $d'>d$ and data is **linearly separable** (by **Mercers theorem**).
 _Question is_ *what kernel to apply ?* It is all about finding right kernel in SVM.
 
 ###RBF-Kernel
-Radial Basis Function :  Very very general purpose kernel.
+Radial Basis Function :  Very very general purpose kernel. Why? Because of it's similarity concepts brought in by the $\sigma$ term.
 $k(x_1,x_2) = exp(\frac{-||x_1-x_2||^2}{2\sigma^2}) = exp(\frac{-d_{12}^2}{2\sigma^2})$ where $\sigma$ is a hyperparameter and $\gamma = \frac{1}{\sigma}$
 
 1. As $d_{12}$ $\uparrow$, $k(x_1,x_2)$ $\downarrow$. It behaves like similarity.
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 6.09.23 PM.png)
 
 
-2. As $d$ increases, kernel value falls to zero (like gaussian PDF).
+2. Keeping the $d$ constant and varying $\sigma$
+
 $\sigma=1$
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 6.10.17 PM.png)
+Case 1 : If the dist($x_1$,$x_2$)=0, then we have kernel value as **1**.
+Case 2 : As the dist increases, the kernel values falls to **0** exponentially (like gaussian PDF).
+
 
 $\sigma=0.1$. If d>1, k=0
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 6.13.59 PM.png)
+As sigma got reduced and distance is between abs value of 1, we have non-zero kernel value.
 
 $\sigma=10$. If d>10, k=0
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 6.15.08 PM.png)
@@ -164,6 +176,9 @@ As $\sigma$ increases, we allow more values to be similar. Equivalent to KNN.
 Similar as $\sigma$ $\uparrow$, to $k$ in KNN.
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 6.21.07 PM.png)
 
+So, RBF Kernels has 2 hyper parameters:
+1. $c$ from the **kernel SVM**
+2. $\sigma$ from the **RBF Kernel**
 
 ### Domain Specific Kernels
 1. Genome kernel
@@ -177,8 +192,8 @@ Feature transformation is partially replaced by the appropriate kernel.
 
 We can use $SGD$ algo. But we can use **sequential minimal optimization (SMO)** for **SVM**.
 
-Training time : $O(n^2)$ for kernel SVMs
-Runtime : $f(x_q)=\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b$ It is based on no of vector points. So, complexity is $O(kd)$ where $d$ is the dimensionality of the input and $1\leq k \leq n$.
+_Training time :_ $O(n^2)$ for kernel SVMs. Most optimized algo will take $O(nd^2)$. But we'll normally, we'll have $O(n^2)$. So when $n$ is large, **SVM is not used**.
+_Runtime :_ $f(x_q)=\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b$ It is based on no of vector points. So, complexity is $O(kd)$ where $d$ is the dimensionality of the input and $1\leq k \leq n$. If **k** is large, then we'll have a **more runtime complexity**, as we **can't control the no of support vectors,k**.
 
 
 ##nu-SVM: control errors and support vectors
@@ -189,14 +204,41 @@ Alternate is $nu-SVM$
 
 where we can control % of errors with $nu$ hyperparam.
 
-if $nu=0.01$, then errors will be $\leq$ $1%$ and $\#\ SVS$ will be $\geq$ $1%$ of N points.
+if $nu=0.01$, then errors will be $\leq$ $1\%$ and $\#\ SVS$ will be $\geq$ $1\%$ of N points.
+
+###Runtime complexity
+In nu_SVM, as we have $\#\ SVS$ will be $\geq$ $1\%$ of N points, we don't have any upper bound on number of support vectors.
 
 
 ##SVM Regression (SVR)
 
 ![](./1 Support Vector Machines (SVM)/Screen Shot 2021-07-10 at 6.44.58 PM.png)
 
-$\epsilon$ - hyper parameter
+But how come this constraint will hold good? Consider the below figure with the **epsilon tube** (i.e) the gutter width is $\epsilon$ above and below the central line.
+
+![](./1 Support Vector Machines (SVM)/Screen Shot 2021-08-24 at 4.59.35 PM.png)
+_Case 1 :_ 
+Consider the point above the central line.
+1. $(\hat{y_i} - y_i) \leq \epsilon \longrightarrow$ so it is good.
+2. $(y_i - \hat{y_i})$ is $-ve$ (i.e $\le 0$) and we have $\epsilon \geq 0$. It makes  $(y_i - \hat{y_i}) \leq \epsilon \longrightarrow$ so it is good.
+
+_Case 2 :_ 
+Consider the point below the central line.
+1. $(y_i - \hat{y_i}) \leq \epsilon \longrightarrow$ so it is good.
+2. $(\hat{y_i} - y_i)$ is $-ve$ (i.e $\le 0$) and we have $\epsilon \geq 0$. It makes  $(y_i - \hat{y_i}) \leq \epsilon \longrightarrow$ so it is good.
+
+
+Both the constraints are satisfied in case 1 and 2. This is only because of the $\epsilon$ constraint we have. Consider the error case below.
+
+_Case 3 :_
+Consider a point above the gutter.
+1. $(y_i - \hat{y_i}) \leq \epsilon \longrightarrow$ so it is good.
+2. $(\hat{y_i} - y_i)$ is $+ve$ (i.e $\ge 0$) and we have $\epsilon \geq 0$. It makes  $(y_i - \hat{y_i}) \gt \epsilon \longrightarrow$ so it is **bad**. So wrong output.
+
+
+###Bias And Variance
+
+$\epsilon$ - hyper parameter. And also this is the number which controls the acceptable error for the input $y_i$ and it's corresponding output $\hat{y_i}$
 As $\epsilon$ $\uparrow$,  errors will increase and causes **underfit**
 As $\epsilon$ $\downarrow$,  errors will be very low in training and causes **overfit**
 
@@ -213,10 +255,32 @@ Challenges
 1. We can't find the feature importance or interpretability (directly) for kernel SVMs. But we can use **forward feature selection**
 2. Outliers will have very less impact as we'll use only SVS for the kernel SVM.
 3. RBF with small $\sigma$ may get affected similar to the smaller **k** in KNN
-4. Large **d** - SVM works good
+4. Large **d** - SVM works good. It is because of the fact that already kernel tries to convert $d$ to $d'$ (with more features). In our hand, if we have more **d**, it's good then.
 
 Best Case :
 1. Having right kernel, it works well
 
 Worst Case:
-1. When **n** is large, Training time is typically long
+1. When **n** is large, Training time is typically long. So people will go for **logistic regression** by doing **feature transforms**.
+2. If we get **k** SVS vectors and it is huge, computing the $f(x_q)$ will take time for the low latency systems.
+
+
+## Platt Scaling/calibration
+
+In SVM, we'll get the class based on the +ve or -ve sign of the sign(f(x)). It doesn't give the probability.
+
+From the predicted output $\hat{y_i}$ (from $x_q$, we will use $\hat{y_i}=y_q=f(x_q)$), predict the probability.
+
+So, Platt derived formula like
+
+$P(y_q=1|x_q) = \frac{1}{1+exp(A\ \hat{y_i}+B)}$ (modified sigmoid)
+
+Dataset, $D_{calib}=\{\hat{y_i},y_i\}$
+
+It is based on the assumption that the **calibration curve** will look like the sigmoid curve. The x axis represents the average predicted probability in each bin. The y axis is the fraction of positives, i.e. the proportion of samples whose class is the positive class (in each bin).
+![](./1 Support Vector Machines (SVM)/Screen Shot 2021-08-25 at 3.39.57 PM.png)
+
+But it may not look like this in all the cases like below. We have a stepwise calibration curve.
+![](./1 Support Vector Machines (SVM)/Screen Shot 2021-08-25 at 3.30.11 PM.png)
+
+So, we'll use the **isotonic calibration**. It is much more closer to the emprirical value. It is the **most used technique**.

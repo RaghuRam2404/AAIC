@@ -530,7 +530,7 @@ pre.line-numbers > code {
 <li><a href="https://towardsdatascience.com/an-introduction-to-support-vector-regression-svr-a3ebc1672c2">SVR - Towards data Science</a></li>
 </ol>
 
-<p>Both <strong>classification</strong> and <strong>regression</strong>.</p>
+<p>Both <strong>classification</strong> (SVM-classification - <strong>SVC</strong>) and <strong>regression</strong> (SVM-Regression - <strong>SVR</strong>).</p>
 
 <h2 id="toc_2">Geometric Intution</h2>
 
@@ -625,8 +625,9 @@ It is nothing but \(\zeta_j=max(0,1-z_j)\) as seen before.</p>
 <p><img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%204.46.30%20PM.png" alt=""></p>
 
 <p>Both analysis (soft svm and hinge loss) are conceptually same<br>
-<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%204.49.08%20PM.png" alt=""><br>
-[CORRECTION] : Our constraint is \((1-(y_i(w^x_i+b))\ \leq\ \zeta_i)\)</p>
+<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%204.49.08%20PM.png" alt=""></p>
+
+<p>[CORRECTION] : Our constraint is \((1-(y_i(w^x_i+b))\ \leq\ \zeta_i)\) (derived from \(y_i(w^x_i+b) \geq 1-\zeta_i\))</p>
 
 <p>This is the <strong>Primal form</strong>.</p>
 
@@ -644,14 +645,21 @@ Solving <strong>primal form</strong> is equivalent to this <strong>dual form</st
 <p><u>Observations :</u><br>
 1. For every \(x_i\), we have \(\alpha_i\)<br>
 2. \(x_i\) occur in the form of \(x_i^Tx_j\). Refers to the <strong>cosine similarity</strong> if ||\(x_i\)||=1 and ||\(x_y\)||=1 (i.e) normalized data. We can use the <strong>similarity matrix here</strong> (by substituting the same in the formula). So \(x_i^Tx_j\) will be replaced by \(k(x_i,x_j)\)<br>
-3. Usually for any query point \(x_q\), we&#39;ll find \(w^x_q+b\ \) as \(f(x_q)\) and take it&#39;s sign for the class. Here, we have \(f(x_q)\) as \(\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b\)<br>
+3. Usually for any query point \(x_q\), we&#39;ll find \(w^x_q+b\ \) as \(f(x_q)\) and take it&#39;s sign for the class. Here, we have \(f(x_q)\) as \(\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b\). Same as 2nd point, we can use the <strong>similarity value</strong> or the <strong>kernel value</strong> as \(\sum_{i=1}^n\alpha_iy_ik(x_i,x_q)+b\)<br>
 4. \(\alpha_i&gt;0\) for SVS (support vector points) and \(\alpha_i=0\) for non-SVS (support vector points). This is because we don&#39;t care about the points in either side as we can use \(f(x_q)\) and find the sign using the SVS points as ref.</p>
+
+<p>We did this in <strong>dual form</strong> because the \(x_i,x_j\) occur in pairs and we can make use of it the <strong>kernel trick</strong>.</p>
 
 <h2 id="toc_10">Kernel trick (to use in dual form)</h2>
 
+<p>If we keep it as \(x_i^Tx_j\) in the optimization problem, it is called <strong>linear SVM</strong><br>
+If we keep it as \(k(x_i,x_j)\), it is called <strong>kernel SVM</strong>.</p>
+
 <p>Linear SVM is similar to <strong>logistic regression</strong> as the results don&#39;t matter much. But Kernel trick is the most <strong>important idea in SVM</strong>.</p>
 
-<p>Kernel SVM if we replace \(x_i^Tx_j\) with \(k(x_i,x_j)\). We can classify the <strong>non-linear separable data</strong> with it (like Logistic regression + feature engineering).</p>
+<p>We can classify the <strong>non-linear separable data</strong> with the <strong>kernel SVM</strong> (like <strong>logistic regression or linear SVM + feature engineering</strong> we do for the  where we&#39;ll transform the inputs before we apply the model. So the inputs will now be in the transformed space).</p>
+
+<p><strong>kernel function</strong> is like <strong>similarity function</strong>.</p>
 
 <h3 id="toc_11">Polynomial Kernel</h3>
 
@@ -667,19 +675,23 @@ Internally, it is doing <strong>feature transformation in implicit manner</stron
 
 <h3 id="toc_12">RBF-Kernel</h3>
 
-<p>Radial Basis Function :  Very very general purpose kernel.<br>
+<p>Radial Basis Function :  Very very general purpose kernel. Why? Because of it&#39;s similarity concepts brought in by the \(\sigma\) term.<br>
 \(k(x_1,x_2) = exp(\frac{-||x_1-x_2||^2}{2\sigma^2}) = exp(\frac{-d_{12}^2}{2\sigma^2})\) where \(\sigma\) is a hyperparameter and \(\gamma = \frac{1}{\sigma}\)</p>
 
 <ol>
 <li><p>As \(d_{12}\) \(\uparrow\), \(k(x_1,x_2)\) \(\downarrow\). It behaves like similarity.<br>
 <img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.09.23%20PM.png" alt=""></p></li>
-<li><p>As \(d\) increases, kernel value falls to zero (like gaussian PDF).<br>
-\(\sigma=1\)<br>
-<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.10.17%20PM.png" alt=""></p></li>
+<li><p>Keeping the \(d\) constant and varying \(\sigma\)</p></li>
 </ol>
 
+<p>\(\sigma=1\)<br>
+<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.10.17%20PM.png" alt=""><br>
+Case 1 : If the dist(\(x_1\),\(x_2\))=0, then we have kernel value as <strong>1</strong>.<br>
+Case 2 : As the dist increases, the kernel values falls to <strong>0</strong> exponentially (like gaussian PDF).</p>
+
 <p>\(\sigma=0.1\). If d&gt;1, k=0<br>
-<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.13.59%20PM.png" alt=""></p>
+<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.13.59%20PM.png" alt=""><br>
+As sigma got reduced and distance is between abs value of 1, we have non-zero kernel value.</p>
 
 <p>\(\sigma=10\). If d&gt;10, k=0<br>
 <img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.15.08%20PM.png" alt=""></p>
@@ -689,6 +701,10 @@ Internally, it is doing <strong>feature transformation in implicit manner</stron
 
 <p>Similar as \(\sigma\) \(\uparrow\), to \(k\) in KNN.<br>
 <img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.21.07%20PM.png" alt=""></p>
+
+<p>So, RBF Kernels has 2 hyper parameters:<br>
+1. \(c\) from the <strong>kernel SVM</strong><br>
+2. \(\sigma\) from the <strong>RBF Kernel</strong></p>
 
 <h3 id="toc_13">Domain Specific Kernels</h3>
 
@@ -704,8 +720,8 @@ Internally, it is doing <strong>feature transformation in implicit manner</stron
 
 <p>We can use \(SGD\) algo. But we can use <strong>sequential minimal optimization (SMO)</strong> for <strong>SVM</strong>.</p>
 
-<p>Training time : \(O(n^2)\) for kernel SVMs<br>
-Runtime : \(f(x_q)=\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b\) It is based on no of vector points. So, complexity is \(O(kd)\) where \(d\) is the dimensionality of the input and \(1\leq k \leq n\).</p>
+<p><u>Training time :</u> \(O(n^2)\) for kernel SVMs. Most optimized algo will take \(O(nd^2)\). But we&#39;ll normally, we&#39;ll have \(O(n^2)\). So when \(n\) is large, <strong>SVM is not used</strong>.<br>
+<u>Runtime :</u> \(f(x_q)=\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b\) It is based on no of vector points. So, complexity is \(O(kd)\) where \(d\) is the dimensionality of the input and \(1\leq k \leq n\). If <strong>k</strong> is large, then we&#39;ll have a <strong>more runtime complexity</strong>, as we <strong>can&#39;t control the no of support vectors,k</strong>.</p>
 
 <h2 id="toc_15">nu-SVM: control errors and support vectors</h2>
 
@@ -716,20 +732,46 @@ Runtime : \(f(x_q)=\sum_{i=1}^n\alpha_iy_ix_i^Tx_q+b\) It is based on no of vect
 
 <p>where we can control % of errors with \(nu\) hyperparam.</p>
 
-<p>if \(nu=0.01\), then errors will be \(\leq\) \(1%\) and \(\#\ SVS\) will be \(\geq\) \(1%\) of N points.</p>
+<p>if \(nu=0.01\), then errors will be \(\leq\) \(1\%\) and \(\#\ SVS\) will be \(\geq\) \(1\%\) of N points.</p>
 
-<h2 id="toc_16">SVM Regression (SVR)</h2>
+<h3 id="toc_16">Runtime complexity</h3>
+
+<p>In nu_SVM, as we have \(\#\ SVS\) will be \(\geq\) \(1\%\) of N points, we don&#39;t have any upper bound on number of support vectors.</p>
+
+<h2 id="toc_17">SVM Regression (SVR)</h2>
 
 <p><img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.44.58%20PM.png" alt=""></p>
 
-<p>\(\epsilon\) - hyper parameter<br>
+<p>But how come this constraint will hold good? Consider the below figure with the <strong>epsilon tube</strong> (i.e) the gutter width is \(\epsilon\) above and below the central line.</p>
+
+<p><img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-08-24%20at%204.59.35%20PM.png" alt=""><br>
+<u>Case 1 :</u> <br>
+Consider the point above the central line.<br>
+1. \((\hat{y_i} - y_i) \leq \epsilon \longrightarrow\) so it is good.<br>
+2. \((y_i - \hat{y_i})\) is \(-ve\) (i.e \(\le 0\)) and we have \(\epsilon \geq 0\). It makes  \((y_i - \hat{y_i}) \leq \epsilon \longrightarrow\) so it is good.</p>
+
+<p><u>Case 2 :</u> <br>
+Consider the point below the central line.<br>
+1. \((y_i - \hat{y_i}) \leq \epsilon \longrightarrow\) so it is good.<br>
+2. \((\hat{y_i} - y_i)\) is \(-ve\) (i.e \(\le 0\)) and we have \(\epsilon \geq 0\). It makes  \((y_i - \hat{y_i}) \leq \epsilon \longrightarrow\) so it is good.</p>
+
+<p>Both the constraints are satisfied in case 1 and 2. This is only because of the \(\epsilon\) constraint we have. Consider the error case below.</p>
+
+<p><u>Case 3 :</u><br>
+Consider a point above the gutter.<br>
+1. \((y_i - \hat{y_i}) \leq \epsilon \longrightarrow\) so it is good.<br>
+2. \((\hat{y_i} - y_i)\) is \(+ve\) (i.e \(\ge 0\)) and we have \(\epsilon \geq 0\). It makes  \((y_i - \hat{y_i}) \gt \epsilon \longrightarrow\) so it is <strong>bad</strong>. So wrong output.</p>
+
+<h3 id="toc_18">Bias And Variance</h3>
+
+<p>\(\epsilon\) - hyper parameter. And also this is the number which controls the acceptable error for the input \(y_i\) and it&#39;s corresponding output \(\hat{y_i}\)<br>
 As \(\epsilon\) \(\uparrow\),  errors will increase and causes <strong>underfit</strong><br>
 As \(\epsilon\) \(\downarrow\),  errors will be very low in training and causes <strong>overfit</strong></p>
 
 <p>It can also be kernalised for non-linear data regression.<br>
 <img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-07-10%20at%206.45.38%20PM.png" alt=""></p>
 
-<h2 id="toc_17">Cases</h2>
+<h2 id="toc_19">Cases</h2>
 
 <ol>
 <li>Feature Engineering and feature transformation (by finding a right kernel)</li>
@@ -741,13 +783,34 @@ As \(\epsilon\) \(\downarrow\),  errors will be very low in training and causes 
 1. We can&#39;t find the feature importance or interpretability (directly) for kernel SVMs. But we can use <strong>forward feature selection</strong><br>
 2. Outliers will have very less impact as we&#39;ll use only SVS for the kernel SVM.<br>
 3. RBF with small \(\sigma\) may get affected similar to the smaller <strong>k</strong> in KNN<br>
-4. Large <strong>d</strong> - SVM works good</p>
+4. Large <strong>d</strong> - SVM works good. It is because of the fact that already kernel tries to convert \(d\) to \(d&#39;\) (with more features). In our hand, if we have more <strong>d</strong>, it&#39;s good then.</p>
 
 <p>Best Case :<br>
 1. Having right kernel, it works well</p>
 
 <p>Worst Case:<br>
-1. When <strong>n</strong> is large, Training time is typically long</p>
+1. When <strong>n</strong> is large, Training time is typically long. So people will go for <strong>logistic regression</strong> by doing <strong>feature transforms</strong>.<br>
+2. If we get <strong>k</strong> SVS vectors and it is huge, computing the \(f(x_q)\) will take time for the low latency systems.</p>
+
+<h2 id="toc_20">Platt Scaling/calibration</h2>
+
+<p>In SVM, we&#39;ll get the class based on the +ve or -ve sign of the sign(f(x)). It doesn&#39;t give the probability.</p>
+
+<p>From the predicted output \(\hat{y_i}\) (from \(x_q\), we will use \(\hat{y_i}=y_q=f(x_q)\)), predict the probability.</p>
+
+<p>So, Platt derived formula like</p>
+
+<p>\(P(y_q=1|x_q) = \frac{1}{1+exp(A\ \hat{y_i}+B)}\) (modified sigmoid)</p>
+
+<p>Dataset, \(D_{calib}=\{\hat{y_i},y_i\}\)</p>
+
+<p>It is based on the assumption that the <strong>calibration curve</strong> will look like the sigmoid curve. The x axis represents the average predicted probability in each bin. The y axis is the fraction of positives, i.e. the proportion of samples whose class is the positive class (in each bin).<br>
+<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-08-25%20at%203.39.57%20PM.png" alt=""></p>
+
+<p>But it may not look like this in all the cases like below. We have a stepwise calibration curve.<br>
+<img src="./1%20Support%20Vector%20Machines%20(SVM)/Screen%20Shot%202021-08-25%20at%203.30.11%20PM.png" alt=""></p>
+
+<p>So, we&#39;ll use the <strong>isotonic calibration</strong>. It is much more closer to the emprirical value. It is the <strong>most used technique</strong>.</p>
 
 
 
