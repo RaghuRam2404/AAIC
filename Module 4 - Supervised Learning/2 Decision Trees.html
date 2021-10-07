@@ -629,6 +629,8 @@ For a less peaked gaussian, it&#39;s entropy is more than the more peaked gaussi
 
 <p><img src="./2%20Decision%20Trees/Screen%20Shot%202021-08-26%20at%205.24.39%20PM.png" alt=""></p>
 
+<p><img src="./2%20Decision%20Trees/Screen%20Shot%202021-09-30%20at%208.11.34%20AM.png" alt=""></p>
+
 <p>\(D_{KL}(P||Q) = \sum_{x}P(x)log(\frac{P(x)}{Q(x)})\) for discrete random var (PDFs)<br>
 \(D_{KL}(P||Q) = \int_xP(x)log(\frac{P(x)}{Q(x)})\) for continuous random var (PMFs)</p>
 
@@ -688,7 +690,7 @@ Case 3: 0% +ve points and 100% -ve points, \(I_G(Y)=0\) where as \(H(Y)=0\)</p>
 
 <p>When to stop building the tree?<br>
 1. When we find the pure node<br>
-2. When there are fewer data in an inner node (eg: 20 datapoints available in a node for the 10k data point&#39;s dataset)<br>
+2. When there are fewer data in an inner node (eg: 20 datapoints available in a node for the 10k data point&#39;s dataset). Because this could be <strong>noisy points</strong> or <strong>outlier</strong>.<br>
 3. When the depth of the tree is too much.</p>
 
 <p>When there is no pure node at the leaf, we&#39;ll take the <strong>majority vote</strong>.</p>
@@ -708,6 +710,8 @@ Case 3: 0% +ve points and 100% -ve points, \(I_G(Y)=0\) where as \(H(Y)=0\)</p>
 <h3 id="toc_12">For numerical features</h3>
 
 <p>The most important in Decision Tree is to split a node using \(IG\) (using entropy or Gini impurity).</p>
+
+<p><img src="./2%20Decision%20Trees/Screen%20Shot%202021-10-01%20at%208.36.35%20AM.png" alt=""></p>
 
 <ol>
 <li>We&#39;ll sort the values in each numerical feature</li>
@@ -740,6 +744,8 @@ Case 3: 0% +ve points and 100% -ve points, \(I_G(Y)=0\) where as \(H(Y)=0\)</p>
 
 <p>Training time : We build the decision tree with \(O(n*log(n)*d)\) with \(n*log(n)\) for sorting numerical values and \(d\) is for evaluating each of the features. With the dataset with large <strong>d</strong>, Decision Tree is expensive.</p>
 
+<p>There are some good algo which can be used efficiently for the numerical feature&#39;s comparison to build the tree using information gain.</p>
+
 <p>Space Complexity : After training, it&#39;ll be converted to nested if else condition and it is space efficient. <strong>No of internal nodes + leaf nodes</strong>.</p>
 
 <p>Testing time complexity : \(O(k)\) where \(k\)-max depth of tree<br>
@@ -761,7 +767,9 @@ Works well and fast for large dataset with lesser <strong>d</strong> with low la
 <li>The continue the same for those 2 separated datasets.</li>
 </ol>
 
-<p>Even here all the conditionns are axis parallel. We never get the smooth curves.</p>
+<p>Even here all the conditionns are axis parallel. We never get the smooth curves. In the below image, depth=2 is underfit and depth=5 is overfit.</p>
+
+<p><img src="./2%20Decision%20Trees/Screen%20Shot%202021-10-01%20at%209.11.49%20AM.png" alt=""></p>
 
 <h2 id="toc_17">Cases</h2>
 
@@ -774,9 +782,9 @@ Works well and fast for large dataset with lesser <strong>d</strong> with low la
 
 <p><strong>Decision Surfaces</strong> - THey are axis parallel hypercuboids in both classification &amp; regression.</p>
 
-<p><strong>Feature iteraction</strong> - When we reach the leaf node, we can see the multiple decision being taken based on different features. That&#39;s called feature iteraction. It is not available in other models. In others, we&#39;ll do feature transformation.</p>
+<p><strong>Feature iteraction and interpretability</strong> - When we reach the leaf node, we can see the multiple decision being taken based on different features. That&#39;s called feature iteraction. (i.e.) 2 or more features interact with each other logically to make a decision in the tree (Eg : \(sl&lt;3\ and\ pl&gt;5\) then it is <em>setosa</em>). It is also super interpretablbe. It is not available in other models. It is an added in build benefit. In others, we&#39;ll do feature transformation (like \(f1*f2\) or \(f1+f2\)).</p>
 
-<p><strong>Feature importance</strong> - For every feature, what is the reduction in entropy or Gini Impurity due to the corresponding feature? We can sum up all the reductions in entropy due to the feature. This way we can find the feature importance.</p>
+<p><strong>Feature importance</strong> - For every feature, what is the reduction in entropy or Gini Impurity due to the corresponding feature? We can (normalized) sum up all the reductions in entropy due to the feature. This way we can find the feature importance. If a feature reduces the entropy a lot in the tree in multiple levels, then this feature is important.</p>
 
 <p><img src="./2%20Decision%20Trees/Screen%20Shot%202021-08-27%20at%2012.37.25%20PM.png" alt=""></p>
 
