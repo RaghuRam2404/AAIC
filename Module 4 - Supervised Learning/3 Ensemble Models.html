@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>3 Ensemble Models</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Ensemble Models</h1>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+
+<script src="../toc.js" ></script>
+
+<div id='toc'></div>
+
+<p>Ensemble \(\longrightarrow\) typically group of things.. In ML, it is <strong>multiple modules used together</strong></p>
+
+<p>Let \(m_1\), \(m_2\), \(m_3\) ... \(m_k\) are <strong>k</strong> base models. We&#39;ll combine all of them intuitively to form a <strong>powerful model</strong> \(m\). \(m_i\) could be expert in one area and all the models are better in <strong>k</strong> areas. The more different these <strong>m</strong> models are, the more creatively (or) more better we can combine them.<br>
+<br /></p>
+
+<p>Types or Strategies to build ensemble models<br>
+1. Bagging or Bootstrapped Aggregation<br>
+2. Boosting<br>
+3. Stacking<br>
+4. Cascading</p>
+
+<p>We can use this method to solve most of the problems.</p>
+
+<h1 id="toc_1">Bagging</h1>
+
+<p>Short form of <strong><u>B</u>ootstrap <u>Agg</u>regation</strong>. Popular bagging model is <strong>random forest</strong> and it is used extensively. We&#39;ll have low bias, high variance base models.</p>
+
+<p>From the original dataset \(D_n\) (with \(n\) points),<br>
+1.We&#39;ll do sampling (with replacement) \(m\) points and create a new dataset \(D_n^1\) with \(m\) data points and we&#39;ll create a model \(m_1\).<br>
+2.Then we&#39;ll repeat this again to create another dataset \(D_n^2\) and create a new model \(m_2\).<br>
+3.We&#39;ll continue this upto \(D_n^k\) and create the model \(m_k\).</p>
+
+<p>These samples \(D_n^1\),\(D_n^2\),etc.. are called <strong>bootstrap samples</strong> or <strong>row sampling</strong>. Bagging is actually creating bootstrap samples.</p>
+
+<p>So each model is built on <strong>different samples</strong> of the original data using \(D_n^i\) of size \(m\) datapoints (\(&lt;n\)).</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%204.40.27%20PM.png" alt=""></p>
+
+<p>The aggregation could be<br>
+1. <strong>majority vote</strong> for <strong>classification</strong><br>
+2. <strong>mean</strong> or <strong>median</strong> for <strong>regression</strong></p>
+
+<p>When a query point \(x_q\) comes, we&#39;ll take the result of \(k\) models and take aggregation in runtime.</p>
+
+<h3 id="toc_2">What if some data are changed?</h3>
+
+<p>What if \(D_n\) changes a bit (say 10% of points are changes)? Then only some of datasets will change and only some of those \(k\) models will get affected. So, our overall resullt doesn&#39;t change much.</p>
+
+<p>This shows that <strong>bagging</strong> can reduce the <strong>variance</strong> in the model (because of the bootstrapping the data and taking aggregation of \(m\) models) but the <strong>bias</strong> will remain low. So we are using <strong>randomization in many aspects</strong> (like random forest) to deal with the variance.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%205.08.05%20PM.png" alt=""></p>
+
+<h2 id="toc_3">Random Forest and their construction</h2>
+
+<p>Random - bootstap sampling with replacement.<br>
+Forest - group of decision trees.</p>
+
+<p>In Random forest, we&#39;ll do modelling using decision trees.</p>
+
+<div><pre class="line-numbers"><code class="language-none">Random Forest = Bagging + Decision Trees + Column Sampling
+Random Forest = Decision Trees + Row Sampling + Column Sampling + Aggregation</code></pre></div>
+
+<p>Column Sampling is nothing but Features Bagging with replacement.</p>
+
+<p>So each sampled dataset \(D_n^i\) is of size \((m\)x\(d&#39;)\) where<br>
+- \(m\) is the no of rows \(m&lt;n\) \(\Rightarrow\) \(\frac{m}{n}\) is the row sampling ratio.<br>
+- \(d&#39;\) is the no of features (columns) \(d&#39;&lt;d\) \(\Rightarrow\) \(\frac{d&#39;}{d}\) is the column sampling ratio.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%205.33.20%20PM.png" alt=""></p>
+
+<p>These \(k\) models will be so much different from each other.</p>
+
+<p>In Random forest, each \(m_i\) is a decision tree with <strong>reasonable depth</strong>. These models can be of <strong>low bias and high variance</strong> as RF will take care of the variance.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%205.36.34%20PM.png" alt=""></p>
+
+<p>For each model with the dataset \(D_n^i\), we have the remaining set of points (\(D_n-D_n^i\)) called <strong>out of bag samples/points</strong> while \(D_n^i\) are <strong>in bag samples</strong>. We can use them for the <strong>cross validation</strong>. So any library will return the <strong>oob error</strong>.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%205.40.20%20PM.png" alt=""></p>
+
+<h3 id="toc_4">Bias Variance Trade off</h3>
+
+<p>model \(M=agg(m_1,\ m_2,\ ...\ m_k)\)</p>
+
+<p>RF tend to have very low bias, because the base models/learners \(m_i\) are low bias models to start with.</p>
+
+<p>When \(k\ \uparrow\), variance \(\downarrow\) because bootstrapping the data will deal with the variance.<br>
+When \(k\ \downarrow\), variance \(\uparrow\) because bootstrapping the data less no of times won&#39;t deal with the variance much.</p>
+
+<p>Bias will remain low as the base models. So <strong>Bias</strong>(\(M\)) \(\approx\) <strong>Bias</strong>(\(m_i\))</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%205.54.37%20PM.png" alt=""></p>
+
+<p>If the row/col sampling ratio goes down, then the correlation of the data is not maintained. So, we&#39;ll get a low variance model. Or we&#39;ll keep row.S.R as 50% and col.S.R as 20% (not a hard fast rule).</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%205.56.17%20PM.png" alt=""></p>
+
+<p>So hyperparameters are <strong>k</strong>, <strong>row.S.R</strong> and <strong>col.S.R</strong>. Only <strong>k</strong> is mostly used.</p>
+
+<h3 id="toc_5">Run time complexity</h3>
+
+<p><strong>k</strong> is the no of decision trees</p>
+
+<p><strong><u>Train time :</u></strong> \(O(nlog(n)d * k)\)<br>
+If the system has 4 cores, then we can do the training parallely without depending on another model. It is called <strong>trivially parallelizable</strong>. So we can training in much faster way. For large amount of data with reasonable no of features, we can train 1000s of trees very very fast.<br>
+Space complexity : \((DT*k)\)</p>
+
+<p><strong><u>Runtime :</u></strong> \(O(depth*k)\)<br>
+Depth could be around 10 to 20.<br>
+Also this is also parallelizable.</p>
+
+<p>Good in terms of performance due to if checks and parallelizable concepts.</p>
+
+<h3 id="toc_6">Extremely randomized trees</h3>
+
+<p>When we have a real valued feature, instead of trying all the values to find a threshold to split the corresponding dataset, we&#39;ll check the random set of possible values. Then choose the threshold.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%206.17.47%20PM.png" alt=""></p>
+
+<div><pre class="line-numbers"><code class="language-none">Random Forest = Bagging
++ Decision Trees
++ Column Sampling
++ Randomization when selecting threshold</code></pre></div>
+
+<h3 id="toc_7">Cases</h3>
+
+<p>Most of the cases of decision trees applicable for Random forest as well. Only some of them varies.</p>
+
+<ol>
+<li>In DT, we&#39;ll control the depth of the tree. But in RF, we&#39;ll control the <strong>k</strong> (no of models)</li>
+<li>Feature Importance : In DT, it is calculated based on where all \(f_i\) is used and take the aggregation of the overall reduction of the entropy (or) gini impurity because of \(f_i\). In RF, it is overall reduction of entropy or gini impurity across all the base models because of \(f_i\)</li>
+</ol>
+
+<hr>
+
+<h1 id="toc_8">Boosting</h1>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%209.20.43%20PM.png" alt=""></p>
+
+<p>We&#39;ll have high bias and low variance models (like low depth/shallow decision trees) with <strong>more training error</strong>. Then we&#39;ll <strong>additive combine</strong> to reduce that bias while keeping our variance low.</p>
+
+<div><pre class="line-numbers"><code class="language-none">Boosting = high bias/low variance model + additive combine</code></pre></div>
+
+<p>How the bias is getting reduced by boosting?</p>
+
+<ol>
+<li>For the dataset \(D_n\), we&#39;ll find a high bias model \(m_0=y=h_0(x)\). Find the simple difference error \(\forall\) \(i&#39;s\), with \(error_i=y_i-h_0(x_i)\). So for each point in training data, we have \(\{x_i\), \(y_i\), \(error_i\}_{i=1}^n\)</li>
+<li>Find the model \(m_1\ =\ h_1(x)\) with the data as \(\{x_i,\ error_i\}_{i=1}^n\) where \(error_i=y_i-h_0(x_i)\). The model at the end of stage 1 is \(F_1(x)=\alpha_0h_0(x)+\alpha_1h_1(x)\). Find \(\alpha_0\) and \(\alpha_1\).</li>
+<li>Find the model \(m_2\ =\ h_2(x)\) with the data as \(\{x_i,\ error_i\}_{i=1}^n\) where \(error_i=y_i-F_1(x_i)\). The model at the end of stage 1 is \(F_2(x)=F_1(x)+\alpha_2h_2(x)\). Find \(\alpha_2\).</li>
+<li>At the end of stage \(k\), final model \(F_k(x)=\sum_{i=0}^k\alpha_ih_i(x)\). It is an <strong>additive weighted model</strong>. Each of the base model is trained to fit the <strong>residual error</strong> where \(error_i\) is the residual error at the end of previous stage.</li>
+</ol>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%209.21.58%20PM.png" alt=""><br>
+<img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-07%20at%209.22.17%20PM.png" alt=""></p>
+
+<p>\(F_k(x)=\sum_{i=0}^k\alpha_ih_i(x)\)</p>
+
+<p>Our final model is just the summation of all the basic models. As each model evolves from \(F_i(x)\) to \(F_{i+1}(x)\), training error reduces and the high bias reduces because of training on the residual error of the previous stage. At the end, <strong>we&#39;ll have the very low residual error leading to solve the high bias problem</strong>.</p>
+
+<p>Implemented by the algorithms<br>
+1. <strong>Gradient Boosting Decision Tree (GBDT)</strong><br>
+2. <strong>AdaBoosting</strong></p>
+
+<h2 id="toc_9">Residual</h2>
+
+<p>Residual at the end of stage \(k\), \(error_i=y_i-F_k(x)\)</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%202.06.58%20PM.png" alt=""></p>
+
+<p>So, \(-\frac{\partial L}{\partial F_k(x_i)} = 2*(y_i-F_k(x_i))\)<br>
+which means that the <strong>negative derivative/gradient of the loss function is almost equal to</strong> (ignoring the 2) <strong>(or) proportional to the residual</strong>. negative grad is also called <strong>pseudo residual</strong>.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%202.19.52%20PM.png" alt=""></p>
+
+<p>Usually we&#39;ll find \(h_i(x)\) using \(\{x_i, err_i\}\) where \(err_i=F_{i-1}(x)\). So instead of residual, what if we use the <strong>pseudo residual</strong>. This way this method can be applicable to <strong>any of the loss function</strong> and that is the <strong>power of gradient boosting</strong>.</p>
+
+<p>Eg :<br>
+In Random Forest, we can&#39;t minimize the hinge loss function as we&#39;ll minimize the entropy.<br>
+In Gradient boosting, we can minimize the hinge loss or any loss function as long as the loss function is differentiable.</p>
+
+<p>Check this video on how log loss can also works with this method <a href="https://youtu.be/qEZvOS2caCg">https://youtu.be/qEZvOS2caCg</a>, <a href="https://stats.stackexchange.com/questions/219241/gradient-for-logistic-loss-function">https://stats.stackexchange.com/questions/219241/gradient-for-logistic-loss-function</a></p>
+
+<h2 id="toc_10">Gradient Boosting</h2>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%203.41.48%20PM.png" alt=""></p>
+
+<p>Here we need shallow decision trees as the base learner.</p>
+
+<h3 id="toc_11">Regularization by shrinkage</h3>
+
+<p>As per wikipedia, the eqn is</p>
+
+<p>\(F_M(x)=h_0(x)+\sum_{m=1}^M\gamma_mF_m(x)\) where \(M\) is the no of base model (same as of \(k\)).</p>
+
+<p>as \(M\) increases, variance could increase leading to <strong>overfitting</strong>.</p>
+
+<p>By shrinkage, we introduce \(\nu\) (a new hyperparameter) as the learning rate as \(F_m(x)=F_{m-1}(x)+\nu\ \gamma_mh_m(x)\) with \(0&lt;\nu\leq1\)<br>
+as \(\nu\) reduces, we are giving less importance to the older models, so <strong>overfitting/variance reduces</strong><br>
+as \(\nu\) increases, <strong>overfitting/variance increases</strong></p>
+
+<p>When we apply GBDT, we can easily overfit. So careful with the hyperparam with \(M\) and \(\nu\) with CV data and grid/random search.</p>
+
+<h3 id="toc_12">Train and Run time complexity</h3>
+
+<p>For GBDT with \(M\) base models.<br>
+Train : \(O(nlog(n)d*M)\) and it is not parallelizable as GBDT is a sequential algorithm.</p>
+
+<ol>
+<li><p>The computation of pseudo residuals (r_im) is O(d) per point. So, for a dataset of size n, computing pseudo residuals is O(nd) per iteration. Total time-complexity is O(ndm)</p></li>
+<li><p>The computation of gamma<u>m&#39;s is very fast as it is a simple one-dimensional optimization problem where we are trying to find the best gamma</u>m which is a scalar. This is often a constant time step in practice.</p></li>
+</ol>
+
+<p>So, overall, the constriction of the M decision trees sequentially takes more time O(n lgn d M) than the above two steps which sum up to O(n<em>d</em>m+const). Since lg(n) is an additional term in the constriction of the M decision trees, O(n lgn d M) + O(n d m+const) = O(n lgn d M)</p>
+
+<p>Runtime :  \(O(depth*M)\)<br>
+Space : \(O(M trees + M\ \gamma&#39;s)\)</p>
+
+<p>Can be used for <strong>low latency systems</strong>.</p>
+
+<h3 id="toc_13">Code</h3>
+
+<p>SKlearn <code>sklearn.ensemble.GradientBoostingClassifier</code> (GBDT+Row sampling) (very slow).<br>
+Look for the input params:<br>
+1. <code>loss</code> :<br>
+2. <code>subsample</code> : If less than 1, then that much percentage of data is used for training the base tree. Similar to row sampling concept<br>
+3. <code>max_depth</code> : Should be low to build a shallow tree</p>
+
+<p>For best implementation, use the <code>XGBoost</code> (GBDT+Row sampling+Col Sampling). Make the model so best. Use <a href="https://xgboost.readthedocs.io/en/latest/python/python_api.html">XGBRegressor</a> for regression, it gives options<br>
+colsample_bytree (Optional[float]) – Subsample ratio of columns when constructing each tree<br>
+colsample_bylevel (Optional[float]) – Subsample ratio of columns for each level.<br>
+reg_alpha (Optional[float]) – L1 regularization term on weights (xgb’s alpha).<br>
+reg_lambda (Optional[float]) – L2 regularization term on weights (xgb’s lambda).</p>
+
+<h2 id="toc_14">Adaboost</h2>
+
+<p>Adaptive Boosting. Used mostly in image processing applications like face detection.</p>
+
+<p>Ref : <a href="https://alliance.seas.upenn.edu/%7Ecis520/wiki/index.php?n=lectures.boosting">https://alliance.seas.upenn.edu/~cis520/wiki/index.php?n=lectures.boosting</a></p>
+
+<p>In GBDT, we used pseudo residuals.<br>
+But in AdaBoost, we&#39;ll upsample the wrongly classified points.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%204.46.27%20PM.png" alt=""><br>
+<img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%204.46.39%20PM.png" alt=""></p>
+
+<p>In Adaboost,<br>
+Stage 1 : We&#39;ll build a \(h_1(x)\) and for the wrongly classified points, we&#39;ll give a weightage (like upsampling) and find \(\alpha_1\) (similar to \(\gamma_1\) hyperparam). This will become dataset for next stage<br>
+Stage 2 : We&#39;ll build a \(h_2(x)\) and for the wrongly classified points, we&#39;ll give a much more weightage compared to stage 1 and find \(\alpha_2\) (similar to \(\gamma_2\) hyperparam). If the wrongly classified point are taken care by stage 1, we can ignore those.<br>
+Stage 3 : We&#39;ll build a \(h_3(x)\) and for the wrongly classified points, we&#39;ll give a much more weightage compared to stage 1 &amp; 2 and find \(\alpha_3\) (similar to \(\gamma_3\) hyperparam). If the wrongly classified point are taken care by stage 1 &amp; 2, we can ignore those.<br>
+Stage 4 : If all the points are taken care we can combine them.</p>
+
+<p>Here we can see that we are doing additive of all models.</p>
+
+<hr>
+
+<h1 id="toc_15">Stacking models</h1>
+
+<p><a href="http://rasbt.github.io/mlxtend/user_guide/classifier/StackingClassifier/">http://rasbt.github.io/mlxtend/user_guide/classifier/StackingClassifier/</a></p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%204.51.04%20PM.png" alt=""></p>
+
+<p>We&#39;ll build many <strong>different well tuned models</strong> (linearSVM, RBF_SVM, GBDT, DT, 3-KNN, 5-KNN etc) (not like low bias high variance in Bagging) in parallel. The more different, the better the whole ensemble model be.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%204.56.24%20PM.png" alt=""></p>
+
+<p>When a query point comes, we&#39;ll find the possible output from all the good models. From that output, we&#39;ll use our own metaclassifier (i.e. the new model built to understand the output and return the good output). In bagging, we&#39;ll just take the majority vote to find the final output. Here we are <strong>building a model to tell the output</strong>.</p>
+
+<p>Used in kaggle a lot (by creating 1000s of models) to improve the solution and the accuracy. But in real time, we may not need to create crazy amount of models, we can create reasonably different no of models.</p>
+
+<hr>
+
+<h1 id="toc_16">Cascading classifier</h1>
+
+<p>Let&#39;s say we are building a model to predict the fradulent or not credit card system&#39;s transaction \(x_q\). Output labels : 0-non fraud and 1-fraud</p>
+
+<p>\(M_1\) is a fine tuned model predicts the probability of the labels.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%205.15.27%20PM.png" alt=""></p>
+
+<p>We are <strong>building the models in a cascade manner</strong> to make sure about the results we are getting are really the one.</p>
+
+<p>Even at the end of the cascade manner, <strong>if we can&#39;t confirm the result, then the query is handled manually</strong>.</p>
+
+<p>This type of methodology is used if <strong>the cost of mistakes are high</strong>. Another example is finding a person is cancerous or not.</p>
+
+<p><img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%205.18.11%20PM.png" alt=""></p>
+
+<p>The training dataset available for the next model will not contain the data which lead the prev model to a conclusion.</p>
+
+<p>We can also follow the nested cascades<br>
+<img src="./3%20Ensemble%20Models/Screen%20Shot%202021-10-09%20at%205.19.45%20PM.png" alt=""></p>
+
+<h1 id="toc_17">Kaggle vs Real time</h1>
+
+<table>
+<thead>
+<tr>
+<th>Kaggle</th>
+<th>Realtime</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Often relies on one accuracy metric like F1, AUC</td>
+<td>Multiple metrics which are meaning based on the usecase, to take the decision for the business</td>
+</tr>
+<tr>
+<td>very complex ensembles to improve 1 metric, ignoring the interpretability, training time, low latency</td>
+<td>Care about those</td>
+</tr>
+<tr>
+<td>We can learn data cleaning, pre-processing, feature engineering</td>
+<td>Same</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
